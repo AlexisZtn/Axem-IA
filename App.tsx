@@ -6,6 +6,7 @@ import MarqueeSection from './components/MarqueeSection';
 import FolderShowcase from './components/FolderShowcase';
 import Philosophy from './components/Philosophy';
 import Expertise from './components/Expertise';
+import Pricing from './components/Pricing';
 import Footer from './components/Footer';
 import ProjectDetailPage from './components/ProjectDetailPage';
 import defaultContent from './src/data/defaultContent';
@@ -94,7 +95,7 @@ const App: React.FC = () => {
                 <FolderShowcase onOpenProject={handleOpenProject} />
                 <Philosophy />
                 <Expertise />
-                {/* Pricing removed as requested */}
+                <Pricing />
             </main>
             <Footer customLogo={customLogo} />
         </div>
