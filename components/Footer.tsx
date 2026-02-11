@@ -18,24 +18,6 @@ const Footer: React.FC<FooterProps> = ({ customLogo }) => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         
-        {/* Consultancy CTA Section */}
-        <div className="flex flex-col items-center text-center mb-24">
-          <h2 className="text-4xl md:text-5xl font-playfair font-normal text-white mb-4 tracking-tight">Prêt à transformer votre marque ?</h2>
-          <p className="text-neutral-400 text-sm max-w-md mb-8 leading-relaxed">
-            Planifiez une consultation gratuite pour discuter de vos besoins et découvrir comment nous pouvons élever votre présence numérique.
-          </p>
-          
-          <a 
-            href="https://calendly.com/clem-pred/30min"
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="px-8 py-3.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors shadow-[0_0_30px_-5px_rgba(255,255,255,0.4)] flex items-center gap-2"
-          >
-            Réserver un appel stratégique
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-
         {/* Footer Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 border-t border-white/5 pt-16">
           
