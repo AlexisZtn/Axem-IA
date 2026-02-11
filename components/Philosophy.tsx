@@ -1,7 +1,10 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Users, Lightbulb, Cpu, Briefcase, Loader2, Upload } from 'lucide-react';
 import EditableText from './ui/EditableText';
+
+// Use static paths instead of imports to avoid module resolution errors with spaces
+const clementSrc = 'components/photo%20clement.png';
+const alexisSrc = 'https://res.cloudinary.com/dafa3vxgb/image/upload/v1770836602/photo_alexis_puwpu0.png';
 
 // --- Utility: Safe Image Compression ---
 const compressImageSafe = (file: File): Promise<string> => {
@@ -52,9 +55,9 @@ const Philosophy: React.FC = () => {
   const diagramRef = useRef<HTMLDivElement>(null);
   const [showDiagram, setShowDiagram] = useState(false);
 
-  // Image States
-  const [clementImage, setClementImage] = useState<string>("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200");
-  const [alexisImage, setAlexisImage] = useState<string>("https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200");
+  // Image States - Initialized with imported assets
+  const [clementImage, setClementImage] = useState<string>(clementSrc);
+  const [alexisImage, setAlexisImage] = useState<string>(alexisSrc);
 
   // Editable Content State (initialized with defaults for animation logic)
   const defaultTextContent = "La rencontre de deux mondes : L'Excellence Technique & La Stratégie Business. Nous ne sommes pas juste une agence, nous sommes le pont entre la complexité des machines et la réalité de votre croissance.";
@@ -65,11 +68,16 @@ const Philosophy: React.FC = () => {
   const [dragOverState, setDragOverState] = useState<{target: 'clement' | 'alexis' | null}>({ target: null });
 
   useEffect(() => {
-    // Load saved images
+    // Load saved images ONLY if they are base64 data (user uploads).
     const savedClement = localStorage.getItem('axem_philosophy_clement');
     const savedAlexis = localStorage.getItem('axem_philosophy_alexis');
-    if (savedClement) setClementImage(savedClement);
-    if (savedAlexis) setAlexisImage(savedAlexis);
+    
+    if (savedClement && savedClement.startsWith('data:')) {
+        setClementImage(savedClement);
+    }
+    if (savedAlexis && savedAlexis.startsWith('data:')) {
+        setAlexisImage(savedAlexis);
+    }
 
     // Load saved main text
     const savedText = localStorage.getItem('philo_main_text');
@@ -243,7 +251,7 @@ const Philosophy: React.FC = () => {
                     <EditableText value="Clément" storageKey="philo_left_name" />
                 </div>
                 <div className="text-xs text-[#00FA9A] uppercase tracking-widest font-bold">
-                    <EditableText value="Ingénieur Télécom" storageKey="philo_left_role" />
+                    <EditableText value="Télécom Paris" storageKey="philo_left_role_v3" />
                 </div>
                 <p className="text-center text-sm text-neutral-400 max-w-[200px]">
                    <EditableText isTextarea value="L'architecte. Celui qui fait parler les machines, du vieil AS400 aux derniers modèles LLM." storageKey="philo_left_desc" />

@@ -32,8 +32,8 @@ const Hero: React.FC = () => {
           />
       </div>
 
-      <div className="animate-reveal [animation-delay:100ms] text-center mb-10 space-y-2 opacity-0 flex flex-col items-center">
-        <h1 className="text-5xl md:text-7xl lg:text-[90px] leading-[0.95] tracking-tight text-white flex flex-wrap justify-center gap-x-4">
+      <div className="animate-reveal [animation-delay:100ms] text-center mb-10 space-y-4 opacity-0 flex flex-col items-center">
+        <h1 className="text-5xl md:text-7xl lg:text-[90px] leading-[1.1] tracking-tight text-white flex flex-wrap justify-center gap-x-4 mb-2">
           <span className="font-playfair italic font-normal text-neutral-300">
              <EditableText value="Rendre" storageKey="hero_title_1" />
           </span>
@@ -41,10 +41,10 @@ const Hero: React.FC = () => {
              <EditableText value="l'IA simple," storageKey="hero_title_2" />
           </span>
         </h1>
-        <h1 className="text-5xl md:text-7xl lg:text-[90px] leading-[0.95] tracking-tight font-medium text-white">
+        <h1 className="text-5xl md:text-7xl lg:text-[90px] leading-[1.1] tracking-tight font-medium text-white mb-2">
              <EditableText value="rentable et actionnable" storageKey="hero_title_3" />
         </h1>
-        <h1 className="text-5xl md:text-7xl lg:text-[90px] leading-[0.95] tracking-tight font-medium text-neutral-500">
+        <h1 className="text-5xl md:text-7xl lg:text-[90px] leading-[1.1] tracking-tight font-medium text-neutral-500">
              <EditableText value="pour votre croissance." storageKey="hero_title_4" />
         </h1>
       </div>
