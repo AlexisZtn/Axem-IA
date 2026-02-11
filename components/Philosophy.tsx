@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Users, Lightbulb, Cpu, Briefcase, Loader2, Upload } from 'lucide-react';
 import EditableText from './ui/EditableText';
@@ -161,29 +162,11 @@ const Philosophy: React.FC = () => {
             <EditableText value="Qui sommes-nous ?" storageKey="philo_badge" />
         </span>
         
-        {/* We keep the split word animation, but allow editing the raw text underneath/via a specific area if needed, 
-            OR we treat the whole block as an editable textarea that updates the state. 
-            For better UX, let's put a small edit button or allow clicking the block. 
-            Actually, let's use the EditableText as a wrapper around the visual, 
-            but since EditableText renders an input/textarea, we need a way to maintain the span animation.
-            
-            Solution: Separate the "Edit" mode from "View" mode or just put an editable textarea above/below?
-            Cleaner Solution: Just use EditableText for the content string, and split THAT string.
-        */}
         <div className="relative group">
-            <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity z-50">
-                 {/* Invisible overlay editor? No, let's just use a dedicated editable block if user wants to change it */}
-            </div>
             <p ref={textRef} className="text-3xl md:text-5xl lg:text-6xl font-medium leading-[1.3] text-neutral-500 mb-20 relative">
             {mainTextContent.split(' ').map((word, i) => (
                 <span key={i} className="transition-opacity duration-300">{word} </span>
             ))}
-            {/* The actual editable input, hidden visually but accessible? Or just a button. 
-                Let's make it simple: An editable text area below that updates the text above, 
-                OR simply replace the fancy animation with a standard editable text if clicked.
-                
-                Let's go with: Click to edit the whole block.
-            */}
              <div className="absolute inset-0 opacity-0 hover:opacity-100 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity cursor-pointer z-10">
                  <div className="w-full">
                     <EditableText 
@@ -240,6 +223,7 @@ const Philosophy: React.FC = () => {
                   onDragOver={(e) => handleDragOver(e, 'clement')}
                   onDragLeave={handleDragLeave}
                   onDrop={(e) => handleDrop(e, 'clement')}
+                  title="Glissez une photo ici pour mettre à jour"
                 >
                      {processingState.target === 'clement' && (
                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm">
@@ -247,8 +231,9 @@ const Philosophy: React.FC = () => {
                        </div>
                      )}
                      
-                     <div className={`absolute inset-0 bg-black/50 flex items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'clement' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                        <Upload className="w-5 h-5 text-white" />
+                     <div className={`absolute inset-0 bg-black/50 flex flex-col items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'clement' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                        <Upload className="w-5 h-5 text-white mb-1" />
+                        <span className="text-[8px] text-white uppercase tracking-widest font-bold">Changer</span>
                      </div>
 
                      <img src={clementImage} alt="Clément" className="opacity-90 w-full h-full object-cover" />
@@ -293,6 +278,7 @@ const Philosophy: React.FC = () => {
                   onDragOver={(e) => handleDragOver(e, 'alexis')}
                   onDragLeave={handleDragLeave}
                   onDrop={(e) => handleDrop(e, 'alexis')}
+                  title="Glissez une photo ici pour mettre à jour"
                 >
                     {processingState.target === 'alexis' && (
                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm">
@@ -300,8 +286,9 @@ const Philosophy: React.FC = () => {
                        </div>
                      )}
 
-                     <div className={`absolute inset-0 bg-black/50 flex items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'alexis' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                        <Upload className="w-5 h-5 text-white" />
+                     <div className={`absolute inset-0 bg-black/50 flex flex-col items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'alexis' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                        <Upload className="w-5 h-5 text-white mb-1" />
+                        <span className="text-[8px] text-white uppercase tracking-widest font-bold">Changer</span>
                      </div>
                      
                     <img src={alexisImage} alt="Alexis" className="opacity-90 w-full h-full object-cover" />

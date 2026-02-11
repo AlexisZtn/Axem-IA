@@ -130,13 +130,14 @@ const Navbar: React.FC<NavbarProps> = ({ customLogo, onUpdateLogo }) => {
         
         // 4. Instructions
         alert(
-            "✅ LE CODE EST DANS VOTRE PRESSE-PAPIERS !\n\n" +
-            "Pour que votre associé voie les changements (images, textes) :\n\n" +
-            "1. Ouvrez le fichier 'src/data/defaultContent.ts'\n" +
-            "2. Tout sélectionner (Ctrl+A) et supprimer.\n" +
-            "3. Coller (Ctrl+V) le nouveau code.\n" +
-            "4. Faites un 'git add', 'git commit' et 'git push'.\n\n" +
-            "C'est la seule façon de partager les images sans serveur."
+            "✅ SAUVEGARDE POUR GITHUB PRÊTE !\n\n" +
+            "Les images que vous avez glissées (Drag & Drop) ont été converties en code.\n" +
+            "C'est la seule méthode pour enregistrer des fichiers depuis un navigateur web sécurisé.\n\n" +
+            "POUR VALIDER LES CHANGEMENTS SUR GITHUB :\n" +
+            "1. Le code complet est copié dans votre presse-papiers.\n" +
+            "2. Ouvrez le fichier 'src/data/defaultContent.ts' dans votre éditeur.\n" +
+            "3. Remplacez tout le contenu (Ctrl+A -> Suppr -> Ctrl+V).\n" +
+            "4. Faites un 'git push' pour envoyer les images sur le repo."
         );
 
         setTimeout(() => setSaveStatus('idle'), 5000);
@@ -201,7 +202,7 @@ const Navbar: React.FC<NavbarProps> = ({ customLogo, onUpdateLogo }) => {
           )}
           
           <span className="hidden sm:inline">
-            {saveStatus === 'saving' ? 'Génération...' : saveStatus === 'copied' ? 'Code Copié !' : 'Sauvegarder pour l\'équipe'}
+            {saveStatus === 'saving' ? 'Génération...' : saveStatus === 'copied' ? 'Code Copié !' : 'Sauvegarder pour GitHub'}
           </span>
           <span className="sm:hidden">
              {saveStatus === 'copied' ? 'OK' : 'Save'}

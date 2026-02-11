@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -5,7 +6,6 @@ import MarqueeSection from './components/MarqueeSection';
 import FolderShowcase from './components/FolderShowcase';
 import Philosophy from './components/Philosophy';
 import Expertise from './components/Expertise';
-import Pricing from './components/Pricing';
 import Footer from './components/Footer';
 import ProjectDetailPage from './components/ProjectDetailPage';
 import defaultContent from './src/data/defaultContent';
@@ -94,7 +94,7 @@ const App: React.FC = () => {
                 <FolderShowcase onOpenProject={handleOpenProject} />
                 <Philosophy />
                 <Expertise />
-                <Pricing />
+                {/* Pricing removed as requested */}
             </main>
             <Footer customLogo={customLogo} />
         </div>
