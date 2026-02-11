@@ -20,34 +20,56 @@ const defaultProjectsRow1: Project[] = [
     category: 'Production SaaS B2B', 
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
     content: `
-      <h1>Le Projet</h1>
-      <p class="lead">Accompagner la direction des Ressources Humaines d'<strong>Orange</strong> dans la communication interne de leurs nouveaux outils digitaux.</p>
-      <p>L'enjeu était de présenter de manière claire, rapide et engageante les nouvelles fonctionnalités de leur plateforme collaborateur.</p>
-      <hr />
-      <h3>La Problématique</h3>
-      <p>Comment produire une série de vidéos tutoriels de haute qualité, tout en respectant une charte graphique stricte, avec un budget maîtrisé et des délais de déploiement très courts ?</p>
+      <h1 class="text-3xl font-bold mb-2">Le Projet</h1>
+      <p class="lead text-xl text-neutral-300 mb-8">Accompagner la direction des Ressources Humaines d'<strong>Orange</strong> dans la communication interne de leurs nouveaux outils digitaux.</p>
       
-      <h3>Notre Solution : La Production Vidéo par IA</h3>
-      <p>Pour répondre à ce défi, nous avons mis en place un workflow de production basé sur l'Intelligence Artificielle générative, permettant une flexibilité totale :</p>
-      <ul>
-        <li><strong>Avatars Vidéo Réalistes :</strong> Utilisation de porte-paroles numériques animés par IA pour incarner les messages RH de manière humaine et chaleureuse sans tournage physique.</li>
-        <li><strong>Personnalisation Marque :</strong> Intégration complète de l'identité visuelle d'Orange (respect du code couleur <span style="color:#FF7900; font-weight:bold;">#FF7900</span>, typographie et insertion du logo).</li>
-        <li><strong>Adaptabilité Maximale :</strong> Possibilité de mettre à jour le script ou les fonctionnalités présentées en quelques clics, sans avoir à ré-enregistrer une séquence.</li>
+      <div class="bg-[#1a1a1a] p-6 rounded-xl border-l-4 border-[#FF7900] mb-8">
+        <h3 class="text-[#FF7900] font-bold uppercase tracking-widest text-sm mb-2">L'enjeu</h3>
+        <p class="text-neutral-300">Présenter de manière claire, rapide et engageante les nouvelles fonctionnalités de leur plateforme collaborateur.</p>
+      </div>
+
+      <hr class="border-white/10 my-8" />
+
+      <h2 class="text-2xl font-bold mb-4">La Problématique</h2>
+      <p class="mb-8">Comment produire une série de vidéos tutoriels de haute qualité, tout en respectant une charte graphique stricte, avec un budget maîtrisé et des délais de déploiement très courts ?</p>
+
+      <h2 class="text-2xl font-bold mb-4">Notre Solution : La Production Vidéo par IA</h2>
+      <p class="mb-4">Pour répondre à ce défi, nous avons mis en place un workflow de production basé sur l'Intelligence Artificielle générative, permettant une flexibilité totale :</p>
+      
+      <ul class="space-y-4 mb-12">
+        <li class="flex gap-3">
+            <span class="text-[#00FA9A] font-bold">•</span>
+            <div>
+                <strong class="text-white">Avatars Vidéo Réalistes :</strong> Utilisation de porte-paroles numériques animés par IA pour incarner les messages RH de manière humaine et chaleureuse sans tournage physique.
+            </div>
+        </li>
+        <li class="flex gap-3">
+            <span class="text-[#00FA9A] font-bold">•</span>
+            <div>
+                <strong class="text-white">Personnalisation Marque :</strong> Intégration complète de l'identité visuelle d'Orange (respect du code couleur <span style="color:#FF7900">#FF7900</span>, typographie et insertion du logo).
+            </div>
+        </li>
+        <li class="flex gap-3">
+            <span class="text-[#00FA9A] font-bold">•</span>
+            <div>
+                <strong class="text-white">Adaptabilité Maximale :</strong> Possibilité de mettre à jour le script ou les fonctionnalités présentées en quelques clics, sans avoir à ré-enregistrer une séquence.
+            </div>
+        </li>
       </ul>
-      
-      <h3>Les Bénéfices Clients</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-         <div class="bg-neutral-900/50 p-6 rounded-xl border border-white/10">
-            <h4 class="text-[#FF7900] font-bold uppercase tracking-widest text-xs mb-2">Agilité</h4>
-            <p class="text-sm text-neutral-300">Production 5x plus rapide qu'un tournage classique.</p>
+
+      <h2 class="text-2xl font-bold mb-6">Les Bénéfices Clients</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center">
+            <div class="text-[#00FA9A] font-bold text-lg mb-2">Agilité</div>
+            <p class="text-sm text-neutral-400">Production 5x plus rapide qu'un tournage classique.</p>
          </div>
-         <div class="bg-neutral-900/50 p-6 rounded-xl border border-white/10">
-            <h4 class="text-[#FF7900] font-bold uppercase tracking-widest text-xs mb-2">Identité</h4>
-            <p class="text-sm text-neutral-300">Respect rigoureux de la charte graphique Orange.</p>
+         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center">
+            <div class="text-[#FF7900] font-bold text-lg mb-2">Identité</div>
+            <p class="text-sm text-neutral-400">Respect rigoureux de la charte graphique Orange.</p>
          </div>
-         <div class="bg-neutral-900/50 p-6 rounded-xl border border-white/10">
-            <h4 class="text-[#FF7900] font-bold uppercase tracking-widest text-xs mb-2">Efficacité</h4>
-            <p class="text-sm text-neutral-300">Taux d'engagement des collaborateurs en hausse sur l'intranet.</p>
+         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center">
+            <div class="text-blue-400 font-bold text-lg mb-2">Efficacité</div>
+            <p class="text-sm text-neutral-400">Taux d'engagement des collaborateurs en hausse sur l'intranet.</p>
          </div>
       </div>
     `

@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
       </div>
       
       <p className="max-w-2xl text-center text-neutral-400 text-sm md:text-lg font-light leading-relaxed mb-12 animate-reveal [animation-delay:200ms] opacity-0">
-        Formation, Conseil, Audit, Production & Automatisation IA.
+        Formation, Conseil, Audit, Production & Automatisation IA
       </p>
       
       <div className="flex flex-col animate-reveal [animation-delay:300ms] sm:flex-row gap-x-5 gap-y-5 items-center opacity-0">
