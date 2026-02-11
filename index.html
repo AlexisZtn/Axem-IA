@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en" class="antialiased scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AXEM IA - Rendre l'IA Simple, Rentable et Actionnable</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: ["class"],
+        theme: {
+          extend: {
+            colors: {
+              background: "#050505",
+              foreground: "#ffffff",
+              card: "#0a0a0a",
+              "card-foreground": "#ffffff",
+              popover: "#0a0a0a",
+              "popover-foreground": "#ffffff",
+              primary: "#00FA9A",
+              "primary-foreground": "#000000",
+              secondary: "#1a1a1a",
+              "secondary-foreground": "#ffffff",
+              muted: "#1a1a1a",
+              "muted-foreground": "#a3a3a3",
+              accent: "#00FA9A",
+              "accent-foreground": "#000000",
+              destructive: "#ef4444",
+              "destructive-foreground": "#ffffff",
+              border: "#262626",
+              input: "#262626",
+              ring: "#00FA9A",
+            },
+            borderRadius: {
+              lg: "0.5rem",
+              md: "calc(0.5rem - 2px)",
+              sm: "calc(0.5rem - 4px)",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              playfair: ["Playfair Display", "serif"],
+            }
+          },
+        },
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500&family=Inter:wght@300;400;500;600;800;900&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-color: #050505;
+        --accent-color: #00FA9A;
+        /* Custom Folder Variables */
+        --folder-back: #e73827;
+        --folder-tab: #f85032;
+        --folder-front: #e73827;
+      }
+      html {
+        scroll-padding-top: 100px; /* Évite que la navbar cache le titre de la section */
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-color);
+        color: white;
+      }
+      
+      /* Cinematic Noise */
+      .noise-overlay {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+
+      /* Animations */
+      @keyframes reveal {
+        from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0); }
+      }
+      .animate-reveal {
+        animation: reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      
+      @keyframes marquee-scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
+      }
+      @keyframes marquee-scroll-reverse {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+      }
+      .animate-marquee {
+        animation: marquee-scroll 40s linear infinite;
+      }
+      .animate-marquee-reverse {
+        animation: marquee-scroll-reverse 40s linear infinite;
+      }
+      .animate-marquee:hover, .animate-marquee-reverse:hover {
+        animation-play-state: paused;
+      }
+
+      /* Scrollbar Hide */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "three": "https://esm.sh/three@0.173.0",
+    "ogl": "https://esm.sh/ogl@1.0.11",
+    "clsx": "https://esm.sh/clsx@2.1.0",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@2.2.1"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
