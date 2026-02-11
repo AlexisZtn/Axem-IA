@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import AxemLogo from './AxemLogo';
-import { Loader2, Save, Copy, CheckCircle } from 'lucide-react';
+import { Loader2, Save, Copy, CheckCircle, Upload } from 'lucide-react';
 
 interface NavbarProps {
   customLogo?: string | null;
@@ -158,7 +158,7 @@ const Navbar: React.FC<NavbarProps> = ({ customLogo, onUpdateLogo }) => {
       {/* Logo Area */}
       <div 
         className={`group relative cursor-pointer transition-all duration-300 rounded-2xl p-2 -ml-2
-          ${isDragOver ? 'ring-2 ring-[#00FA9A] bg-[#00FA9A]/10 scale-110 shadow-[0_0_30px_rgba(0,250,154,0.4)]' : 'hover:scale-105'}
+          ${isDragOver ? 'ring-2 ring-[#00FA9A] bg-[#00FA9A]/10 scale-110 shadow-[0_0_30px_rgba(0,250,154,0.4)]' : 'hover:bg-white/5'}
         `}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -171,7 +171,13 @@ const Navbar: React.FC<NavbarProps> = ({ customLogo, onUpdateLogo }) => {
             <Loader2 className="w-6 h-6 text-[#00FA9A] animate-spin" />
           </div>
         )}
-        <AxemLogo src={customLogo} className="h-10 md:h-12 w-auto" />
+        
+        {/* Hover Overlay to indicate editability */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 rounded-2xl backdrop-blur-[2px] z-10 pointer-events-none">
+            <Upload className="w-5 h-5 text-[#00FA9A]" />
+        </div>
+
+        <AxemLogo src={customLogo} className="h-10 md:h-12 w-auto relative z-0" />
       </div>
 
       {/* Right Column Stack */}

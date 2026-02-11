@@ -1,10 +1,7 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Users, Lightbulb, Cpu, Briefcase, Loader2, Upload } from 'lucide-react';
 import EditableText from './ui/EditableText';
-
-// Use static paths instead of imports to avoid module resolution errors with spaces
-const clementSrc = 'components/photo%20clement.png';
-const alexisSrc = 'https://res.cloudinary.com/dafa3vxgb/image/upload/v1770836602/photo_alexis_puwpu0.png';
 
 // --- Utility: Safe Image Compression ---
 const compressImageSafe = (file: File): Promise<string> => {
@@ -55,9 +52,9 @@ const Philosophy: React.FC = () => {
   const diagramRef = useRef<HTMLDivElement>(null);
   const [showDiagram, setShowDiagram] = useState(false);
 
-  // Image States - Initialized with imported assets
-  const [clementImage, setClementImage] = useState<string>(clementSrc);
-  const [alexisImage, setAlexisImage] = useState<string>(alexisSrc);
+  // Image States
+  const [clementImage, setClementImage] = useState<string>("https://github.com/AlexisZtn/Axem-IA/blob/c803ba324e9ab3d7feca2b40566356fb2405cb21/components/Gemini_Generated_Image_s55lmls55lmls55l.jpg?raw=true");
+  const [alexisImage, setAlexisImage] = useState<string>("https://github.com/AlexisZtn/Axem-IA/blob/30e13194199c1c6c681954979c90242b710eebe1/components/Photo%20Alexis.png?raw=true");
 
   // Editable Content State (initialized with defaults for animation logic)
   const defaultTextContent = "La rencontre de deux mondes : L'Excellence Technique & La Stratégie Business. Nous ne sommes pas juste une agence, nous sommes le pont entre la complexité des machines et la réalité de votre croissance.";
@@ -68,16 +65,11 @@ const Philosophy: React.FC = () => {
   const [dragOverState, setDragOverState] = useState<{target: 'clement' | 'alexis' | null}>({ target: null });
 
   useEffect(() => {
-    // Load saved images ONLY if they are base64 data (user uploads).
+    // Load saved images
     const savedClement = localStorage.getItem('axem_philosophy_clement');
     const savedAlexis = localStorage.getItem('axem_philosophy_alexis');
-    
-    if (savedClement && savedClement.startsWith('data:')) {
-        setClementImage(savedClement);
-    }
-    if (savedAlexis && savedAlexis.startsWith('data:')) {
-        setAlexisImage(savedAlexis);
-    }
+    if (savedClement) setClementImage(savedClement);
+    if (savedAlexis) setAlexisImage(savedAlexis);
 
     // Load saved main text
     const savedText = localStorage.getItem('philo_main_text');
@@ -165,13 +157,13 @@ const Philosophy: React.FC = () => {
 
   return (
     <section id="qui-sommes-nous" className="relative z-10 py-32 border-t border-white/5 bg-[#050505] min-h-[90vh] flex flex-col items-center justify-center">
-      <div className="max-w-5xl mx-auto px-6 text-center md:text-left w-full">
+      <div className="max-w-6xl mx-auto px-6 text-center md:text-left w-full">
         <span className="inline-block px-3 py-1 mb-8 text-[10px] tracking-widest text-[#00FA9A] border border-[#00FA9A]/20 rounded-full bg-[#00FA9A]/5 uppercase">
             <EditableText value="Qui sommes-nous ?" storageKey="philo_badge" />
         </span>
         
-        <div className="relative group">
-            <p ref={textRef} className="text-3xl md:text-5xl lg:text-6xl font-medium leading-[1.3] text-neutral-500 mb-20 relative">
+        <div className="relative group mb-32">
+            <p ref={textRef} className="text-3xl md:text-5xl lg:text-6xl font-medium leading-[1.3] text-neutral-500 relative">
             {mainTextContent.split(' ').map((word, i) => (
                 <span key={i} className="transition-opacity duration-300">{word} </span>
             ))}
@@ -192,41 +184,41 @@ const Philosophy: React.FC = () => {
         {/* Diagram */}
         <div 
           ref={diagramRef}
-          className={`transition-all duration-1000 w-full max-w-4xl mr-auto mb-20 ml-auto flex flex-col items-center
+          className={`transition-all duration-1000 w-full max-w-5xl mr-auto mb-20 ml-auto flex flex-col items-center scale-110 md:scale-100 origin-top
             ${showDiagram ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}
         >
           {/* Root Node */}
           <div className="flex flex-col w-full items-center">
-            <div className="z-10 bg-neutral-900/50 border-white/10 border rounded-xl pt-4 pr-8 pb-4 pl-8 shadow-[0_0_30px_-10px_rgba(255,255,255,0.1)] backdrop-blur-md">
-              <h3 className="md:text-3xl text-2xl italic text-white tracking-wide font-playfair">
+            <div className="z-10 bg-neutral-900/50 border-white/10 border rounded-2xl pt-6 pr-10 pb-6 pl-10 shadow-[0_0_50px_-15px_rgba(255,255,255,0.15)] backdrop-blur-md">
+              <h3 className="md:text-5xl text-3xl italic text-white tracking-wide font-playfair font-medium">
                   <EditableText value="AXEM IA" storageKey="philo_diagram_root" />
               </h3>
             </div>
             {/* Vertical Connector */}
-            <div className="h-12 w-px bg-gradient-to-b from-white/20 to-white/10"></div>
+            <div className="h-16 w-px bg-gradient-to-b from-white/30 to-white/10"></div>
             
             {/* Branch Splitter */}
-            <div className="w-[60%] md:w-[70%] h-px bg-white/10 relative">
-              <div className="absolute left-0 top-0 h-8 w-px bg-white/10 origin-top"></div>
-              <div className="absolute right-0 top-0 h-8 w-px bg-white/10 origin-top"></div>
+            <div className="w-[70%] md:w-[60%] h-px bg-white/10 relative">
+              <div className="absolute left-0 top-0 h-10 w-px bg-white/10 origin-top"></div>
+              <div className="absolute right-0 top-0 h-10 w-px bg-white/10 origin-top"></div>
             </div>
           </div>
 
           {/* Children Nodes */}
-          <div className="grid grid-cols-2 gap-8 md:gap-24 w-full mt-8">
+          <div className="grid grid-cols-2 gap-12 md:gap-32 w-full mt-10">
             
             {/* Left Branch - Clément */}
             <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center gap-4">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 bg-[#050505] px-2 relative z-10 -mt-2">
+              <div className="flex flex-col items-center gap-6">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 bg-[#050505] px-4 relative z-10 -mt-3">
                     <EditableText value="Tech & Système" storageKey="philo_left_tag" />
                 </span>
                 
-                {/* Image Avatar */}
+                {/* Image Avatar - INCREASED SIZE */}
                 <div 
-                  className={`w-20 h-20 rounded-full bg-neutral-800 border border-white/10 overflow-hidden mb-2 relative group cursor-pointer transition-all duration-300
-                    ${dragOverState.target === 'clement' ? 'ring-2 ring-[#00FA9A] scale-110' : ''}
+                  className={`w-32 h-32 md:w-48 md:h-48 rounded-full bg-neutral-800 border-2 border-white/10 overflow-hidden mb-4 relative group cursor-pointer transition-all duration-300 shadow-2xl
+                    ${dragOverState.target === 'clement' ? 'ring-4 ring-[#00FA9A] scale-105' : 'hover:border-white/30'}
                   `}
                   onDragOver={(e) => handleDragOver(e, 'clement')}
                   onDragLeave={handleDragLeave}
@@ -235,35 +227,35 @@ const Philosophy: React.FC = () => {
                 >
                      {processingState.target === 'clement' && (
                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-                         <Loader2 className="w-6 h-6 text-[#00FA9A] animate-spin" />
+                         <Loader2 className="w-10 h-10 text-[#00FA9A] animate-spin" />
                        </div>
                      )}
                      
-                     <div className={`absolute inset-0 bg-black/50 flex flex-col items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'clement' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                        <Upload className="w-5 h-5 text-white mb-1" />
-                        <span className="text-[8px] text-white uppercase tracking-widest font-bold">Changer</span>
+                     <div className={`absolute inset-0 bg-black/40 flex flex-col items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'clement' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                        <Upload className="w-8 h-8 text-white mb-2" />
+                        <span className="text-[10px] text-white uppercase tracking-widest font-bold">Changer</span>
                      </div>
 
-                     <img src={clementImage} alt="Clément" className="opacity-90 w-full h-full object-cover" />
+                     <img src={clementImage} alt="Clément" className="opacity-100 w-full h-full object-cover" />
                 </div>
 
-                <div className="text-xl md:text-2xl font-medium text-white/90">
+                <div className="text-2xl md:text-4xl font-medium text-white">
                     <EditableText value="Clément" storageKey="philo_left_name" />
                 </div>
-                <div className="text-xs text-[#00FA9A] uppercase tracking-widest font-bold">
-                    <EditableText value="Télécom Paris" storageKey="philo_left_role_v3" />
+                <div className="text-sm md:text-base text-[#00FA9A] uppercase tracking-widest font-bold">
+                    <EditableText value="Ingénieur Télécom" storageKey="philo_left_role" />
                 </div>
-                <p className="text-center text-sm text-neutral-400 max-w-[200px]">
+                <p className="text-center text-base md:text-lg text-neutral-400 max-w-[280px] leading-relaxed">
                    <EditableText isTextarea value="L'architecte. Celui qui fait parler les machines, du vieil AS400 aux derniers modèles LLM." storageKey="philo_left_desc" />
                 </p>
 
-                <div className="h-8 w-px border-l border-dashed border-white/20 my-2"></div>
+                <div className="h-10 w-px border-l border-dashed border-white/20 my-2"></div>
                 
                 <div className="group relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                  <div className="relative px-6 py-3 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center gap-3">
-                    <Cpu className="w-4 h-4 text-[#00FA9A]" />
-                    <span className="text-sm md:text-base font-medium text-white">
+                  <div className="relative px-8 py-4 rounded-xl bg-[#0a0a0a] border border-white/10 flex items-center gap-4">
+                    <Cpu className="w-5 h-5 text-[#00FA9A]" />
+                    <span className="text-base md:text-lg font-medium text-white">
                         <EditableText value="Expertise Tech" storageKey="philo_left_skill" />
                     </span>
                   </div>
@@ -273,15 +265,15 @@ const Philosophy: React.FC = () => {
 
             {/* Right Branch - Alexis */}
             <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center gap-4">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 bg-[#050505] px-2 relative z-10 -mt-2">
+              <div className="flex flex-col items-center gap-6">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 bg-[#050505] px-4 relative z-10 -mt-3">
                     <EditableText value="Stratégie & Business" storageKey="philo_right_tag" />
                 </span>
                 
-                {/* Image Avatar */}
+                {/* Image Avatar - INCREASED SIZE */}
                 <div 
-                  className={`w-20 h-20 rounded-full bg-neutral-800 border border-white/10 overflow-hidden mb-2 relative group cursor-pointer transition-all duration-300
-                    ${dragOverState.target === 'alexis' ? 'ring-2 ring-[#00FA9A] scale-110' : ''}
+                  className={`w-32 h-32 md:w-48 md:h-48 rounded-full bg-neutral-800 border-2 border-white/10 overflow-hidden mb-4 relative group cursor-pointer transition-all duration-300 shadow-2xl
+                    ${dragOverState.target === 'alexis' ? 'ring-4 ring-[#00FA9A] scale-105' : 'hover:border-white/30'}
                   `}
                   onDragOver={(e) => handleDragOver(e, 'alexis')}
                   onDragLeave={handleDragLeave}
@@ -290,35 +282,35 @@ const Philosophy: React.FC = () => {
                 >
                     {processingState.target === 'alexis' && (
                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-                         <Loader2 className="w-6 h-6 text-[#00FA9A] animate-spin" />
+                         <Loader2 className="w-10 h-10 text-[#00FA9A] animate-spin" />
                        </div>
                      )}
 
-                     <div className={`absolute inset-0 bg-black/50 flex flex-col items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'alexis' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                        <Upload className="w-5 h-5 text-white mb-1" />
-                        <span className="text-[8px] text-white uppercase tracking-widest font-bold">Changer</span>
+                     <div className={`absolute inset-0 bg-black/40 flex flex-col items-center justify-center z-10 transition-opacity duration-300 ${dragOverState.target === 'alexis' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                        <Upload className="w-8 h-8 text-white mb-2" />
+                        <span className="text-[10px] text-white uppercase tracking-widest font-bold">Changer</span>
                      </div>
                      
-                    <img src={alexisImage} alt="Alexis" className="opacity-90 w-full h-full object-cover" />
+                    <img src={alexisImage} alt="Alexis" className="opacity-100 w-full h-full object-cover" />
                 </div>
 
-                <div className="text-xl md:text-2xl font-medium text-white/90">
+                <div className="text-2xl md:text-4xl font-medium text-white">
                     <EditableText value="Alexis" storageKey="philo_right_name" />
                 </div>
-                <div className="text-xs text-[#00FA9A] uppercase tracking-widest font-bold">
+                <div className="text-sm md:text-base text-[#00FA9A] uppercase tracking-widest font-bold">
                     <EditableText value="ESSEC" storageKey="philo_right_role" />
                 </div>
-                <p className="text-center text-sm text-neutral-400 max-w-[200px]">
+                <p className="text-center text-base md:text-lg text-neutral-400 max-w-[280px] leading-relaxed">
                    <EditableText isTextarea value="Le stratège. Celui qui traduit la technologie en rentabilité et en leviers de croissance." storageKey="philo_right_desc" />
                 </p>
 
-                <div className="h-8 w-px border-l border-dashed border-white/20 my-2"></div>
+                <div className="h-10 w-px border-l border-dashed border-white/20 my-2"></div>
                 
                 <div className="group relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                  <div className="relative px-6 py-3 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center gap-3">
-                    <Briefcase className="w-4 h-4 text-[#00FA9A]" />
-                    <span className="text-sm md:text-base font-medium text-white">
+                  <div className="relative px-8 py-4 rounded-xl bg-[#0a0a0a] border border-white/10 flex items-center gap-4">
+                    <Briefcase className="w-5 h-5 text-[#00FA9A]" />
+                    <span className="text-base md:text-lg font-medium text-white">
                         <EditableText value="Vision Business" storageKey="philo_right_skill" />
                     </span>
                   </div>
