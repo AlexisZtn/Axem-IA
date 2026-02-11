@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, Check } from 'lucide-react';
+import { Check, Calendar } from 'lucide-react';
 
 const Pricing: React.FC = () => {
   return (
@@ -30,19 +30,13 @@ const Pricing: React.FC = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
                     <a 
-                        href="tel:0642266652" 
+                        href="https://calendly.com/clem-pred/30min" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
                         className="flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-white text-black font-semibold hover:bg-neutral-200 hover:scale-105 transition-all duration-300 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] min-w-[240px]"
                     >
-                        <Phone className="w-5 h-5" />
-                        <span>06 42 26 66 52</span>
-                    </a>
-                    
-                    <a 
-                        href="mailto:axemiacontact@gmail.com" 
-                        className="flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-[#050505] border border-white/10 text-white font-medium hover:bg-white/5 hover:border-white/20 hover:text-[#00FA9A] hover:scale-105 transition-all duration-300 min-w-[240px]"
-                    >
-                        <Mail className="w-5 h-5" />
-                        <span>axemiacontact@gmail.com</span>
+                        <Calendar className="w-5 h-5" />
+                        <span>Réserver un appel découverte</span>
                     </a>
                 </div>
 
