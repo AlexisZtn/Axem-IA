@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Upload, RotateCcw, Loader2 } from 'lucide-react';
 import EditableText from './ui/EditableText';
@@ -10,22 +11,175 @@ interface Project {
   content?: string; // HTML content for the detail page
 }
 
-// --- Default Data ---
+// --- Default Data with Rich Content for Detail View ---
 
 const defaultProjectsRow1: Project[] = [
-  { id: 1, title: 'Vidéos Avatar', category: 'Production SaaS B2B', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
-  { id: 2, title: 'Reels & Shorts', category: 'Social Marketing', image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop' },
-  { id: 3, title: 'Voix Synthétiques', category: 'Podcast & Contenu', image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop' },
-  { id: 4, title: 'Photos Produit HD', category: 'E-commerce', image: 'https://images.unsplash.com/photo-1606778302084-38538518843d?q=80&w=2670&auto=format&fit=crop' },
-  { id: 5, title: 'Identité Visuelle', category: 'Branding Startup', image: 'https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=2576&auto=format&fit=crop' },
+  { 
+    id: 1, 
+    title: 'Vidéos Avatar', 
+    category: 'Production SaaS B2B', 
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+    content: `
+      <h1>Le Projet</h1>
+      <p class="lead">Accompagner la direction des Ressources Humaines d'<strong>Orange</strong> dans la communication interne de leurs nouveaux outils digitaux.</p>
+      <p>L'enjeu était de présenter de manière claire, rapide et engageante les nouvelles fonctionnalités de leur plateforme collaborateur.</p>
+      <hr />
+      <h3>La Problématique</h3>
+      <p>Comment produire une série de vidéos tutoriels de haute qualité, tout en respectant une charte graphique stricte, avec un budget maîtrisé et des délais de déploiement très courts ?</p>
+      
+      <h3>Notre Solution : La Production Vidéo par IA</h3>
+      <p>Pour répondre à ce défi, nous avons mis en place un workflow de production basé sur l'Intelligence Artificielle générative, permettant une flexibilité totale :</p>
+      <ul>
+        <li><strong>Avatars Vidéo Réalistes :</strong> Utilisation de porte-paroles numériques animés par IA pour incarner les messages RH de manière humaine et chaleureuse sans tournage physique.</li>
+        <li><strong>Personnalisation Marque :</strong> Intégration complète de l'identité visuelle d'Orange (respect du code couleur <span style="color:#FF7900; font-weight:bold;">#FF7900</span>, typographie et insertion du logo).</li>
+        <li><strong>Adaptabilité Maximale :</strong> Possibilité de mettre à jour le script ou les fonctionnalités présentées en quelques clics, sans avoir à ré-enregistrer une séquence.</li>
+      </ul>
+      
+      <h3>Les Bénéfices Clients</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+         <div class="bg-neutral-900/50 p-6 rounded-xl border border-white/10">
+            <h4 class="text-[#FF7900] font-bold uppercase tracking-widest text-xs mb-2">Agilité</h4>
+            <p class="text-sm text-neutral-300">Production 5x plus rapide qu'un tournage classique.</p>
+         </div>
+         <div class="bg-neutral-900/50 p-6 rounded-xl border border-white/10">
+            <h4 class="text-[#FF7900] font-bold uppercase tracking-widest text-xs mb-2">Identité</h4>
+            <p class="text-sm text-neutral-300">Respect rigoureux de la charte graphique Orange.</p>
+         </div>
+         <div class="bg-neutral-900/50 p-6 rounded-xl border border-white/10">
+            <h4 class="text-[#FF7900] font-bold uppercase tracking-widest text-xs mb-2">Efficacité</h4>
+            <p class="text-sm text-neutral-300">Taux d'engagement des collaborateurs en hausse sur l'intranet.</p>
+         </div>
+      </div>
+    `
+  },
+  { 
+    id: 2, 
+    title: 'Reels & Shorts', 
+    category: 'Social Marketing', 
+    image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop',
+    content: `
+      <h1>Factory Reels & Shorts</h1>
+      <p class="lead">Dominez TikTok, Instagram et YouTube Shorts avec une cadence industrielle.</p>
+      <hr />
+      <h3>La Stratégie</h3>
+      <p>L'IA découpe vos longs contenus (podcasts, webinaires) en clips viraux, ajoute des sous-titres dynamiques (style Alex Hormozi) et des B-Rolls pertinents automatiquement.</p>
+      <div style="display:flex; gap:20px; margin-top:20px;">
+         <div style="flex:1; background:#1a1a1a; padding:20px; border-radius:12px;">
+            <h4>Input</h4>
+            <p style="font-size:0.9em; color:#888;">1h de vidéo brute</p>
+         </div>
+         <div style="flex:1; background:#1a1a1a; padding:20px; border-radius:12px;">
+            <h4>Output IA</h4>
+            <p style="font-size:0.9em; color:#00FA9A;">12 Shorts viraux prêts à poster</p>
+         </div>
+      </div>
+    `
+  },
+  { 
+    id: 3, 
+    title: 'Voix Synthétiques', 
+    category: 'Podcast & Contenu', 
+    image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop',
+    content: `
+      <h1>Design Sonore & Voix IA</h1>
+      <p class="lead">Donnez une voix à votre marque. Littéralement.</p>
+      <hr />
+      <h3>Cas d'usage</h3>
+      <p>Création de podcasts internes, doublage automatique de vidéos marketing, ou assistants vocaux interactifs.</p>
+      <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80" alt="Waveform" style="width:100%; border-radius:12px; margin-top:20px;" />
+    `
+  },
+  { 
+    id: 4, 
+    title: 'Photos Produit HD', 
+    category: 'E-commerce', 
+    image: 'https://images.unsplash.com/photo-1606778302084-38538518843d?q=80&w=2670&auto=format&fit=crop',
+    content: `
+      <h1>Studio Photo Virtuel</h1>
+      <p class="lead">Des shootings produits infinis pour 1/10ème du coût.</p>
+      <hr />
+      <h3>La Méthode</h3>
+      <p>Nous entraînons un modèle (LoRA) sur votre produit spécifique. Ensuite, nous pouvons le placer dans n'importe quel décor, sur n'importe quel mannequin, avec n'importe quel éclairage.</p>
+    `
+  },
+  { 
+    id: 5, 
+    title: 'Identité Visuelle', 
+    category: 'Branding Startup', 
+    image: 'https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=2576&auto=format&fit=crop',
+    content: `
+      <h1>Identité & Charte Graphique IA</h1>
+      <p class="lead">Générez une cohérence visuelle parfaite sur tous vos supports.</p>
+      <hr />
+      <p>Logos, palettes de couleurs, typographies et variations de brand assets générés par IA pour tester 50 directions artistiques en une après-midi.</p>
+    `
+  },
 ];
 
 const defaultProjectsRow2: Project[] = [
-  { id: 6, title: 'Slides Pro', category: 'Consulting Business', image: 'https://images.unsplash.com/photo-1614850523060-8da1d56ae167?q=80&w=2670&auto=format&fit=crop' },
-  { id: 7, title: 'Contenu SEO', category: 'SaaS Marketing', image: 'https://images.unsplash.com/photo-1492551557933-34265f7af79e?q=80&w=2670&auto=format&fit=crop' },
-  { id: 8, title: 'Tableaux & Outils', category: 'Sales Ops', image: 'https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2832&auto=format&fit=crop' },
-  { id: 9, title: 'Veille Structurée', category: 'Competitive Intelligence', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop' },
-  { id: 10, title: 'Landing Pages', category: 'SaaS Launch', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop' },
+  { 
+    id: 6, 
+    title: 'Slides Pro', 
+    category: 'Consulting Business', 
+    image: 'https://images.unsplash.com/photo-1614850523060-8da1d56ae167?q=80&w=2670&auto=format&fit=crop',
+    content: `
+      <h1>Génération de Présentations (Decks)</h1>
+      <p class="lead">Transformez un document Word en une présentation PowerPoint design en 2 minutes.</p>
+      <hr />
+      <h3>Livrables</h3>
+      <p>Templates PowerPoint/Google Slides intelligents qui s'adaptent à votre contenu. Idéal pour les consultants et les équipes commerciales.</p>
+      <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=1200&q=80" alt="Slides" style="width:100%; border-radius:12px; margin-top:20px;" />
+    `
+  },
+  { 
+    id: 7, 
+    title: 'Contenu SEO', 
+    category: 'SaaS Marketing', 
+    image: 'https://images.unsplash.com/photo-1492551557933-34265f7af79e?q=80&w=2670&auto=format&fit=crop',
+    content: `
+      <h1>Rédaction SEO Programmatique</h1>
+      <p class="lead">Occupez la première page de Google sur des milliers de mots-clés.</p>
+      <hr />
+      <p>Nous connectons les données de votre marché à des modèles de langage pour générer des articles de blog experts, factuellement justes et optimisés pour le référencement.</p>
+    `
+  },
+  { 
+    id: 8, 
+    title: 'Tableaux & Outils', 
+    category: 'Sales Ops', 
+    image: 'https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2832&auto=format&fit=crop',
+    content: `
+      <h1>Dashboards & Outils Internes</h1>
+      <p class="lead">Vos données Excel transformées en applications web utilisables.</p>
+      <hr />
+      <p>Création d'interfaces simples pour vos équipes commerciales afin de suivre les leads, les stocks ou les projets sans casser vos formules Excel complexes.</p>
+    `
+  },
+  { 
+    id: 9, 
+    title: 'Veille Structurée', 
+    category: 'Competitive Intelligence', 
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop',
+    content: `
+      <h1>Système de Veille Automatisé</h1>
+      <p class="lead">Ne manquez plus jamais une news critique de votre secteur.</p>
+      <hr />
+      <p>Agents IA qui scannent le web 24/7, résument les articles pertinents, analysent les sentiments et vous envoient un digest matinal sur Slack ou par email.</p>
+    `
+  },
+  { 
+    id: 10, 
+    title: 'Landing Pages', 
+    category: 'SaaS Launch', 
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
+    content: `
+      <h1>Générateur de Landing Pages</h1>
+      <p class="lead">Testez une nouvelle offre par jour.</p>
+      <hr />
+      <p>Design, Copywriting et Intégration générés automatiquement pour A/B tester vos propositions de valeur à la vitesse de l'éclair.</p>
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Landing Page" style="width:100%; border-radius:12px; margin-top:20px;" />
+    `
+  },
 ];
 
 // --- Utility: Safe Image Compression for LocalStorage ---
@@ -139,7 +293,7 @@ const Card: React.FC<CardProps> = ({ project, onUpdateImage, onUpdateText, onCli
       <img 
         src={project.image} 
         key={project.image} 
-        className="w-full h-full object-contain bg-black transition-transform duration-700 group-hover/card:scale-105" 
+        className="w-full h-full object-cover md:object-contain bg-black transition-transform duration-700 group-hover/card:scale-105" 
         alt={project.title} 
       />
       
@@ -225,8 +379,9 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   const handleCardClick = (rowId: 1 | 2, project: Project) => {
     if (onOpenProject) {
+        // We pass the full project object, including the HTML content we just added
         onOpenProject(project.id, project, (id, newData) => {
-            // Callback to save changes coming from Detail Page
+            // Callback to save changes coming from Detail Page (e.g. edited text)
             const updateList = (list: Project[]) => list.map(p => p.id === id ? { ...p, ...newData } : p);
              if (rowId === 1) {
                 const newRow1 = updateList(row1);
@@ -259,7 +414,7 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
           <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-white">Livrables Production</h2>
           <p className="text-xs text-neutral-500 mt-2 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00FA9A] animate-pulse"></span>
-            Glissez une image pour mettre à jour, cliquez sur le texte pour éditer.
+            Glissez une image pour mettre à jour, cliquez pour voir le détail.
           </p>
         </div>
         

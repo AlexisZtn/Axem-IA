@@ -123,10 +123,10 @@ const Philosophy: React.FC = () => {
     setDragOverState({ target: null });
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      // Cast e.dataTransfer.files to unknown first to avoid iterable iterator issues if config is strict,
-      // but Array.from usually works. The error suggests inference failure.
-      // Explicitly typing 'f' as File solves it.
-      const file = Array.from(e.dataTransfer.files).find((f: File) => f.type.startsWith('image/'));
+      // Cast e.dataTransfer.files to File[] to ensure TS knows they are Files
+      const files = Array.from(e.dataTransfer.files) as File[];
+      const file = files.find((f) => f.type.startsWith('image/'));
+      
       if (file) {
         setProcessingState({ target });
         try {
