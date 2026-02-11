@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { AnimatedFolder, Project } from './ui/3d-folder';
 import { RotateCcw } from 'lucide-react';
+import EditableText from './ui/EditableText';
 
 // --- Default Data Definition with Specific Case Studies ---
 
@@ -241,13 +241,15 @@ const FolderShowcase: React.FC<FolderShowcaseProps> = ({ onOpenProject }) => {
   return (
     <section id="realisations" className="bg-background relative z-10 py-32 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 text-center mb-24">
-        <span className="inline-block px-3 py-1 mb-6 text-[10px] tracking-widest text-primary border border-primary/20 rounded-full bg-primary/5 uppercase">Réalisations</span>
+        <span className="inline-block px-3 py-1 mb-6 text-[10px] tracking-widest text-primary border border-primary/20 rounded-full bg-primary/5 uppercase">
+            <EditableText value="Réalisations" storageKey="showcase_badge" />
+        </span>
         <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-foreground mb-6">
-          Nos <span className="font-playfair italic text-neutral-400">Études de Cas</span>
+          <EditableText value="Nos" storageKey="showcase_title_1" /> <span className="font-playfair italic text-neutral-400"><EditableText value="Études de Cas" storageKey="showcase_title_2" /></span>
         </h2>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-4">
-          Découvrez comment nous avons transformé les processus de nos clients.
-          <br/><span className="text-xs text-neutral-600">Cliquez sur un dossier pour voir les détails.</span>
+          <EditableText value="Découvrez comment nous avons transformé les processus de nos clients." storageKey="showcase_desc" />
+          <br/><span className="text-xs text-neutral-600"><EditableText value="Cliquez sur un dossier pour voir les détails." storageKey="showcase_hint" /></span>
         </p>
       </div>
 

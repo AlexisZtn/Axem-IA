@@ -1,6 +1,6 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Users, Lightbulb, Cpu, Briefcase, Loader2, Upload } from 'lucide-react';
+import EditableText from './ui/EditableText';
 
 // --- Utility: Safe Image Compression ---
 const compressImageSafe = (file: File): Promise<string> => {
@@ -55,6 +55,10 @@ const Philosophy: React.FC = () => {
   const [clementImage, setClementImage] = useState<string>("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200");
   const [alexisImage, setAlexisImage] = useState<string>("https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200");
 
+  // Editable Content State (initialized with defaults for animation logic)
+  const defaultTextContent = "La rencontre de deux mondes : L'Excellence Technique & La Stratégie Business. Nous ne sommes pas juste une agence, nous sommes le pont entre la complexité des machines et la réalité de votre croissance.";
+  const [mainTextContent, setMainTextContent] = useState(defaultTextContent);
+
   // Loading & Drag States
   const [processingState, setProcessingState] = useState<{target: 'clement' | 'alexis' | null}>({ target: null });
   const [dragOverState, setDragOverState] = useState<{target: 'clement' | 'alexis' | null}>({ target: null });
@@ -65,6 +69,10 @@ const Philosophy: React.FC = () => {
     const savedAlexis = localStorage.getItem('axem_philosophy_alexis');
     if (savedClement) setClementImage(savedClement);
     if (savedAlexis) setAlexisImage(savedAlexis);
+
+    // Load saved main text
+    const savedText = localStorage.getItem('philo_main_text');
+    if (savedText) setMainTextContent(savedText);
 
     const handleScroll = () => {
       // Text Highlight Logic
@@ -123,9 +131,8 @@ const Philosophy: React.FC = () => {
     setDragOverState({ target: null });
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      // Cast e.dataTransfer.files to File[] to ensure TS knows they are Files
       const files = Array.from(e.dataTransfer.files) as File[];
-      const file = files.find((f) => f.type.startsWith('image/'));
+      const file = files.find(f => f.type.startsWith('image/'));
       
       if (file) {
         setProcessingState({ target });
@@ -147,18 +154,49 @@ const Philosophy: React.FC = () => {
     }
   };
 
-  const textContent = "La rencontre de deux mondes : L'Excellence Technique & La Stratégie Business. Nous ne sommes pas juste une agence, nous sommes le pont entre la complexité des machines et la réalité de votre croissance.";
-
   return (
     <section id="qui-sommes-nous" className="relative z-10 py-32 border-t border-white/5 bg-[#050505] min-h-[90vh] flex flex-col items-center justify-center">
       <div className="max-w-5xl mx-auto px-6 text-center md:text-left w-full">
-        <span className="inline-block px-3 py-1 mb-8 text-[10px] tracking-widest text-[#00FA9A] border border-[#00FA9A]/20 rounded-full bg-[#00FA9A]/5 uppercase">Qui sommes-nous ?</span>
+        <span className="inline-block px-3 py-1 mb-8 text-[10px] tracking-widest text-[#00FA9A] border border-[#00FA9A]/20 rounded-full bg-[#00FA9A]/5 uppercase">
+            <EditableText value="Qui sommes-nous ?" storageKey="philo_badge" />
+        </span>
         
-        <p ref={textRef} className="text-3xl md:text-5xl lg:text-6xl font-medium leading-[1.3] text-neutral-500 mb-20">
-          {textContent.split(' ').map((word, i) => (
-            <span key={i} className="transition-opacity duration-300">{word} </span>
-          ))}
-        </p>
+        {/* We keep the split word animation, but allow editing the raw text underneath/via a specific area if needed, 
+            OR we treat the whole block as an editable textarea that updates the state. 
+            For better UX, let's put a small edit button or allow clicking the block. 
+            Actually, let's use the EditableText as a wrapper around the visual, 
+            but since EditableText renders an input/textarea, we need a way to maintain the span animation.
+            
+            Solution: Separate the "Edit" mode from "View" mode or just put an editable textarea above/below?
+            Cleaner Solution: Just use EditableText for the content string, and split THAT string.
+        */}
+        <div className="relative group">
+            <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity z-50">
+                 {/* Invisible overlay editor? No, let's just use a dedicated editable block if user wants to change it */}
+            </div>
+            <p ref={textRef} className="text-3xl md:text-5xl lg:text-6xl font-medium leading-[1.3] text-neutral-500 mb-20 relative">
+            {mainTextContent.split(' ').map((word, i) => (
+                <span key={i} className="transition-opacity duration-300">{word} </span>
+            ))}
+            {/* The actual editable input, hidden visually but accessible? Or just a button. 
+                Let's make it simple: An editable text area below that updates the text above, 
+                OR simply replace the fancy animation with a standard editable text if clicked.
+                
+                Let's go with: Click to edit the whole block.
+            */}
+             <div className="absolute inset-0 opacity-0 hover:opacity-100 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity cursor-pointer z-10">
+                 <div className="w-full">
+                    <EditableText 
+                        value={mainTextContent} 
+                        storageKey="philo_main_text" 
+                        isTextarea 
+                        onSave={setMainTextContent}
+                        className="text-xl md:text-3xl text-white bg-black/90 min-h-[200px]"
+                    />
+                 </div>
+             </div>
+            </p>
+        </div>
         
         {/* Diagram */}
         <div 
@@ -170,7 +208,9 @@ const Philosophy: React.FC = () => {
           {/* Root Node */}
           <div className="flex flex-col w-full items-center">
             <div className="z-10 bg-neutral-900/50 border-white/10 border rounded-xl pt-4 pr-8 pb-4 pl-8 shadow-[0_0_30px_-10px_rgba(255,255,255,0.1)] backdrop-blur-md">
-              <h3 className="md:text-3xl text-2xl italic text-white tracking-wide font-playfair">AXEM IA</h3>
+              <h3 className="md:text-3xl text-2xl italic text-white tracking-wide font-playfair">
+                  <EditableText value="AXEM IA" storageKey="philo_diagram_root" />
+              </h3>
             </div>
             {/* Vertical Connector */}
             <div className="h-12 w-px bg-gradient-to-b from-white/20 to-white/10"></div>
@@ -188,7 +228,9 @@ const Philosophy: React.FC = () => {
             {/* Left Branch - Clément */}
             <div className="flex flex-col items-center">
               <div className="flex flex-col items-center gap-4">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 bg-[#050505] px-2 relative z-10 -mt-2">Tech & Système</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 bg-[#050505] px-2 relative z-10 -mt-2">
+                    <EditableText value="Tech & Système" storageKey="philo_left_tag" />
+                </span>
                 
                 {/* Image Avatar */}
                 <div 
@@ -212,10 +254,14 @@ const Philosophy: React.FC = () => {
                      <img src={clementImage} alt="Clément" className="opacity-90 w-full h-full object-cover" />
                 </div>
 
-                <div className="text-xl md:text-2xl font-medium text-white/90">Clément</div>
-                <div className="text-xs text-[#00FA9A] uppercase tracking-widest font-bold">Ingénieur Télécom</div>
+                <div className="text-xl md:text-2xl font-medium text-white/90">
+                    <EditableText value="Clément" storageKey="philo_left_name" />
+                </div>
+                <div className="text-xs text-[#00FA9A] uppercase tracking-widest font-bold">
+                    <EditableText value="Ingénieur Télécom" storageKey="philo_left_role" />
+                </div>
                 <p className="text-center text-sm text-neutral-400 max-w-[200px]">
-                   L'architecte. Celui qui fait parler les machines, du vieil AS400 aux derniers modèles LLM.
+                   <EditableText isTextarea value="L'architecte. Celui qui fait parler les machines, du vieil AS400 aux derniers modèles LLM." storageKey="philo_left_desc" />
                 </p>
 
                 <div className="h-8 w-px border-l border-dashed border-white/20 my-2"></div>
@@ -224,7 +270,9 @@ const Philosophy: React.FC = () => {
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                   <div className="relative px-6 py-3 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center gap-3">
                     <Cpu className="w-4 h-4 text-[#00FA9A]" />
-                    <span className="text-sm md:text-base font-medium text-white">Expertise Tech</span>
+                    <span className="text-sm md:text-base font-medium text-white">
+                        <EditableText value="Expertise Tech" storageKey="philo_left_skill" />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -233,7 +281,9 @@ const Philosophy: React.FC = () => {
             {/* Right Branch - Alexis */}
             <div className="flex flex-col items-center">
               <div className="flex flex-col items-center gap-4">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 bg-[#050505] px-2 relative z-10 -mt-2">Stratégie & Business</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 bg-[#050505] px-2 relative z-10 -mt-2">
+                    <EditableText value="Stratégie & Business" storageKey="philo_right_tag" />
+                </span>
                 
                 {/* Image Avatar */}
                 <div 
@@ -257,10 +307,14 @@ const Philosophy: React.FC = () => {
                     <img src={alexisImage} alt="Alexis" className="opacity-90 w-full h-full object-cover" />
                 </div>
 
-                <div className="text-xl md:text-2xl font-medium text-white/90">Alexis</div>
-                <div className="text-xs text-[#00FA9A] uppercase tracking-widest font-bold">ESSEC</div>
+                <div className="text-xl md:text-2xl font-medium text-white/90">
+                    <EditableText value="Alexis" storageKey="philo_right_name" />
+                </div>
+                <div className="text-xs text-[#00FA9A] uppercase tracking-widest font-bold">
+                    <EditableText value="ESSEC" storageKey="philo_right_role" />
+                </div>
                 <p className="text-center text-sm text-neutral-400 max-w-[200px]">
-                   Le stratège. Celui qui traduit la technologie en rentabilité et en leviers de croissance.
+                   <EditableText isTextarea value="Le stratège. Celui qui traduit la technologie en rentabilité et en leviers de croissance." storageKey="philo_right_desc" />
                 </p>
 
                 <div className="h-8 w-px border-l border-dashed border-white/20 my-2"></div>
@@ -269,7 +323,9 @@ const Philosophy: React.FC = () => {
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                   <div className="relative px-6 py-3 rounded-lg bg-[#0a0a0a] border border-white/10 flex items-center gap-3">
                     <Briefcase className="w-4 h-4 text-[#00FA9A]" />
-                    <span className="text-sm md:text-base font-medium text-white">Vision Business</span>
+                    <span className="text-sm md:text-base font-medium text-white">
+                        <EditableText value="Vision Business" storageKey="philo_right_skill" />
+                    </span>
                   </div>
                 </div>
               </div>

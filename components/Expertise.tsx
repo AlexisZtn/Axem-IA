@@ -1,5 +1,5 @@
-
 import React, { useEffect, useState, useRef } from 'react';
+import EditableText from './ui/EditableText';
 
 type Category = 'audit' | 'formation' | 'solutions' | 'automation';
 
@@ -7,6 +7,7 @@ const Expertise: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<Category>('audit');
 
+  // We define the default structure, but the rendering will wrap these strings in EditableText
   const categories = {
     audit: {
       title: "Audit & Conseil",
@@ -63,18 +64,24 @@ const Expertise: React.FC = () => {
       
       {/* Mobile/Tablet Layout (Static) */}
       <div className="lg:hidden px-6 py-24 border-t border-white/5">
-        <p className="text-white text-sm uppercase tracking-widest mb-16">Nos 4 Piliers d'Intervention</p>
+        <p className="text-white text-sm uppercase tracking-widest mb-16">
+            <EditableText value="Nos 4 Piliers d'Intervention" storageKey="expertise_header" />
+        </p>
         
         {Object.entries(categories).map(([key, cat]) => (
           <div key={key} className="mb-14">
              <div className="flex items-baseline gap-3 mb-2">
-                <h2 className="font-playfair italic text-3xl text-white font-normal">{cat.title}</h2>
+                <h2 className="font-playfair italic text-3xl text-white font-normal">
+                    <EditableText value={cat.title} storageKey={`expertise_${key}_title`} />
+                </h2>
              </div>
-            <p className="text-[#00FA9A] text-xs uppercase tracking-widest mb-6 font-medium">{cat.subtitle}</p>
+            <p className="text-[#00FA9A] text-xs uppercase tracking-widest mb-6 font-medium">
+                <EditableText value={cat.subtitle} storageKey={`expertise_${key}_subtitle`} />
+            </p>
             <div className="flex flex-wrap gap-3">
-              {cat.tags.map(tag => (
-                <span key={tag} className="px-5 py-2.5 rounded-full bg-[#181818] border border-white/20 text-white text-sm">
-                  {tag}
+              {cat.tags.map((tag, i) => (
+                <span key={i} className="px-5 py-2.5 rounded-full bg-[#181818] border border-white/20 text-white text-sm">
+                  <EditableText value={tag} storageKey={`expertise_${key}_tag_${i}`} />
                 </span>
               ))}
             </div>
@@ -88,7 +95,9 @@ const Expertise: React.FC = () => {
           
           {/* Left: Headings */}
           <div className="lg:col-span-5 flex flex-col gap-6 lg:gap-8">
-            <p className="text-xs font-medium tracking-[0.2em] text-[#00FA9A] uppercase mb-4">Nos 4 Piliers</p>
+            <p className="text-xs font-medium tracking-[0.2em] text-[#00FA9A] uppercase mb-4">
+                 <EditableText value="Nos 4 Piliers" storageKey="expertise_header_desktop" />
+            </p>
             
             {(Object.keys(categories) as Category[]).map(key => (
               <div 
@@ -100,10 +109,10 @@ const Expertise: React.FC = () => {
                 }`}
               >
                 <h2 className={`font-playfair italic text-4xl lg:text-5xl font-medium mb-1 ${activeCategory === key ? 'text-white' : 'text-neutral-400'}`}>
-                  {categories[key].title}
+                   <EditableText value={categories[key].title} storageKey={`expertise_${key}_title`} />
                 </h2>
                 <div className={`text-xs uppercase tracking-widest transition-colors duration-300 ${activeCategory === key ? 'text-[#00FA9A]' : 'text-transparent group-hover:text-neutral-600'}`}>
-                    {categories[key].subtitle}
+                    <EditableText value={categories[key].subtitle} storageKey={`expertise_${key}_subtitle`} />
                 </div>
               </div>
             ))}
@@ -113,9 +122,9 @@ const Expertise: React.FC = () => {
           <div className="lg:col-span-7 w-full">
             <div className="flex flex-wrap gap-3 lg:justify-end w-full content-center">
                {(Object.keys(categories) as Category[]).map(key => (
-                  categories[key].tags.map(tag => (
+                  categories[key].tags.map((tag, i) => (
                     <div 
-                      key={tag} 
+                      key={`${key}-${i}`} 
                       className={`px-6 py-3 rounded-full border text-sm transition-all duration-700
                         ${activeCategory === key
                           ? 'border-[#00FA9A]/30 bg-[#00FA9A]/5 text-[#00FA9A] shadow-[0_0_20px_-5px_rgba(0,250,154,0.15)] opacity-100 scale-100'
@@ -123,7 +132,7 @@ const Expertise: React.FC = () => {
                         }
                       `}
                     >
-                      {tag}
+                      <EditableText value={tag} storageKey={`expertise_${key}_tag_${i}`} />
                     </div>
                   ))
                ))}

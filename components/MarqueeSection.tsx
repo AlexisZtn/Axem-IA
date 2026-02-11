@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Upload, RotateCcw, Loader2 } from 'lucide-react';
 import EditableText from './ui/EditableText';
@@ -432,11 +431,15 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     <section className="z-10 overflow-hidden border-white/5 border-t pt-24 pb-24 relative" id="projects">
       <div className="px-6 md:px-12 mb-12 flex justify-between items-end">
         <div>
-          <p className="text-[10px] text-[#00FA9A] uppercase tracking-[0.2em] font-medium mb-2">Portfolio</p>
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-white">Livrables Production</h2>
+          <p className="text-[10px] text-[#00FA9A] uppercase tracking-[0.2em] font-medium mb-2">
+              <EditableText value="Portfolio" storageKey="marquee_badge" />
+          </p>
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-white">
+              <EditableText value="Livrables Production" storageKey="marquee_title" />
+          </h2>
           <p className="text-xs text-neutral-500 mt-2 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00FA9A] animate-pulse"></span>
-            Glissez une image pour mettre à jour, cliquez pour voir le détail.
+            <EditableText value="Glissez une image pour mettre à jour, cliquez pour voir le détail." storageKey="marquee_subtitle" />
           </p>
         </div>
         
@@ -450,7 +453,9 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
                   Reset
                 </button>
              )}
-            <a href="#" className="text-xs uppercase tracking-widest text-neutral-500 hover:text-white transition-colors border-b border-transparent hover:border-white pb-1 hidden md:block">Voir tous les projets</a>
+            <a href="#" className="text-xs uppercase tracking-widest text-neutral-500 hover:text-white transition-colors border-b border-transparent hover:border-white pb-1 hidden md:block">
+                 <EditableText value="Voir tous les projets" storageKey="marquee_see_all" />
+            </a>
         </div>
       </div>
 

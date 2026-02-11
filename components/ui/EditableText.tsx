@@ -3,10 +3,11 @@ import { cn } from '../../lib/utils';
 
 interface EditableTextProps {
   value: string;
-  onSave: (newValue: string) => void;
+  onSave?: (newValue: string) => void;
   className?: string;
   isTextarea?: boolean;
   placeholder?: string;
+  storageKey?: string; // New prop for auto-persistence
 }
 
 const EditableText: React.FC<EditableTextProps> = ({ 
@@ -14,15 +15,26 @@ const EditableText: React.FC<EditableTextProps> = ({
   onSave, 
   className, 
   isTextarea = false,
-  placeholder = "Click to edit..."
+  placeholder = "Cliquez pour éditer...",
+  storageKey
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 
+  // Load from storage on mount if key exists
   useEffect(() => {
-    setCurrentValue(value);
-  }, [value]);
+    if (storageKey) {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        setCurrentValue(saved);
+      } else {
+        setCurrentValue(value);
+      }
+    } else {
+        setCurrentValue(value);
+    }
+  }, [storageKey, value]);
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -32,7 +44,14 @@ const EditableText: React.FC<EditableTextProps> = ({
 
   const handleBlur = () => {
     setIsEditing(false);
-    if (currentValue.trim() !== value) {
+    
+    // Save to local storage if key is present
+    if (storageKey) {
+        localStorage.setItem(storageKey, currentValue);
+    }
+
+    // Call external handler if present
+    if (onSave) {
       onSave(currentValue);
     }
   };
@@ -42,7 +61,13 @@ const EditableText: React.FC<EditableTextProps> = ({
       handleBlur();
     }
     if (e.key === 'Escape') {
-      setCurrentValue(value);
+      // Revert to last valid state
+      if (storageKey) {
+          const saved = localStorage.getItem(storageKey);
+          setCurrentValue(saved || value);
+      } else {
+          setCurrentValue(value);
+      }
       setIsEditing(false);
     }
   };
@@ -56,7 +81,7 @@ const EditableText: React.FC<EditableTextProps> = ({
           onChange={(e) => setCurrentValue(e.target.value)}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          className={cn("bg-transparent border border-[#00FA9A]/50 outline-none p-1 rounded w-full min-h-[100px] text-white", className)}
+          className={cn("bg-neutral-900/90 border border-[#00FA9A] outline-none p-2 rounded w-full min-h-[100px] text-white z-50 relative shadow-xl", className)}
           placeholder={placeholder}
         />
       );
@@ -68,7 +93,7 @@ const EditableText: React.FC<EditableTextProps> = ({
         onChange={(e) => setCurrentValue(e.target.value)}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        className={cn("bg-transparent border-b border-[#00FA9A]/50 outline-none w-full text-white min-w-[50px]", className)}
+        className={cn("bg-neutral-900/90 border-b border-[#00FA9A] outline-none w-auto text-white min-w-[50px] z-50 relative shadow-xl px-1", className)}
         placeholder={placeholder}
       />
     );
@@ -78,10 +103,11 @@ const EditableText: React.FC<EditableTextProps> = ({
     <span 
       onClick={(e) => {
         e.stopPropagation();
+        e.preventDefault();
         setIsEditing(true);
       }}
-      className={cn("cursor-text hover:bg-white/10 rounded px-1 -mx-1 transition-colors border border-transparent hover:border-white/5", className)}
-      title="Click to edit"
+      className={cn("cursor-text hover:bg-[#00FA9A]/10 rounded px-1 -mx-1 transition-all border border-transparent hover:border-[#00FA9A]/20 hover:shadow-[0_0_15px_rgba(0,250,154,0.1)]", className)}
+      title="Cliquez pour éditer ce texte"
     >
       {currentValue || <span className="text-white/30 italic">{placeholder}</span>}
     </span>
