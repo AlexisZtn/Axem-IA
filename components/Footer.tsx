@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { ArrowRight, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { ArrowRight, Instagram, Linkedin } from 'lucide-react';
 import AxemLogo from './AxemLogo';
 
 interface FooterProps {
@@ -27,9 +26,24 @@ const Footer: React.FC<FooterProps> = ({ customLogo }) => {
               <AxemLogo src={customLogo} className="h-16 w-auto origin-left" />
             </div>
             <div className="flex gap-4">
-              <a href="#" className="text-neutral-400 hover:text-white transition-colors"><Twitter className="w-4 h-4" /></a>
-              <a href="#" className="text-neutral-400 hover:text-white transition-colors"><Instagram className="w-4 h-4" /></a>
-              <a href="#" className="text-neutral-400 hover:text-white transition-colors"><Linkedin className="w-4 h-4" /></a>
+              <a 
+                href="https://www.instagram.com/mister.ia__/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-neutral-400 hover:text-white transition-colors"
+                title="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a 
+                href="https://fr.linkedin.com/in/clément-predo-426133196" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-neutral-400 hover:text-white transition-colors"
+                title="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
