@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from 'react';
 import EditableText from './ui/EditableText';
 
@@ -60,7 +61,8 @@ const Expertise: React.FC = () => {
   }, []);
 
   return (
-    <div id="expertise" ref={sectionRef} className="relative z-10 w-full lg:h-[400vh] min-h-screen">
+    // Height reduced to 105vh to be almost immediately followed by Pricing
+    <div id="expertise" ref={sectionRef} className="relative z-10 w-full lg:h-[105vh] min-h-screen -mt-24">
       
       {/* Mobile/Tablet Layout (Static) */}
       <div className="lg:hidden px-6 py-24 border-t border-white/5">

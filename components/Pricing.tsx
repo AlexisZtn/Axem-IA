@@ -1,13 +1,15 @@
+
 import React from 'react';
 import { Check, Calendar } from 'lucide-react';
 import EditableText from './ui/EditableText';
 
 const Pricing: React.FC = () => {
   return (
-    <section className="bg-[#050505] z-10 border-white/5 border-t pt-32 pb-32 relative" id="pricing">
+    // Added -mt-32 to pull the section up significantly
+    <section className="bg-[#050505] z-10 border-white/5 border-t pt-0 pb-32 relative -mt-32" id="pricing">
       <div className="max-w-4xl mx-auto px-6 text-center">
         
-        <div className="mb-16">
+        <div className="mb-16 mt-20">
           <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6 flex flex-wrap justify-center gap-x-3">
             <EditableText value="Tarification" storageKey="pricing_title_1" />
             <span className="font-playfair italic text-neutral-400">

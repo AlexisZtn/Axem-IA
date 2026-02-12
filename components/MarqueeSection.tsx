@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Upload, RotateCcw, Loader2 } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 import EditableText from './ui/EditableText';
 
 interface Project {
@@ -203,114 +204,17 @@ const defaultProjectsRow2: Project[] = [
   },
 ];
 
-// --- Utility: Safe Image Compression for LocalStorage ---
-const compressImageSafe = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        // Max Quality settings: 4K limit
-        const MAX_WIDTH = 3840;
-        const MAX_HEIGHT = 3840;
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width;
-            width = MAX_WIDTH;
-          }
-        } else {
-          if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height;
-            height = MAX_HEIGHT;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
-            ctx.drawImage(img, 0, 0, width, height);
-        }
-        
-        // Quality 1.0 (Maximum)
-        resolve(canvas.toDataURL('image/jpeg', 1.0));
-      };
-      img.onerror = reject;
-      img.src = event.target?.result as string;
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-};
-
 interface CardProps {
   project: Project;
-  onUpdateImage: (id: number, newImage: string) => void;
-  onUpdateText: (id: number, field: 'title' | 'category', value: string) => void;
   onClick: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ project, onUpdateImage, onUpdateText, onClick }) => {
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(false);
-  };
-
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(false);
-
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      const files = Array.from(e.dataTransfer.files) as File[];
-      const file = files.find(f => f.type.startsWith('image/'));
-      
-      if (file) {
-        setIsProcessing(true);
-        try {
-          const base64 = await compressImageSafe(file);
-          onUpdateImage(project.id, base64);
-        } catch (err) {
-          console.error("Failed to process image", err);
-          alert("Erreur lors du traitement de l'image.");
-        } finally {
-          setIsProcessing(false);
-        }
-      }
-    }
-  };
-
+const Card: React.FC<CardProps> = ({ project, onClick }) => {
   return (
     <div 
-      className={`relative w-[300px] h-[400px] md:w-[400px] md:h-[500px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group/card transition-all duration-300 bg-black ${isDragOver ? 'scale-105 ring-4 ring-[#00FA9A] z-20 shadow-2xl' : ''}`}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
+      className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group/card transition-all duration-300 bg-black"
       onClick={onClick}
     >
-      {isProcessing && (
-        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm">
-           <Loader2 className="w-10 h-10 text-[#00FA9A] animate-spin mb-2" />
-           <p className="text-[#00FA9A] text-xs font-mono uppercase tracking-widest">Traitement...</p>
-        </div>
-      )}
-
       <img 
         src={project.image} 
         key={project.image} 
@@ -320,17 +224,12 @@ const Card: React.FC<CardProps> = ({ project, onUpdateImage, onUpdateText, onCli
       
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-60 pointer-events-none"></div>
       
-      <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center transition-opacity duration-300 pointer-events-none ${isDragOver ? 'opacity-100' : 'opacity-0'}`}>
-         <Upload className="w-12 h-12 text-[#00FA9A] mb-2 animate-bounce" />
-         <p className="text-white font-bold uppercase tracking-widest text-sm">Déposer pour changer</p>
-      </div>
-
       <div className="absolute bottom-6 left-6 z-20" onClick={(e) => e.stopPropagation()}>
         <div className="text-2xl font-bold tracking-tighter uppercase mb-1 text-white">
-          <EditableText value={project.title} onSave={(val) => onUpdateText(project.id, 'title', val)} />
+          <EditableText value={project.title} storageKey={`marquee_proj_${project.id}_title`} />
         </div>
         <div className="text-xs text-neutral-400 uppercase tracking-widest">
-           <EditableText value={project.category} onSave={(val) => onUpdateText(project.id, 'category', val)} />
+           <EditableText value={project.category} storageKey={`marquee_proj_${project.id}_category`} />
         </div>
       </div>
     </div>
@@ -364,55 +263,11 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     }
   }, []);
 
-  const saveToStorage = (r1: Project[], r2: Project[]) => {
-    localStorage.setItem('axem_marquee_row1', JSON.stringify(r1));
-    localStorage.setItem('axem_marquee_row2', JSON.stringify(r2));
-    setHasCustomData(true);
-  };
-
-  const handleUpdateImage = (rowId: 1 | 2, projectId: number, newImage: string) => {
-    const updateList = (list: Project[]) => list.map(p => p.id === projectId ? { ...p, image: newImage } : p);
-    
-    if (rowId === 1) {
-      const newRow1 = updateList(row1);
-      setRow1(newRow1);
-      saveToStorage(newRow1, row2);
-    } else {
-      const newRow2 = updateList(row2);
-      setRow2(newRow2);
-      saveToStorage(row1, newRow2);
-    }
-  };
-
-  const handleUpdateText = (rowId: 1 | 2, projectId: number, field: 'title' | 'category', value: string) => {
-    const updateList = (list: Project[]) => list.map(p => p.id === projectId ? { ...p, [field]: value } : p);
-    
-    if (rowId === 1) {
-      const newRow1 = updateList(row1);
-      setRow1(newRow1);
-      saveToStorage(newRow1, row2);
-    } else {
-      const newRow2 = updateList(row2);
-      setRow2(newRow2);
-      saveToStorage(row1, newRow2);
-    }
-  };
-
   const handleCardClick = (rowId: 1 | 2, project: Project) => {
     if (onOpenProject) {
-        // We pass the full project object, including the HTML content we just added
         onOpenProject(project.id, project, (id, newData) => {
-            // Callback to save changes coming from Detail Page (e.g. edited text)
-            const updateList = (list: Project[]) => list.map(p => p.id === id ? { ...p, ...newData } : p);
-             if (rowId === 1) {
-                const newRow1 = updateList(row1);
-                setRow1(newRow1);
-                saveToStorage(newRow1, row2);
-            } else {
-                const newRow2 = updateList(row2);
-                setRow2(newRow2);
-                saveToStorage(row1, newRow2);
-            }
+           // We keep the structure to allow text updates via Detail Page if implemented there,
+           // even if drag and drop is disabled here.
         });
     }
   };
@@ -439,7 +294,7 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
           </h2>
           <p className="text-xs text-neutral-500 mt-2 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00FA9A] animate-pulse"></span>
-            <EditableText value="Glissez une image pour mettre à jour, cliquez pour voir le détail." storageKey="marquee_subtitle" />
+            <EditableText value="Cliquez pour voir le détail." storageKey="marquee_subtitle" />
           </p>
         </div>
         
@@ -461,15 +316,15 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
       <div className="relative w-full flex overflow-hidden mb-8 group">
         <div className="flex gap-6 animate-marquee flex-shrink-0 px-3 min-w-full">
-           {row1.map(p => <Card key={`r1-${p.id}-a`} project={p} onClick={() => handleCardClick(1, p)} onUpdateImage={(id, img) => handleUpdateImage(1, id, img)} onUpdateText={(id, f, v) => handleUpdateText(1, id, f, v)} />)}
-           {row1.map(p => <Card key={`r1-${p.id}-b`} project={p} onClick={() => handleCardClick(1, p)} onUpdateImage={(id, img) => handleUpdateImage(1, id, img)} onUpdateText={(id, f, v) => handleUpdateText(1, id, f, v)} />)}
+           {row1.map(p => <Card key={`r1-${p.id}-a`} project={p} onClick={() => handleCardClick(1, p)} />)}
+           {row1.map(p => <Card key={`r1-${p.id}-b`} project={p} onClick={() => handleCardClick(1, p)} />)}
         </div>
       </div>
 
       <div className="relative w-full flex overflow-hidden group">
         <div className="flex gap-6 animate-marquee-reverse flex-shrink-0 px-3 min-w-full">
-           {row2.map(p => <Card key={`r2-${p.id}-a`} project={p} onClick={() => handleCardClick(2, p)} onUpdateImage={(id, img) => handleUpdateImage(2, id, img)} onUpdateText={(id, f, v) => handleUpdateText(2, id, f, v)} />)}
-           {row2.map(p => <Card key={`r2-${p.id}-b`} project={p} onClick={() => handleCardClick(2, p)} onUpdateImage={(id, img) => handleUpdateImage(2, id, img)} onUpdateText={(id, f, v) => handleUpdateText(2, id, f, v)} />)}
+           {row2.map(p => <Card key={`r2-${p.id}-a`} project={p} onClick={() => handleCardClick(2, p)} />)}
+           {row2.map(p => <Card key={`r2-${p.id}-b`} project={p} onClick={() => handleCardClick(2, p)} />)}
         </div>
       </div>
     </section>

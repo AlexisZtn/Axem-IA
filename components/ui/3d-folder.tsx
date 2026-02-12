@@ -1,5 +1,6 @@
+
 import React, { useState, useRef, useEffect, useLayoutEffect, useCallback, forwardRef } from 'react';
-import { X, ExternalLink, ChevronLeft, ChevronRight, Upload, Layers, FolderInput, Loader2 } from 'lucide-react';
+import { X, ExternalLink, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import EditableText from './EditableText';
 
@@ -16,50 +17,6 @@ export interface Project {
 
 const PLACEHOLDER_IMAGE = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200";
 
-// --- Utility: Compress Image (Consistent with MarqueeSection) ---
-const compressImage = (file: File): Promise<string> => {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        // Max Quality settings: 4K limit
-        const MAX_WIDTH = 3840;
-        const MAX_HEIGHT = 3840;
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width;
-            width = MAX_WIDTH;
-          }
-        } else {
-          if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height;
-            height = MAX_HEIGHT;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
-            ctx.drawImage(img, 0, 0, width, height);
-        }
-        
-        // Compress to JPEG 1.0 quality (Max)
-        resolve(canvas.toDataURL('image/jpeg', 1.0));
-      };
-      img.src = event.target?.result as string;
-    };
-    reader.readAsDataURL(file);
-  });
-};
-
 // --- Internal Components ---
 
 interface ProjectCardProps {
@@ -70,50 +27,16 @@ interface ProjectCardProps {
   totalCount: number;
   onClick: () => void;
   isSelected: boolean;
-  onImagesDrop?: (files: File[]) => void;
 }
 
 const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
-  ({ project, delay, isVisible, index, totalCount, onClick, isSelected, onImagesDrop }, ref) => {
+  ({ project, delay, isVisible, index, totalCount, onClick, isSelected }, ref) => {
     const middleIndex = (totalCount - 1) / 2;
     const factor = totalCount > 1 ? (index - middleIndex) / middleIndex : 0;
     
     const rotation = factor * 25; 
     const translationX = factor * 85; 
     const translationY = Math.abs(factor) * 12;
-    
-    const [isCardDragOver, setIsCardDragOver] = useState(false);
-    const [isProcessing, setIsProcessing] = useState(false);
-
-    const handleDragOver = (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation(); // Stop bubbling to Folder
-      setIsCardDragOver(true);
-    };
-
-    const handleDragLeave = (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsCardDragOver(false);
-    };
-
-    const handleDrop = async (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation(); // Stop bubbling to Folder
-      setIsCardDragOver(false);
-      
-      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-         const files = (Array.from(e.dataTransfer.files) as File[]).filter(f => f.type.startsWith('image/'));
-         if (files.length > 0 && onImagesDrop) {
-            setIsProcessing(true);
-            try {
-                await onImagesDrop(files);
-            } finally {
-                setIsProcessing(false);
-            }
-         }
-      }
-    };
 
     return (
       <div
@@ -128,7 +51,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             : "translateY(0px) translateX(0px) rotate(0deg) scale(0.4)",
           opacity: isSelected ? 0 : isVisible ? 1 : 0,
           transition: `all 700ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-          zIndex: isCardDragOver ? 100 : 10 + index, // Pop to top on drag
+          zIndex: 10 + index,
           left: "-40px",
           top: "-56px",
         }}
@@ -136,23 +59,12 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           e.stopPropagation();
           onClick();
         }}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
       >
         <div className={cn(
           "w-full h-full rounded-lg overflow-hidden shadow-xl bg-card border border-white/5 relative bg-black",
           "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          "group-hover/card:-translate-y-6 group-hover/card:shadow-2xl group-hover/card:shadow-accent/40 group-hover/card:ring-2 group-hover/card:ring-accent group-hover/card:scale-125",
-          isCardDragOver && "ring-4 ring-accent scale-125 shadow-accent/50 -translate-y-8"
+          "group-hover/card:-translate-y-6 group-hover/card:shadow-2xl group-hover/card:shadow-accent/40 group-hover/card:ring-2 group-hover/card:ring-accent group-hover/card:scale-125"
         )}>
-          {/* Loading Indicator */}
-          {isProcessing && (
-            <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80">
-                <Loader2 className="w-6 h-6 text-accent animate-spin" />
-            </div>
-          )}
-
           <img 
             src={project.image || PLACEHOLDER_IMAGE} 
             key={project.image}
@@ -171,13 +83,6 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
              </div>
           )}
           
-          {/* Drop Overlay */}
-          {isCardDragOver && (
-            <div className="absolute inset-0 bg-accent/30 flex items-center justify-center backdrop-blur-[2px]">
-                <Upload className="w-8 h-8 text-white drop-shadow-md animate-bounce" />
-            </div>
-          )}
-
           <p className="absolute bottom-1.5 left-1.5 right-1.5 text-[9px] font-black uppercase tracking-tighter text-white truncate drop-shadow-md">
             {project.title}
           </p>
@@ -553,8 +458,6 @@ export const AnimatedFolder: React.FC<AnimatedFolderProps> = ({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [sourceRect, setSourceRect] = useState<DOMRect | null>(null);
   const [hiddenCardId, setHiddenCardId] = useState<string | null>(null);
-  const [isFolderDragOver, setIsFolderDragOver] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Only show first 5 projects in the folder view to avoid visual clutter
@@ -575,64 +478,6 @@ export const AnimatedFolder: React.FC<AnimatedFolderProps> = ({
       if (onOpenDetail) onOpenDetail(index);
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsFolderDragOver(true);
-    setIsHovered(true); 
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsFolderDragOver(false);
-  };
-
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsFolderDragOver(false);
-
-    if (!onFolderUpdate) return;
-
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        const files = (Array.from(e.dataTransfer.files) as File[]).filter(f => f.type.startsWith('image/'));
-        if (files.length === 0) return;
-
-        setIsProcessing(true);
-        const newImagesBase64: string[] = [];
-        for (const file of files) {
-            try {
-                const base64 = await compressImage(file);
-                newImagesBase64.push(base64);
-            } catch (err) {
-                console.error("Error processing image:", err);
-            }
-        }
-
-        if (newImagesBase64.length > 0) {
-            onFolderUpdate(newImagesBase64);
-        }
-        setIsProcessing(false);
-    }
-  };
-
-  const handleCardDrop = async (index: number, files: File[]) => {
-      if (!onProjectUpdate) return;
-      
-      const newImagesBase64: string[] = [];
-      for (const file of files) {
-         try {
-            const base64 = await compressImage(file);
-            newImagesBase64.push(base64);
-         } catch (err) { console.error(err); }
-      }
-      
-      if (newImagesBase64.length > 0) {
-         onProjectUpdate(index, newImagesBase64);
-      }
-  };
-
   const backBg = gradient || "linear-gradient(135deg, var(--folder-back) 0%, var(--folder-tab) 100%)";
   const tabBg = gradient || "var(--folder-tab)";
   const frontBg = gradient || "linear-gradient(135deg, var(--folder-front) 0%, var(--folder-back) 100%)";
@@ -642,31 +487,13 @@ export const AnimatedFolder: React.FC<AnimatedFolderProps> = ({
       <div
         className={cn(
             "relative flex flex-col items-center justify-center p-8 rounded-2xl cursor-pointer bg-card border transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group",
-            isFolderDragOver ? "border-accent shadow-[0_0_50px_rgba(0,250,154,0.3)] scale-105" : "border-border hover:shadow-2xl hover:shadow-accent/20 hover:border-accent/40",
+            "border-border hover:shadow-2xl hover:shadow-accent/20 hover:border-accent/40",
             className
         )}
         style={{ minWidth: "280px", minHeight: "320px", perspective: "1200px", transform: isHovered ? "scale(1.04) rotate(-1.5deg)" : "scale(1) rotate(0deg)" }}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => !isFolderDragOver && setIsHovered(false)}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        {isFolderDragOver && (
-            <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/80 rounded-2xl backdrop-blur-sm border-2 border-accent border-dashed animate-pulse pointer-events-none">
-                <FolderInput className="w-12 h-12 text-accent mb-4" />
-                <p className="text-accent font-bold uppercase tracking-widest text-sm">Remplir le dossier</p>
-                <p className="text-white/60 text-xs mt-2 max-w-[200px] text-center">Ajoutez autant d'images que vous voulez. Elles seront toutes dans le projet.</p>
-            </div>
-        )}
-        
-        {isProcessing && (
-            <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/50 rounded-2xl backdrop-blur-sm pointer-events-none">
-                <Loader2 className="w-10 h-10 text-accent animate-spin mb-2" />
-                <p className="text-white text-xs font-mono uppercase">Traitement...</p>
-            </div>
-        )}
-
         <div
           className="absolute inset-0 rounded-2xl transition-opacity duration-700"
           style={{ background: gradient ? `radial-gradient(circle at 50% 70%, ${gradient.match(/#[a-fA-F0-9]{3,6}/)?.[0] || 'var(--accent)'} 0%, transparent 70%)` : "radial-gradient(circle at 50% 70%, var(--accent) 0%, transparent 70%)", opacity: isHovered ? 0.12 : 0 }}
@@ -686,7 +513,6 @@ export const AnimatedFolder: React.FC<AnimatedFolderProps> = ({
                 totalCount={previewProjects.length} 
                 onClick={() => handleProjectClick(project, index)} 
                 isSelected={hiddenCardId === project.id} 
-                onImagesDrop={(files) => handleCardDrop(index, files)}
               />
             ))}
           </div>
