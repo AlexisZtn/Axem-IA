@@ -101,14 +101,77 @@ const defaultProjectsRow1: Project[] = [
     id: 3, 
     title: 'Voix Synthétiques', 
     category: 'Podcast & Contenu', 
-    image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/f910bd10a749e053c7a1a513df12d5209365106d/Images/Voix%20Synthe%CC%81tique.png?raw=true',
     content: `
-      <h1>Design Sonore & Voix IA</h1>
-      <p class="lead">Donnez une voix à votre marque. Littéralement.</p>
-      <hr />
-      <h3>Cas d'usage</h3>
-      <p>Création de podcasts internes, doublage automatique de vidéos marketing, ou assistants vocaux interactifs.</p>
-      <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80" alt="Waveform" style="width:100%; border-radius:12px; margin-top:20px;" />
+      <h1 class="text-3xl font-bold mb-8">Design Sonore & Voix IA : Automatisation & Relation Client</h1>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">Le Concept</h2>
+        <p class="text-lg text-neutral-300">Nous transformons votre relation client en créant des agents vocaux intelligents et des interfaces sonores sur mesure. L'objectif : automatiser les tâches répétitives tout en offrant une expérience fluide, humaine et disponible 24h/24.</p>
+      </div>
+
+      <div class="bg-[#1a1a1a] p-8 rounded-xl border-l-4 border-[#00FA9A] mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-white">Notre Méthode</h2>
+        <ul class="space-y-6">
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Conception d'Agents Conversationnels</strong>
+                    <span class="text-neutral-300">Nous créons des voix IA capables de comprendre et de répondre aux requêtes complexes (suivi de commande, gestion de SAV, prise de rendez-vous).</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Identité Vocale Signature</strong>
+                    <span class="text-neutral-300">Finies les voix robotiques impersonnelles. Nous développons une voix spécifique à votre entreprise, chaleureuse et professionnelle, qui rassure vos clients.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Intégration Systèmes</strong>
+                    <span class="text-neutral-300">Nos voix IA se connectent à vos outils (CRM, bases de données) pour fournir des réponses précises et personnalisées en temps réel.</span>
+                </div>
+            </li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Cas d'Usage Business</h2>
+      <div class="space-y-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Gestion des Commandes & SAV</h3>
+            <p class="text-neutral-300">Automatisation du traitement des appels pour le suivi de colis, les demandes de remboursement ou la modification de commandes, sans attente pour le client.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Standard Vocal Intelligent (IVR)</h3>
+            <p class="text-neutral-300">Orientation précise des clients vers le bon service grâce à une compréhension naturelle du langage, remplaçant les menus numériques fastidieux ("Tapez 1...").</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Assistance Proactive</h3>
+            <p class="text-neutral-300">Rappels de rendez-vous, confirmations de paiement ou alertes de livraison via des appels automatisés ultra-réalistes.</p>
+         </div>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Pourquoi intégrer la Voix IA ?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Disponibilité Totale</div>
+            <p class="text-sm text-neutral-400">Un service client performant 24h/7j, capable de gérer des centaines d'appels simultanés.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Réduction Coûts</div>
+            <p class="text-sm text-neutral-400">Désengorgez vos équipes humaines des demandes à faible valeur ajoutée.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Expérience Premium</div>
+            <p class="text-sm text-neutral-400">Une réponse instantanée avec une voix fluide qui renforce la confiance.</p>
+         </div>
+      </div>
+      
+      <div class="mt-8 p-6 bg-[#00FA9A]/10 rounded-xl border border-[#00FA9A]/20 text-center">
+         <p class="text-white text-lg font-medium">"Nous ne créons pas seulement une voix, nous bâtissons un collaborateur virtuel capable de gérer vos opérations de front-office avec une efficacité inégalée."</p>
+      </div>
     `
   },
   { 
@@ -304,9 +367,9 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   useEffect(() => {
     try {
-      // Changed to v6 to force refresh of the updated "Studio Photo Virtuel" gallery images
-      const savedRow1 = localStorage.getItem('axem_marquee_row1_v6');
-      const savedRow2 = localStorage.getItem('axem_marquee_row2_v6');
+      // Changed to v7 to force refresh of the updated "Voix Synthétiques" content
+      const savedRow1 = localStorage.getItem('axem_marquee_row1_v7');
+      const savedRow2 = localStorage.getItem('axem_marquee_row2_v7');
       
       if (savedRow1) {
         setRow1(JSON.parse(savedRow1));
@@ -334,8 +397,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     if (window.confirm("Réinitialiser les images du portfolio par défaut ?")) {
       setRow1(defaultProjectsRow1);
       setRow2(defaultProjectsRow2);
-      localStorage.removeItem('axem_marquee_row1_v6');
-      localStorage.removeItem('axem_marquee_row2_v6');
+      localStorage.removeItem('axem_marquee_row1_v7');
+      localStorage.removeItem('axem_marquee_row2_v7');
       setHasCustomData(false);
     }
   };

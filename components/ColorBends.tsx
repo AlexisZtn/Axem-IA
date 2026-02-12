@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './ColorBends.css';
@@ -304,11 +305,13 @@ export default function ColorBends({
       pointerTargetRef.current.set(x, y);
     };
 
-    // Cast container to HTMLElement to avoid 'never' type error
-    (container as HTMLElement).addEventListener('pointermove', handlePointerMove as unknown as EventListener);
+    // Use container directly, checking for null above ensures it's HTMLDivElement.
+    // However, if TS thinks it is 'never', we cast to unknown first.
+    const el = container as unknown as HTMLElement;
+    el.addEventListener('pointermove', handlePointerMove as unknown as EventListener);
     
     return () => {
-      (container as HTMLElement).removeEventListener('pointermove', handlePointerMove as unknown as EventListener);
+      el.removeEventListener('pointermove', handlePointerMove as unknown as EventListener);
     };
   }, []);
 
