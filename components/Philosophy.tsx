@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Users, Lightbulb, Cpu, Briefcase, Loader2, Upload } from 'lucide-react';
 import EditableText from './ui/EditableText';
@@ -54,7 +53,7 @@ const Philosophy: React.FC = () => {
 
   // Image States
   const [clementImage, setClementImage] = useState<string>("https://github.com/AlexisZtn/Axem-IA/blob/c803ba324e9ab3d7feca2b40566356fb2405cb21/components/Gemini_Generated_Image_s55lmls55lmls55l.jpg?raw=true");
-  const [alexisImage, setAlexisImage] = useState<string>("https://github.com/AlexisZtn/Axem-IA/blob/30e13194199c1c6c681954979c90242b710eebe1/components/Photo%20Alexis.png?raw=true");
+  const [alexisImage, setAlexisImage] = useState<string>("https://res.cloudinary.com/dafa3vxgb/image/upload/v1770836602/photo_alexis_puwpu0.png");
 
   // Editable Content State (initialized with defaults for animation logic)
   const defaultTextContent = "La rencontre de deux mondes : L'Excellence Technique & La Stratégie Business. Nous ne sommes pas juste une agence, nous sommes le pont entre la complexité des machines et la réalité de votre croissance.";
@@ -243,7 +242,7 @@ const Philosophy: React.FC = () => {
                     <EditableText value="Clément" storageKey="philo_left_name" />
                 </div>
                 <div className="text-sm md:text-base text-[#00FA9A] uppercase tracking-widest font-bold">
-                    <EditableText value="Ingénieur Télécom" storageKey="philo_left_role" />
+                    <EditableText value="Télécom Paris" storageKey="philo_left_role" />
                 </div>
                 <p className="text-center text-base md:text-lg text-neutral-400 max-w-[280px] leading-relaxed">
                    <EditableText isTextarea value="L'architecte. Celui qui fait parler les machines, du vieil AS400 aux derniers modèles LLM." storageKey="philo_left_desc" />
