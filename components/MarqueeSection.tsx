@@ -121,63 +121,58 @@ const defaultProjectsRow1: Project[] = [
       'https://github.com/AlexisZtn/Axem-IA/blob/1d4d567d3e8c0ed244636560c43e6a697a3040c7/components/photo%20ia%20produit%20montre.jpg?raw=true'
     ],
     content: `
-      <h1 class="text-3xl font-bold mb-2">📸 Use Case : Studio Photo Virtuel – Secteur Parfumerie</h1>
-      
-      <div class="mt-8">
-        <h2 class="text-2xl font-bold mb-4">Le Projet</h2>
-        <p class="mb-6 text-neutral-300 text-lg">Production d’un catalogue complet de visuels marketing pour une marque de parfum souhaitant renouveler son image sur le web et les réseaux sociaux.</p>
+      <h1 class="text-3xl font-bold mb-8">📸 Studio Photo Virtuel : Parfumerie & Cosmétique</h1>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">Le Concept</h2>
+        <p class="text-lg text-neutral-300">Nous remplaçons les séances photo complexes et coûteuses par un Studio Virtuel ultra-réaliste. Plus besoin d'envoyer vos produits à l'autre bout du monde ou de louer un studio : nous créons vos visuels marketing directement via l'Intelligence Artificielle.</p>
       </div>
 
-      <div class="bg-[#1a1a1a] p-6 rounded-xl border-l-4 border-[#00FA9A] mb-8">
-        <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">La Problématique</h3>
-        <p class="text-neutral-300">Le coût d'un shooting professionnel (photographe, styliste culinaire/déco, retouches) rendait impossible la création de visuels variés pour chaque saison ou chaque plateforme. La marque avait besoin de volume sans sacrifier la qualité.</p>
+      <div class="bg-[#1a1a1a] p-8 rounded-xl border-l-4 border-[#00FA9A] mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-white">Notre Méthode</h2>
+        <ul class="space-y-6">
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Entraînement de précision (LoRA)</strong>
+                    <span class="text-neutral-300">Nous "apprenons" à notre IA chaque détail de votre flacon (forme, étiquette, texture du verre). Cela garantit que votre produit est parfaitement reconnaissable et identique sur chaque image.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Shooting Illimité</strong>
+                    <span class="text-neutral-300">Une fois le modèle entraîné, nous pouvons placer votre produit dans n'importe quel décor (nature, intérieur design, studio épuré) avec n'importe quel type d'éclairage.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Mise en situation humaine</strong>
+                    <span class="text-neutral-300">Nous intégrons votre produit entre les mains de mannequins virtuels créés sur mesure pour correspondre à votre cible, sans frais de casting ni de droits à l'image.</span>
+                </div>
+            </li>
+        </ul>
       </div>
 
-      <h2 class="text-2xl font-bold mb-4">La Méthode</h2>
-      <p class="mb-6 text-neutral-400">Nous avons remplacé le studio physique par notre technologie de génération d'images par IA :</p>
-      
-      <ul class="space-y-6 mb-12">
-        <li class="flex gap-4">
-            <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full"></div>
-            <div>
-                <strong class="text-white block mb-1">Entraînement de précision (LoRA)</strong>
-                <span class="text-neutral-400">Nous avons entraîné notre modèle sur le produit spécifique pour capturer chaque détail du flacon et de l'étiquette.</span>
-            </div>
-        </li>
-        <li class="flex gap-4">
-            <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full"></div>
-            <div>
-                <strong class="text-white block mb-1">Décors à la demande</strong>
-                <span class="text-neutral-400">Création d'ambiances variées en quelques clics : fraîcheur printanière, univers urbain moderne, ou ambiance cocooning.</span>
-            </div>
-        </li>
-        <li class="flex gap-4">
-            <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full"></div>
-            <div>
-                <strong class="text-white block mb-1">Shooting avec mannequins</strong>
-                <span class="text-neutral-400">Intégration du parfum dans des situations de vie réelle avec des modèles virtuels, évitant ainsi les frais de casting et de droits à l'image.</span>
-            </div>
-        </li>
-      </ul>
-
-      <h2 class="text-2xl font-bold mb-6">L'Impact</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center hover:border-[#00FA9A]/50 transition-colors">
-            <div class="text-[#00FA9A] font-bold text-lg mb-2">Budget</div>
-            <p class="text-sm text-neutral-400">Coût divisé par 10 vs shooting classique.</p>
+      <h2 class="text-2xl font-bold mb-6">Pourquoi choisir le Virtuel ?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Coûts réduits</div>
+            <p class="text-sm text-neutral-400">Divisez votre budget de production par 10.</p>
          </div>
-         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center hover:border-[#00FA9A]/50 transition-colors">
-            <div class="text-[#00FA9A] font-bold text-lg mb-2">Réactivité</div>
-            <p class="text-sm text-neutral-400">Nouveaux visuels générés en 24h chrono.</p>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Rapidité</div>
+            <p class="text-sm text-neutral-400">Obtenez des dizaines de visuels HD en quelques jours seulement.</p>
          </div>
-         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center hover:border-[#00FA9A]/50 transition-colors">
-            <div class="text-[#00FA9A] font-bold text-lg mb-2">Rendu Pro</div>
-            <p class="text-sm text-neutral-400">Qualité magazine & texture photo-réaliste.</p>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Liberté Créative</div>
+            <p class="text-sm text-neutral-400">Changez d'ambiance, de saison ou de décor en un clic.</p>
          </div>
       </div>
       
-      <div class="mt-8 text-center">
-         <p class="text-white italic text-lg font-playfair">"Des photos produits infinies, prêtes à l'emploi, pour le prix d'un seul packshot traditionnel."</p>
+      <div class="mt-8 p-6 bg-[#00FA9A]/10 rounded-xl border border-[#00FA9A]/20 text-center">
+         <p class="text-white text-lg font-medium">"Vous nous confiez votre produit, nous vous livrons des shootings complets, variés et professionnels, prêts à l'emploi pour votre site web et vos réseaux sociaux."</p>
       </div>
     `
   },
@@ -304,8 +299,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   useEffect(() => {
     try {
-      const savedRow1 = localStorage.getItem('axem_marquee_row1_v2');
-      const savedRow2 = localStorage.getItem('axem_marquee_row2_v2');
+      const savedRow1 = localStorage.getItem('axem_marquee_row1_v3');
+      const savedRow2 = localStorage.getItem('axem_marquee_row2_v3');
       
       if (savedRow1) {
         setRow1(JSON.parse(savedRow1));
@@ -333,8 +328,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     if (window.confirm("Réinitialiser les images du portfolio par défaut ?")) {
       setRow1(defaultProjectsRow1);
       setRow2(defaultProjectsRow2);
-      localStorage.removeItem('axem_marquee_row1_v2');
-      localStorage.removeItem('axem_marquee_row2_v2');
+      localStorage.removeItem('axem_marquee_row1_v3');
+      localStorage.removeItem('axem_marquee_row2_v3');
       setHasCustomData(false);
     }
   };
