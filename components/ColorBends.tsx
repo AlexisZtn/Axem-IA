@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './ColorBends.css';
@@ -110,6 +111,7 @@ interface ColorBendsProps {
   mouseInfluence?: number;
   parallax?: number;
   noise?: number;
+  color?: string; // Optional prop to match the usage snippet, though unused in logic
 }
 
 export default function ColorBends({
@@ -127,7 +129,7 @@ export default function ColorBends({
   parallax = 0.5,
   noise = 0.1
 }: ColorBendsProps) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const rafRef = useRef<number | null>(null);
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
@@ -199,8 +201,7 @@ export default function ColorBends({
 
     handleResize();
 
-    // Fix: Use typeof check to avoid TS narrowing window to never if ResizeObserver is assumed present
-    if (typeof ResizeObserver !== 'undefined') {
+    if ('ResizeObserver' in window) {
       const ro = new ResizeObserver(handleResize);
       ro.observe(container);
       resizeObserverRef.current = ro;
@@ -240,13 +241,12 @@ export default function ColorBends({
         container.removeChild(renderer.domElement);
       }
     };
-  }, []); // Intentionally empty to setup once
+  }, [frequency, mouseInfluence, noise, parallax, scale, speed, transparent, warpStrength]);
 
-  // Update uniforms when props change
   useEffect(() => {
     const material = materialRef.current;
     const renderer = rendererRef.current;
-    if (!material || !renderer) return;
+    if (!material) return;
 
     rotationRef.current = rotation;
     autoRotateRef.current = autoRotate;
@@ -260,17 +260,13 @@ export default function ColorBends({
 
     const toVec3 = (hex: string) => {
       const h = hex.replace('#', '').trim();
-      let r = 0, g = 0, b = 0;
+      let v;
       if (h.length === 3) {
-        r = parseInt(h[0] + h[0], 16);
-        g = parseInt(h[1] + h[1], 16);
-        b = parseInt(h[2] + h[2], 16);
+          v = [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)];
       } else {
-        r = parseInt(h.slice(0, 2), 16);
-        g = parseInt(h.slice(2, 4), 16);
-        b = parseInt(h.slice(4, 6), 16);
+          v = [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
       }
-      return new THREE.Vector3(r / 255, g / 255, b / 255);
+      return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
     };
 
     const arr = (colors || []).filter(Boolean).slice(0, MAX_COLORS).map(toVec3);
@@ -298,7 +294,7 @@ export default function ColorBends({
   ]);
 
   useEffect(() => {
-    const container = containerRef.current;
+    const container = containerRef.current as HTMLDivElement;
     if (!container) return;
 
     const handlePointerMove = (e: any) => {
@@ -308,10 +304,9 @@ export default function ColorBends({
       pointerTargetRef.current.set(x, y);
     };
 
-    // Use explicit casting or any for the handler to avoid type mismatch if PointerEvent differs
-    container.addEventListener('pointermove', handlePointerMove as EventListener);
+    container.addEventListener('pointermove', handlePointerMove);
     return () => {
-      container.removeEventListener('pointermove', handlePointerMove as EventListener);
+      container.removeEventListener('pointermove', handlePointerMove);
     };
   }, []);
 

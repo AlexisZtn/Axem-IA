@@ -1,5 +1,6 @@
+
 import React from 'react';
-import LightRays from './LightRays';
+import ColorBends from './ColorBends';
 import EditableText from './ui/EditableText';
 
 const Hero: React.FC = () => {
@@ -17,18 +18,21 @@ const Hero: React.FC = () => {
   return (
     <div className="flex flex-col min-h-[100vh] z-10 pt-40 pr-4 pb-32 pl-3 relative items-center justify-center overflow-hidden">
       {/* Background Effect */}
-      <div className="absolute inset-0 z-[-1]">
-         <LightRays
-            raysOrigin="top-center"
-            raysColor="#00FA9A"
-            raysSpeed={1.5}
-            lightSpread={0.8}
-            rayLength={1.2}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0.1}
-            distortion={0.05}
-            className="custom-rays"
+      <div className="absolute inset-0 z-[-1] opacity-50">
+         <ColorBends
+            colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
+            rotation={115}
+            speed={0.8}
+            scale={1}
+            frequency={1}
+            warpStrength={1}
+            mouseInfluence={1}
+            parallax={1}
+            noise={0}
+            transparent={true}
+            autoRotate={0}
+            color="#6c00f0"
+            className="w-full h-full"
           />
       </div>
 
