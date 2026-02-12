@@ -207,14 +207,14 @@ const Philosophy: React.FC = () => {
           {/* Children Nodes */}
           <div className="grid grid-cols-2 gap-12 md:gap-32 w-full mt-10">
             
-            {/* Left Branch - Clément */}
+            {/* Left Branch - Clément (Le Stratège) */}
             <div className="flex flex-col items-center">
               <div className="flex flex-col items-center gap-6">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 bg-[#050505] px-4 relative z-10 -mt-3">
-                    <EditableText value="Tech & Système" storageKey="philo_left_tag" />
+                    <EditableText value="Stratégie & Business" storageKey="philo_left_tag_v2" />
                 </span>
                 
-                {/* Image Avatar - INCREASED SIZE */}
+                {/* Image Avatar */}
                 <div 
                   className={`w-32 h-32 md:w-48 md:h-48 rounded-full bg-neutral-800 border-2 border-white/10 overflow-hidden mb-4 relative group cursor-pointer transition-all duration-300 shadow-2xl
                     ${dragOverState.target === 'clement' ? 'ring-4 ring-[#00FA9A] scale-105' : 'hover:border-white/30'}
@@ -242,10 +242,10 @@ const Philosophy: React.FC = () => {
                     <EditableText value="Clément" storageKey="philo_left_name" />
                 </div>
                 <div className="text-sm md:text-base text-[#00FA9A] uppercase tracking-widest font-bold">
-                    <EditableText value="Télécom Paris" storageKey="philo_left_role" />
+                    <EditableText value="ESSEC" storageKey="philo_left_role_v2" />
                 </div>
                 <p className="text-center text-base md:text-lg text-neutral-400 max-w-[280px] leading-relaxed">
-                   <EditableText isTextarea value="L'architecte. Celui qui fait parler les machines, du vieil AS400 aux derniers modèles LLM." storageKey="philo_left_desc" />
+                   <EditableText isTextarea value="Le stratège. Celui qui traduit la technologie en rentabilité et en leviers de croissance." storageKey="philo_left_desc_v2" />
                 </p>
 
                 <div className="h-10 w-px border-l border-dashed border-white/20 my-2"></div>
@@ -253,23 +253,23 @@ const Philosophy: React.FC = () => {
                 <div className="group relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                   <div className="relative px-8 py-4 rounded-xl bg-[#0a0a0a] border border-white/10 flex items-center gap-4">
-                    <Cpu className="w-5 h-5 text-[#00FA9A]" />
+                    <Briefcase className="w-5 h-5 text-[#00FA9A]" />
                     <span className="text-base md:text-lg font-medium text-white">
-                        <EditableText value="Expertise Tech" storageKey="philo_left_skill" />
+                        <EditableText value="Vision Business" storageKey="philo_left_skill_v2" />
                     </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Branch - Alexis */}
+            {/* Right Branch - Alexis (L'Ingénieur) */}
             <div className="flex flex-col items-center">
               <div className="flex flex-col items-center gap-6">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 bg-[#050505] px-4 relative z-10 -mt-3">
-                    <EditableText value="Stratégie & Business" storageKey="philo_right_tag" />
+                    <EditableText value="Tech & Système" storageKey="philo_right_tag_v2" />
                 </span>
                 
-                {/* Image Avatar - INCREASED SIZE */}
+                {/* Image Avatar */}
                 <div 
                   className={`w-32 h-32 md:w-48 md:h-48 rounded-full bg-neutral-800 border-2 border-white/10 overflow-hidden mb-4 relative group cursor-pointer transition-all duration-300 shadow-2xl
                     ${dragOverState.target === 'alexis' ? 'ring-4 ring-[#00FA9A] scale-105' : 'hover:border-white/30'}
@@ -297,10 +297,10 @@ const Philosophy: React.FC = () => {
                     <EditableText value="Alexis" storageKey="philo_right_name" />
                 </div>
                 <div className="text-sm md:text-base text-[#00FA9A] uppercase tracking-widest font-bold">
-                    <EditableText value="ESSEC" storageKey="philo_right_role" />
+                    <EditableText value="Télécom Paris" storageKey="philo_right_role_v2" />
                 </div>
                 <p className="text-center text-base md:text-lg text-neutral-400 max-w-[280px] leading-relaxed">
-                   <EditableText isTextarea value="Le stratège. Celui qui traduit la technologie en rentabilité et en leviers de croissance." storageKey="philo_right_desc" />
+                   <EditableText isTextarea value="L'ingénieur. Celui qui forge les systèmes et automatise l'intelligence pour transformer la vision en moteur de production." storageKey="philo_right_desc_v3" />
                 </p>
 
                 <div className="h-10 w-px border-l border-dashed border-white/20 my-2"></div>
@@ -308,9 +308,9 @@ const Philosophy: React.FC = () => {
                 <div className="group relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                   <div className="relative px-8 py-4 rounded-xl bg-[#0a0a0a] border border-white/10 flex items-center gap-4">
-                    <Briefcase className="w-5 h-5 text-[#00FA9A]" />
+                    <Cpu className="w-5 h-5 text-[#00FA9A]" />
                     <span className="text-base md:text-lg font-medium text-white">
-                        <EditableText value="Vision Business" storageKey="philo_right_skill" />
+                        <EditableText value="Expertise Tech" storageKey="philo_right_skill_v2" />
                     </span>
                   </div>
                 </div>
