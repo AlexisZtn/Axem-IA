@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
       {/* Background Effect */}
       <div className="absolute inset-0 z-[-1] opacity-50">
          <ColorBends
-            colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
+            colors={["#001a10", "#005c39", "#00FA9A"]}
             rotation={115}
             speed={0.8}
             scale={1}
@@ -31,7 +31,7 @@ const Hero: React.FC = () => {
             noise={0}
             transparent={true}
             autoRotate={0}
-            color="#6c00f0"
+            color="#00FA9A"
             className="w-full h-full"
           />
       </div>

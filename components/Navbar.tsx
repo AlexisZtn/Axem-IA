@@ -60,7 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ customLogo }) => {
         className="group relative cursor-pointer transition-all duration-300 rounded-2xl p-2 -ml-2 hover:bg-white/5"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
-        <AxemLogo src={customLogo} className="h-10 md:h-12 w-auto relative z-0" />
+        <AxemLogo src={customLogo} className="h-16 md:h-20 w-auto relative z-0" />
       </div>
 
       {/* Right Column Stack */}
