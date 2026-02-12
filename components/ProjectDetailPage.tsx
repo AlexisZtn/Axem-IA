@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronLeft, Save, ArrowRight } from 'lucide-react';
 import EditableText from './ui/EditableText';
@@ -13,11 +12,24 @@ interface ProjectDetailProps {
 const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ projectId, initialData, onClose, onSave }) => {
   const [data, setData] = useState(initialData);
   const [content, setContent] = useState(initialData.content || "<h1>Détails du projet</h1><p>Ceci est une page de type Notion. Décrivez le contexte, les objectifs, et les résultats.</p>");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const updateField = (field: string, value: string) => {
     const newData = { ...data, [field]: value };
     setData(newData);
     onSave(projectId, newData);
+  };
+
+  const nextImage = () => {
+    if (data.gallery) {
+        setCurrentImageIndex((prev) => (prev + 1) % data.gallery.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (data.gallery) {
+        setCurrentImageIndex((prev) => (prev - 1 + data.gallery.length) % data.gallery.length);
+    }
   };
 
   return (
@@ -76,9 +88,37 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ projectId, initialDat
             </div>
         </div>
 
-        {/* Media Display (No Drop Zone) */}
-        <div className="w-full aspect-video rounded-xl border border-white/10 bg-white/5 relative overflow-hidden mb-12">
-             <img src={data.image} className="absolute inset-0 w-full h-full object-contain" alt="Project media" />
+        {/* Media Display - NO BORDER, NO BG */}
+        <div className="w-full relative mb-12 group">
+             {/* Slider Logic */}
+             {data.gallery && data.gallery.length > 1 ? (
+                 <div className="relative w-full rounded-xl overflow-hidden">
+                    <img 
+                        src={data.gallery[currentImageIndex]} 
+                        className="w-full h-auto object-contain" 
+                        alt="Project media" 
+                    />
+                    
+                    {/* Arrows */}
+                    <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition opacity-0 group-hover:opacity-100 z-10">
+                        <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition opacity-0 group-hover:opacity-100 rotate-180 z-10">
+                        <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    
+                    {/* Dots */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {data.gallery.map((_: any, idx: number) => (
+                            <div key={idx} className={`w-2 h-2 rounded-full transition-colors shadow-sm ${idx === currentImageIndex ? 'bg-[#00FA9A]' : 'bg-white/50'}`} />
+                        ))}
+                    </div>
+                 </div>
+             ) : (
+                 <div className="w-full rounded-xl overflow-hidden">
+                    <img src={data.image} className="w-full h-auto object-contain" alt="Project media" />
+                 </div>
+             )}
         </div>
 
         <div className="h-px w-full bg-white/10 mb-12"></div>

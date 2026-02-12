@@ -298,19 +298,23 @@ export default function ColorBends({
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    
+    // Explicitly casting to HTMLElement ensures TypeScript understands this is a DOM element
+    // and has access to addEventListener, fixing the "property does not exist on type 'never'" error.
+    const element = container as HTMLElement;
 
     const handlePointerMove = (e: PointerEvent) => {
-      const rect = container.getBoundingClientRect();
+      const rect = element.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
       const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
       pointerTargetRef.current.set(x, y);
     };
 
-    // Use container directly as it is an HTMLDivElement
-    container.addEventListener('pointermove', handlePointerMove);
+    // Use element directly as it is an HTMLDivElement
+    element.addEventListener('pointermove', handlePointerMove as unknown as EventListener);
     
     return () => {
-      container.removeEventListener('pointermove', handlePointerMove);
+      element.removeEventListener('pointermove', handlePointerMove as unknown as EventListener);
     };
   }, []);
 

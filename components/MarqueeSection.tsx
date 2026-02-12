@@ -7,6 +7,7 @@ interface Project {
   title: string;
   category: string;
   image: string;
+  gallery?: string[];
   content?: string; // HTML content for the detail page
 }
 
@@ -115,12 +116,69 @@ const defaultProjectsRow1: Project[] = [
     title: 'Photos Produit HD', 
     category: 'E-commerce', 
     image: 'https://github.com/AlexisZtn/Axem-IA/blob/b7f9ed78093123481320a0495bf708c7d1bd8381/components/photo%20ia%20produit%20parfum.jpg?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/b7f9ed78093123481320a0495bf708c7d1bd8381/components/photo%20ia%20produit%20parfum.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/1d4d567d3e8c0ed244636560c43e6a697a3040c7/components/photo%20ia%20produit%20montre.jpg?raw=true'
+    ],
     content: `
-      <h1>Studio Photo Virtuel</h1>
-      <p class="lead">Des shootings produits infinis pour 1/10ème du coût.</p>
-      <hr />
-      <h3>La Méthode</h3>
-      <p>Nous entraînons un modèle (LoRA) sur votre produit spécifique. Ensuite, nous pouvons le placer dans n'importe quel décor, sur n'importe quel mannequin, avec n'importe quel éclairage.</p>
+      <h1 class="text-3xl font-bold mb-2">📸 Use Case : Studio Photo Virtuel – Secteur Parfumerie</h1>
+      
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold mb-4">Le Projet</h2>
+        <p class="mb-6 text-neutral-300 text-lg">Production d’un catalogue complet de visuels marketing pour une marque de parfum souhaitant renouveler son image sur le web et les réseaux sociaux.</p>
+      </div>
+
+      <div class="bg-[#1a1a1a] p-6 rounded-xl border-l-4 border-[#00FA9A] mb-8">
+        <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">La Problématique</h3>
+        <p class="text-neutral-300">Le coût d'un shooting professionnel (photographe, styliste culinaire/déco, retouches) rendait impossible la création de visuels variés pour chaque saison ou chaque plateforme. La marque avait besoin de volume sans sacrifier la qualité.</p>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-4">La Méthode</h2>
+      <p class="mb-6 text-neutral-400">Nous avons remplacé le studio physique par notre technologie de génération d'images par IA :</p>
+      
+      <ul class="space-y-6 mb-12">
+        <li class="flex gap-4">
+            <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full"></div>
+            <div>
+                <strong class="text-white block mb-1">Entraînement de précision (LoRA)</strong>
+                <span class="text-neutral-400">Nous avons entraîné notre modèle sur le produit spécifique pour capturer chaque détail du flacon et de l'étiquette.</span>
+            </div>
+        </li>
+        <li class="flex gap-4">
+            <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full"></div>
+            <div>
+                <strong class="text-white block mb-1">Décors à la demande</strong>
+                <span class="text-neutral-400">Création d'ambiances variées en quelques clics : fraîcheur printanière, univers urbain moderne, ou ambiance cocooning.</span>
+            </div>
+        </li>
+        <li class="flex gap-4">
+            <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full"></div>
+            <div>
+                <strong class="text-white block mb-1">Shooting avec mannequins</strong>
+                <span class="text-neutral-400">Intégration du parfum dans des situations de vie réelle avec des modèles virtuels, évitant ainsi les frais de casting et de droits à l'image.</span>
+            </div>
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-bold mb-6">L'Impact</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-2">Budget</div>
+            <p class="text-sm text-neutral-400">Coût divisé par 10 vs shooting classique.</p>
+         </div>
+         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-2">Réactivité</div>
+            <p class="text-sm text-neutral-400">Nouveaux visuels générés en 24h chrono.</p>
+         </div>
+         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-2">Rendu Pro</div>
+            <p class="text-sm text-neutral-400">Qualité magazine & texture photo-réaliste.</p>
+         </div>
+      </div>
+      
+      <div class="mt-8 text-center">
+         <p class="text-white italic text-lg font-playfair">"Des photos produits infinies, prêtes à l'emploi, pour le prix d'un seul packshot traditionnel."</p>
+      </div>
     `
   },
   { 
@@ -246,8 +304,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   useEffect(() => {
     try {
-      const savedRow1 = localStorage.getItem('axem_marquee_row1');
-      const savedRow2 = localStorage.getItem('axem_marquee_row2');
+      const savedRow1 = localStorage.getItem('axem_marquee_row1_v2');
+      const savedRow2 = localStorage.getItem('axem_marquee_row2_v2');
       
       if (savedRow1) {
         setRow1(JSON.parse(savedRow1));
@@ -275,8 +333,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     if (window.confirm("Réinitialiser les images du portfolio par défaut ?")) {
       setRow1(defaultProjectsRow1);
       setRow2(defaultProjectsRow2);
-      localStorage.removeItem('axem_marquee_row1');
-      localStorage.removeItem('axem_marquee_row2');
+      localStorage.removeItem('axem_marquee_row1_v2');
+      localStorage.removeItem('axem_marquee_row2_v2');
       setHasCustomData(false);
     }
   };
