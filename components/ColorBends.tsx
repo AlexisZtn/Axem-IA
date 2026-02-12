@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './ColorBends.css';
@@ -193,6 +194,7 @@ export default function ColorBends({
     const clock = new THREE.Clock();
 
     const handleResize = () => {
+      if (!container) return; // double check
       const w = container.clientWidth || 1;
       const h = container.clientHeight || 1;
       renderer.setSize(w, h, false);
@@ -297,16 +299,18 @@ export default function ColorBends({
     const container = containerRef.current;
     if (!container) return;
 
-    const handlePointerMove = (e: PointerEvent) => {
+    const handlePointerMove = (e: globalThis.PointerEvent) => {
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
       const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
       pointerTargetRef.current.set(x, y);
     };
 
-    (container as HTMLElement).addEventListener('pointermove', handlePointerMove as EventListener);
+    // Use container directly as it is an HTMLDivElement
+    container.addEventListener('pointermove', handlePointerMove);
+    
     return () => {
-      (container as HTMLElement).removeEventListener('pointermove', handlePointerMove as EventListener);
+      container.removeEventListener('pointermove', handlePointerMove);
     };
   }, []);
 

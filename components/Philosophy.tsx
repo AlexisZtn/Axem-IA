@@ -99,62 +99,26 @@ const Philosophy: React.FC = () => {
           {/* Children Nodes */}
           <div className="grid grid-cols-2 gap-8 md:gap-32 w-full mt-10">
             
-            {/* Left Branch - Clément */}
+            {/* Left Branch - Clément (Strategy & ESSEC) */}
             <div className="flex flex-col items-center">
               <div className="flex flex-col items-center gap-6">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 bg-[#050505] px-4 relative z-10 -mt-3">
-                    <EditableText value="Tech & Système" storageKey="philo_left_tag_v2" />
+                    <EditableText value="Stratégie & Business" storageKey="philo_left_tag_v3" />
                 </span>
                 
-                {/* Image Avatar */}
+                {/* Image Avatar - Clément */}
                 <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-neutral-800 border-2 border-white/10 overflow-hidden mb-4 relative shadow-2xl hover:scale-105 transition-transform duration-500">
-                     <img src={clementImage} alt="Clément" className="opacity-100 w-full h-full object-cover" />
+                    <img src={clementImage} alt="Clément" className="opacity-100 w-full h-full object-cover" />
                 </div>
 
                 <div className="text-3xl md:text-5xl font-medium text-white">
-                    <EditableText value="Clément" storageKey="philo_left_name" />
+                    <EditableText value="Clément" storageKey="philo_left_name_v3" />
                 </div>
                 <div className="text-sm md:text-lg text-[#00FA9A] uppercase tracking-widest font-bold">
-                    <EditableText value="Ingénieur Télécom" storageKey="philo_left_role_v2" />
+                    <EditableText value="ESSEC" storageKey="philo_left_role_v3" />
                 </div>
                 <p className="text-center text-base md:text-xl text-neutral-400 max-w-[320px] leading-relaxed">
-                   <EditableText isTextarea value="L'architecte. Celui qui fait parler les machines, du vieil AS400 aux derniers modèles LLM." storageKey="philo_left_desc_v2" />
-                </p>
-
-                <div className="h-10 w-px border-l border-dashed border-white/20 my-2"></div>
-                
-                <div className="group relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                  <div className="relative px-8 py-4 rounded-xl bg-[#0a0a0a] border border-white/10 flex items-center gap-4">
-                    <Cpu className="w-6 h-6 text-[#00FA9A]" />
-                    <span className="text-base md:text-xl font-medium text-white">
-                        <EditableText value="Expertise Tech" storageKey="philo_left_skill_v2" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Branch - Alexis */}
-            <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center gap-6">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 bg-[#050505] px-4 relative z-10 -mt-3">
-                    <EditableText value="Stratégie & Business" storageKey="philo_right_tag_v2" />
-                </span>
-                
-                {/* Image Avatar */}
-                <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-neutral-800 border-2 border-white/10 overflow-hidden mb-4 relative shadow-2xl hover:scale-105 transition-transform duration-500">
-                    <img src={alexisImage} alt="Alexis" className="opacity-100 w-full h-full object-cover" />
-                </div>
-
-                <div className="text-3xl md:text-5xl font-medium text-white">
-                    <EditableText value="Alexis" storageKey="philo_right_name" />
-                </div>
-                <div className="text-sm md:text-lg text-[#00FA9A] uppercase tracking-widest font-bold">
-                    <EditableText value="ESSEC" storageKey="philo_right_role_v2" />
-                </div>
-                <p className="text-center text-base md:text-xl text-neutral-400 max-w-[320px] leading-relaxed">
-                   <EditableText isTextarea value="Le stratège. Celui qui traduit la technologie en rentabilité et en leviers de croissance." storageKey="philo_right_desc_v3" />
+                   <EditableText isTextarea value="Le stratège. Celui qui traduit la technologie en rentabilité et en leviers de croissance." storageKey="philo_left_desc_v3" />
                 </p>
 
                 <div className="h-10 w-px border-l border-dashed border-white/20 my-2"></div>
@@ -164,7 +128,43 @@ const Philosophy: React.FC = () => {
                   <div className="relative px-8 py-4 rounded-xl bg-[#0a0a0a] border border-white/10 flex items-center gap-4">
                     <Briefcase className="w-6 h-6 text-[#00FA9A]" />
                     <span className="text-base md:text-xl font-medium text-white">
-                        <EditableText value="Vision Business" storageKey="philo_right_skill_v2" />
+                        <EditableText value="Vision Business" storageKey="philo_left_skill_v3" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Branch - Alexis (Tech & Télécom) */}
+            <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center gap-6">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 bg-[#050505] px-4 relative z-10 -mt-3">
+                    <EditableText value="Tech & Système" storageKey="philo_right_tag_v3" />
+                </span>
+                
+                {/* Image Avatar - Alexis */}
+                <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-neutral-800 border-2 border-white/10 overflow-hidden mb-4 relative shadow-2xl hover:scale-105 transition-transform duration-500">
+                     <img src={alexisImage} alt="Alexis" className="opacity-100 w-full h-full object-cover" />
+                </div>
+
+                <div className="text-3xl md:text-5xl font-medium text-white">
+                    <EditableText value="Alexis" storageKey="philo_right_name_v3" />
+                </div>
+                <div className="text-sm md:text-lg text-[#00FA9A] uppercase tracking-widest font-bold">
+                    <EditableText value="Télécom Paris" storageKey="philo_right_role_v3" />
+                </div>
+                <p className="text-center text-base md:text-xl text-neutral-400 max-w-[320px] leading-relaxed">
+                   <EditableText isTextarea value="L'ingénieur. Celui qui forge les systèmes et automatise l'intelligence pour transformer la vision en moteur de production." storageKey="philo_right_desc_v3" />
+                </p>
+
+                <div className="h-10 w-px border-l border-dashed border-white/20 my-2"></div>
+                
+                <div className="group relative">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[#00FA9A]/20 to-blue-500/20 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                  <div className="relative px-8 py-4 rounded-xl bg-[#0a0a0a] border border-white/10 flex items-center gap-4">
+                    <Cpu className="w-6 h-6 text-[#00FA9A]" />
+                    <span className="text-base md:text-xl font-medium text-white">
+                        <EditableText value="Expertise Tech" storageKey="philo_right_skill_v3" />
                     </span>
                   </div>
                 </div>

@@ -55,7 +55,7 @@ const Pricing: React.FC = () => {
                     >
                         <Calendar className="w-5 h-5" />
                         <span>
-                            <EditableText value="Réserver un appel découverte" storageKey="pricing_btn_text" className="bg-transparent border-none text-black hover:border-none" />
+                            <EditableText value="Réserver un créneau de 30 minutes (gratuit)" storageKey="pricing_btn_text" className="bg-transparent border-none text-black hover:border-none" />
                         </span>
                     </a>
                 </div>
