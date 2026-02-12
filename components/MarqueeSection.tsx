@@ -120,7 +120,10 @@ const defaultProjectsRow1: Project[] = [
       'https://github.com/AlexisZtn/Axem-IA/blob/b7f9ed78093123481320a0495bf708c7d1bd8381/components/photo%20ia%20produit%20parfum.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/1d4d567d3e8c0ed244636560c43e6a697a3040c7/components/photo%20ia%20produit%20montre.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/946937bfb4bc79260f7cfb24563078d7e87a96a6/components/photo%20produit%20cosm%C3%A9tique.jpg?raw=true',
-      'https://github.com/AlexisZtn/Axem-IA/blob/666848800fd3ebd6e4696cc10eb8d1d7f31dd2c5/components/photo%20produit%20chassure.jpg?raw=true'
+      'https://github.com/AlexisZtn/Axem-IA/blob/666848800fd3ebd6e4696cc10eb8d1d7f31dd2c5/components/photo%20produit%20chassure.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/f910bd10a749e053c7a1a513df12d5209365106d/Images/Photo%20Produit%20Bougie.png?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/f910bd10a749e053c7a1a513df12d5209365106d/Images/Photo%20Produit%20Burger.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/f910bd10a749e053c7a1a513df12d5209365106d/Images/Photo%20produit%20Poulet.jpg?raw=true'
     ],
     content: `
       <h1 class="text-3xl font-bold mb-8">Studio Photo Virtuel</h1>
@@ -301,9 +304,9 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   useEffect(() => {
     try {
-      // Changed to v5 to force refresh of the updated "Studio Photo Virtuel" gallery images
-      const savedRow1 = localStorage.getItem('axem_marquee_row1_v5');
-      const savedRow2 = localStorage.getItem('axem_marquee_row2_v5');
+      // Changed to v6 to force refresh of the updated "Studio Photo Virtuel" gallery images
+      const savedRow1 = localStorage.getItem('axem_marquee_row1_v6');
+      const savedRow2 = localStorage.getItem('axem_marquee_row2_v6');
       
       if (savedRow1) {
         setRow1(JSON.parse(savedRow1));
@@ -331,8 +334,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     if (window.confirm("Réinitialiser les images du portfolio par défaut ?")) {
       setRow1(defaultProjectsRow1);
       setRow2(defaultProjectsRow2);
-      localStorage.removeItem('axem_marquee_row1_v5');
-      localStorage.removeItem('axem_marquee_row2_v5');
+      localStorage.removeItem('axem_marquee_row1_v6');
+      localStorage.removeItem('axem_marquee_row2_v6');
       setHasCustomData(false);
     }
   };

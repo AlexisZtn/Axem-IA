@@ -304,11 +304,11 @@ export default function ColorBends({
       pointerTargetRef.current.set(x, y);
     };
 
-    // Fix: Remove casting to HTMLElement since container is already HTMLDivElement
-    container.addEventListener('pointermove', handlePointerMove as unknown as EventListener);
+    // Cast container to HTMLElement to avoid 'never' type error
+    (container as HTMLElement).addEventListener('pointermove', handlePointerMove as unknown as EventListener);
     
     return () => {
-      container.removeEventListener('pointermove', handlePointerMove as unknown as EventListener);
+      (container as HTMLElement).removeEventListener('pointermove', handlePointerMove as unknown as EventListener);
     };
   }, []);
 
