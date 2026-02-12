@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { RotateCcw } from 'lucide-react';
 import EditableText from './ui/EditableText';
@@ -115,7 +114,7 @@ const defaultProjectsRow1: Project[] = [
     id: 4, 
     title: 'Photos Produit HD', 
     category: 'E-commerce', 
-    image: 'https://images.unsplash.com/photo-1606778302084-38538518843d?q=80&w=2670&auto=format&fit=crop',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/b7f9ed78093123481320a0495bf708c7d1bd8381/components/photo%20ia%20produit%20parfum.jpg?raw=true',
     content: `
       <h1>Studio Photo Virtuel</h1>
       <p class="lead">Des shootings produits infinis pour 1/10ème du coût.</p>
