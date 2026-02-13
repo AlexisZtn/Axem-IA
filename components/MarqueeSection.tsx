@@ -18,7 +18,12 @@ const defaultProjectsRow1: Project[] = [
     id: 1, 
     title: 'Vidéos Avatar', 
     category: 'Production SaaS B2B', 
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Avatar%20IA%20heygen.png?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Avatar%20IA%20heygen.png?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/dca30ed01b094720e8af05a490a200b356bdb87d/Images/video%20avatar%20Orange%20RH.mp4?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/dca30ed01b094720e8af05a490a200b356bdb87d/Images/cr%C3%A9er%20votre%20avatar.jpeg?raw=true'
+    ],
     content: `
       <h1 class="text-3xl font-bold mb-8">Vidéo IA & Avatars : Communication Digitale Agile</h1>
 
@@ -265,7 +270,13 @@ const defaultProjectsRow1: Project[] = [
     id: 5, 
     title: 'Identité Visuelle', 
     category: 'Branding Startup', 
-    image: 'https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=2576&auto=format&fit=crop',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo.jpg?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo%20Pirla.webp?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo%20nutrivel.webp?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/photo%20logo%20aura.jpg?raw=true'
+    ],
     content: `
       <h1 class="text-3xl font-bold mb-8">Branding Startup : Identité & Charte Graphique IA</h1>
 
@@ -343,16 +354,84 @@ const defaultProjectsRow1: Project[] = [
 const defaultProjectsRow2: Project[] = [
   { 
     id: 6, 
-    title: 'Slides Pro', 
-    category: 'Consulting Business', 
-    image: 'https://images.unsplash.com/photo-1614850523060-8da1d56ae167?q=80&w=2670&auto=format&fit=crop',
+    title: 'Conception de Slides & Présentations Pro', 
+    category: 'Impact visuel et narration stratégique assistée par IA', 
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%201.jpg?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%201.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%202.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%203.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%204.jpg?raw=true'
+    ],
     content: `
-      <h1>Génération de Présentations (Decks)</h1>
-      <p class="lead">Transformez un document Word en une présentation PowerPoint design en 2 minutes.</p>
-      <hr />
-      <h3>Livrables</h3>
-      <p>Templates PowerPoint/Google Slides intelligents qui s'adaptent à votre contenu. Idéal pour les consultants et les équipes commerciales.</p>
-      <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=1200&q=80" alt="Slides" style="width:100%; border-radius:12px; margin-top:20px;" />
+      <h1 class="text-3xl font-bold mb-8">Conception de Slides & Présentations Pro</h1>
+
+      <div class="mb-12">
+        <p class="text-lg text-neutral-300">Nous transformons vos données et vos idées en présentations percutantes qui captivent votre audience. Que ce soit pour un pitch investisseur, une conférence ou un rapport interne, nous utilisons l'IA pour générer des slides au design d'agence en un temps record.</p>
+      </div>
+
+      <div class="bg-[#1a1a1a] p-8 rounded-xl border-l-4 border-[#00FA9A] mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-white">Notre Méthode</h2>
+        <ul class="space-y-6">
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Structuration Narrative (Storytelling)</strong>
+                    <span class="text-neutral-300">Nous utilisons l'IA pour organiser vos idées de manière logique et persuasive, créant un fil conducteur qui maintient l'attention du début à la fin.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Design & Infographies Sur Mesure</strong>
+                    <span class="text-neutral-300">Finis les thèmes PowerPoint par défaut. Nous générons des visuels, des schémas complexes et des illustrations uniques qui renforcent votre message et respectent votre charte graphique.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Mise en Page Intelligente</strong>
+                    <span class="text-neutral-300">Nous automatisons l'alignement, la hiérarchie visuelle et l'équilibre des slides pour un rendu professionnel, épuré et moderne.</span>
+                </div>
+            </li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Cas d'Usage Business</h2>
+      <div class="space-y-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Pitch Decks Startup</h3>
+            <p class="text-neutral-300">Créez des présentations "investor-ready" avec des visuels qui valorisent votre vision et des graphiques clairs pour vos metrics.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Keynotes & Conférences</h3>
+            <p class="text-neutral-300">Concevez des supports de scène immersifs et visuels, conçus pour soutenir votre discours sans le surcharger.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Rapports Stratégiques & Boards</h3>
+            <p class="text-neutral-300">Transformez vos données brutes et vos analyses complexes en tableaux de bord visuels digestes et élégants pour vos réunions de direction.</p>
+         </div>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Les Avantages</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Gain de Temps Radical</div>
+            <p class="text-sm text-neutral-400">Passez du brouillon à la présentation finale 5x plus vite qu'avec une méthode traditionnelle.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Cohérence Esthétique</div>
+            <p class="text-sm text-neutral-400">Une unité visuelle parfaite sur 10, 50 ou 100 slides, garantissant le sérieux de votre marque.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Flexibilité Totale</div>
+            <p class="text-sm text-neutral-400">Livrées dans vos formats habituels (PowerPoint, Keynote, Google Slides), vos présentations restent 100% modifiables.</p>
+         </div>
+      </div>
+      
+      <div class="mt-8 p-6 bg-[#00FA9A]/10 rounded-xl border border-[#00FA9A]/20 text-center">
+         <p class="text-white text-lg font-medium">"Nous donnons à vos idées le support qu'elles méritent : des présentations claires, mémorables et visuellement irréprochables, conçues pour convaincre."</p>
+      </div>
     `
   },
   { 
@@ -381,27 +460,169 @@ const defaultProjectsRow2: Project[] = [
   },
   { 
     id: 9, 
-    title: 'Veille Structurée', 
-    category: 'Competitive Intelligence', 
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop',
+    title: 'Automatisation IA', 
+    category: 'Connectez vos outils, libérez votre temps', 
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/59e16b35d50ffa26289fc087d95172a0d64763c0/Images/Workflow%20Make.jpg?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/59e16b35d50ffa26289fc087d95172a0d64763c0/Images/Workflow%20Make.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/59e16b35d50ffa26289fc087d95172a0d64763c0/Images/Workflow%20N8N%202.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/59e16b35d50ffa26289fc087d95172a0d64763c0/Images/Workflow%20N8N.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/59e16b35d50ffa26289fc087d95172a0d64763c0/Images/Workflow%20Zapier.jpg?raw=true'
+    ],
     content: `
-      <h1>Système de Veille Automatisé</h1>
-      <p class="lead">Ne manquez plus jamais une news critique de votre secteur.</p>
-      <hr />
-      <p>Agents IA qui scannent le web 24/7, résument les articles pertinents, analysent les sentiments et vous envoient un digest matinal sur Slack ou par email.</p>
+      <h1 class="text-3xl font-bold mb-8">Automatisation IA : Connectez vos outils, libérez votre temps</h1>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">Le Concept</h2>
+        <p class="text-lg text-neutral-300">Nous concevons des ponts intelligents entre tous vos logiciels pour éliminer les tâches manuelles répétitives. Que vos outils soient de dernière génération (SaaS) ou des systèmes "Legacy" plus anciens, nous automatisons vos flux de travail de bout en bout.</p>
+      </div>
+
+      <div class="bg-[#1a1a1a] p-8 rounded-xl border-l-4 border-[#00FA9A] mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-white">Notre Méthode</h2>
+        <ul class="space-y-6">
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Agnosticisme Technologique</strong>
+                    <span class="text-neutral-300">Nous maîtrisons les meilleurs outils d'orchestration du marché (n8n, Make) pour créer des automatisations sur mesure, stables et évolutives.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Compatibilité Totale (Modern & Legacy)</strong>
+                    <span class="text-neutral-300">Nous ne nous limitons pas aux API modernes. Nous sommes capables de faire communiquer vos outils récents avec vos anciens systèmes (ex: ERP sous WinDev, vieux logiciels propriétaires) pour qu'aucune donnée ne reste isolée.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">IA Opérationnelle</strong>
+                    <span class="text-neutral-300">Nous intégrons des couches d'Intelligence Artificielle au cœur de vos processus pour trier des emails, extraire des données de factures, ou qualifier automatiquement des leads dans votre CRM.</span>
+                </div>
+            </li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Cas d'Usage Business</h2>
+      <div class="space-y-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Synchronisation CRM & ERP</h3>
+            <p class="text-neutral-300">Automatisez la création de factures et la mise à jour des stocks dès qu'une vente est conclue, sans aucune saisie manuelle.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Traitement de Données Multi-Sources</h3>
+            <p class="text-neutral-300">Centralisez les informations provenant de formulaires web, de fichiers Excel et de vieux logiciels internes vers un tableau de bord unique.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">SAV & Support Automatisé</h3>
+            <p class="text-neutral-300">Analyse automatique de l'urgence des tickets, résumé des demandes par l'IA et routage vers le bon interlocuteur dans vos outils de gestion.</p>
+         </div>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Les Avantages</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Zéro Saisie Manuelle</div>
+            <p class="text-sm text-neutral-400">Réduisez le risque d'erreur humaine et libérez vos équipes pour des tâches à haute valeur ajoutée.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Rentabilisation de l'Existant</div>
+            <p class="text-sm text-neutral-400">Donnez une seconde jeunesse à vos anciens logiciels en les connectant aux technologies de demain.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Scalabilité</div>
+            <p class="text-sm text-neutral-400">Gérez une augmentation de volume d'activité sans avoir à recruter pour des tâches administratives.</p>
+         </div>
+      </div>
+      
+      <div class="mt-8 p-6 bg-[#00FA9A]/10 rounded-xl border border-[#00FA9A]/20 text-center">
+         <p class="text-white text-lg font-medium">"Peu importe votre stack technique, nous créons un écosystème fluide où vos données circulent librement et intelligemment."</p>
+      </div>
     `
   },
   { 
     id: 10, 
-    title: 'Landing Pages', 
-    category: 'SaaS Launch', 
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
+    title: 'Landing Pages Haute Conversion', 
+    category: "De l'idée au Live en 24h", 
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%201.jpg?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%201.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%202.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%203.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%204.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%20MP4.mp4?raw=true'
+    ],
     content: `
-      <h1>Générateur de Landing Pages</h1>
-      <p class="lead">Testez une nouvelle offre par jour.</p>
-      <hr />
-      <p>Design, Copywriting et Intégration générés automatiquement pour A/B tester vos propositions de valeur à la vitesse de l'éclair.</p>
-      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Landing Page" style="width:100%; border-radius:12px; margin-top:20px;" />
+      <h1 class="text-3xl font-bold mb-8">Landing Pages Haute Conversion : De l'idée au Live en 24h</h1>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">Le Concept</h2>
+        <p class="text-lg text-neutral-300">Nous concevons des pages de destination optimisées pour la conversion en utilisant la puissance de l'IA générative. Que ce soit pour valider un nouveau concept, lancer un produit ou capturer des leads, nous créons des structures de vente percutantes alliées à un design irréprochable.</p>
+      </div>
+
+      <div class="bg-[#1a1a1a] p-8 rounded-xl border-l-4 border-[#00FA9A] mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-white">Notre Méthode</h2>
+        <ul class="space-y-6">
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Copywriting Stratégique</strong>
+                    <span class="text-neutral-300">Nous utilisons l'IA pour générer des argumentaires basés sur les frameworks de vente les plus efficaces (AIDA, PAS), adaptés précisément à votre cible.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Design & Visuels Uniques</strong>
+                    <span class="text-neutral-300">Pas de templates vus partout. Nous générons des images, des icônes et des mises en page sur mesure qui respectent votre identité de marque.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Itération Ultra-Rapide (A/B Testing)</strong>
+                    <span class="text-neutral-300">Grâce à notre workflow, nous pouvons déployer 3 variantes d'une même page en un temps record pour tester différents messages et maximiser votre ROI.</span>
+                </div>
+            </li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Cas d'Usage Business</h2>
+      <div class="space-y-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Lancement de Produit / MVP</h3>
+            <p class="text-neutral-300">Créez une page professionnelle en quelques heures pour tester l'intérêt du marché avant même d'avoir fini de développer votre offre.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Campagnes Publicitaires (Ads)</h3>
+            <p class="text-neutral-300">Déployez des landing pages spécifiques pour chaque segment d'audience de vos campagnes Google ou Meta Ads afin d'augmenter votre score de qualité.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Capture de Leads B2B</h3>
+            <p class="text-neutral-300">Mise en place de pages de téléchargement de livres blancs ou d'inscription à des webinaires avec formulaires connectés à votre CRM.</p>
+         </div>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Les Avantages</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Time-to-Market Record</div>
+            <p class="text-sm text-neutral-400">Ne laissez pas une idée refroidir, mettez-la en ligne le jour même.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Optimisation SEO & Mobile</div>
+            <p class="text-sm text-neutral-400">Des pages légères, ultra-rapides au chargement et parfaitement lisibles sur smartphone.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Évolutivité</div>
+            <p class="text-sm text-neutral-400">Des pages facilement modifiables et connectables à vos outils d'automatisation (Make, n8n) pour traiter les leads instantanément.</p>
+         </div>
+      </div>
+      
+      <div class="mt-8 p-6 bg-[#00FA9A]/10 rounded-xl border border-[#00FA9A]/20 text-center">
+         <p class="text-white text-lg font-medium">"Nous ne créons pas juste des sites, nous créons des machines à convertir, conçues pour transformer vos visiteurs en clients sans les délais d'une agence web traditionnelle."</p>
+      </div>
     `
   },
 ];
@@ -449,9 +670,9 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   useEffect(() => {
     try {
-      // Changed to v10 to force refresh of the updated "Identité Visuelle" content
-      const savedRow1 = localStorage.getItem('axem_marquee_row1_v10');
-      const savedRow2 = localStorage.getItem('axem_marquee_row2_v10');
+      // Changed to v18 to force refresh of the Vidéos Avatar content
+      const savedRow1 = localStorage.getItem('axem_marquee_row1_v18');
+      const savedRow2 = localStorage.getItem('axem_marquee_row2_v18');
       
       if (savedRow1) {
         setRow1(JSON.parse(savedRow1));
@@ -479,8 +700,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     if (window.confirm("Réinitialiser les images du portfolio par défaut ?")) {
       setRow1(defaultProjectsRow1);
       setRow2(defaultProjectsRow2);
-      localStorage.removeItem('axem_marquee_row1_v10');
-      localStorage.removeItem('axem_marquee_row2_v10');
+      localStorage.removeItem('axem_marquee_row1_v18');
+      localStorage.removeItem('axem_marquee_row2_v18');
       setHasCustomData(false);
     }
   };

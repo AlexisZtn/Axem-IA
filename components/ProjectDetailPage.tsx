@@ -32,6 +32,31 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ projectId, initialDat
     }
   };
 
+  const renderMediaItem = (src: string, isMain: boolean = false) => {
+      const isVideo = src.toLowerCase().endsWith('.mp4') || src.includes('.mp4');
+      
+      if (isVideo) {
+          return (
+             <video 
+                src={src} 
+                className={`w-full h-auto ${isMain ? 'object-contain' : 'object-cover'}`} 
+                controls 
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+             />
+          );
+      }
+      return (
+         <img 
+            src={src} 
+            className={`w-full h-auto ${isMain ? 'object-contain' : 'object-cover'}`} 
+            alt="Project media" 
+         />
+      );
+  };
+
   return (
     <div className="fixed inset-0 z-[100] bg-[#050505] overflow-y-auto animate-reveal">
       {/* Top Bar */}
@@ -55,12 +80,16 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ projectId, initialDat
       </div>
 
       {/* Header Image (Read Only) */}
-      <div className="w-full h-[30vh] md:h-[40vh] relative">
-        <img 
-            src={data.image} 
-            className="w-full h-full object-cover opacity-60" 
-            alt="Cover"
-        />
+      <div className="w-full h-[30vh] md:h-[40vh] relative overflow-hidden">
+        {data.image && !data.image.includes('.mp4') ? (
+            <img 
+                src={data.image} 
+                className="w-full h-full object-cover opacity-60" 
+                alt="Cover"
+            />
+        ) : (
+            <div className="w-full h-full bg-neutral-900 opacity-60"></div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent"></div>
       </div>
 
@@ -69,7 +98,11 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ projectId, initialDat
         
         {/* Icon / Avatar */}
         <div className="w-24 h-24 rounded-full bg-[#1a1a1a] border-4 border-[#050505] shadow-xl flex items-center justify-center mb-8 overflow-hidden relative">
-             <img src={data.image} className="w-full h-full object-cover opacity-80" />
+             {data.image && !data.image.includes('.mp4') ? (
+                 <img src={data.image} className="w-full h-full object-cover opacity-80" />
+             ) : (
+                 <div className="w-full h-full bg-neutral-800"></div>
+             )}
         </div>
 
         {/* Static Title Area */}
@@ -92,12 +125,8 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ projectId, initialDat
         <div className="w-full relative mb-12 group">
              {/* Slider Logic */}
              {data.gallery && data.gallery.length > 1 ? (
-                 <div className="relative w-full rounded-xl overflow-hidden">
-                    <img 
-                        src={data.gallery[currentImageIndex]} 
-                        className="w-full h-auto object-contain" 
-                        alt="Project media" 
-                    />
+                 <div className="relative w-full rounded-xl overflow-hidden bg-black/50">
+                    {renderMediaItem(data.gallery[currentImageIndex], true)}
                     
                     {/* Arrows */}
                     <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition opacity-0 group-hover:opacity-100 z-10">
@@ -115,8 +144,8 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ projectId, initialDat
                     </div>
                  </div>
              ) : (
-                 <div className="w-full rounded-xl overflow-hidden">
-                    <img src={data.image} className="w-full h-auto object-contain" alt="Project media" />
+                 <div className="w-full rounded-xl overflow-hidden bg-black/50">
+                    {renderMediaItem(data.image, true)}
                  </div>
              )}
         </div>
