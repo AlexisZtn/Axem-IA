@@ -295,7 +295,7 @@ export default function ColorBends({
   ]);
 
   useEffect(() => {
-    const el = containerRef.current;
+    const el = containerRef.current as HTMLDivElement | null;
     if (!el) return;
 
     const handlePointerMove = (e: PointerEvent) => {

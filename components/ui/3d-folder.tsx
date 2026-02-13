@@ -56,6 +56,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           top: "-56px",
         }}
         onClick={(e) => {
+          e.preventDefault();
           e.stopPropagation();
           onClick();
         }}
@@ -199,178 +200,186 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
   }, [isOpen, handleClose, navigateNext, navigatePrev]);
 
   useLayoutEffect(() => {
-    if (isOpen && sourceRect) {
+    if (isOpen) {
       setShouldRender(true);
       setAnimationPhase("initial");
       setIsClosing(false);
+      
+      // Use a slightly simplified animation trigger to ensure it fires reliably
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setAnimationPhase("animating");
         });
       });
+      
       const timer = setTimeout(() => {
         setAnimationPhase("complete");
       }, 700);
       return () => clearTimeout(timer);
     }
-  }, [isOpen, sourceRect]);
+  }, [isOpen]);
 
   const handleDotClick = (idx: number) => {
     if (isSliding || idx === internalIndex) return;
     onNavigate(idx);
   };
 
+  const handleOpenDetailClick = () => {
+      onOpenDetail(internalIndex);
+  };
+
   if (!shouldRender || !currentProject) return null;
 
+  // Simplified initial styles to be more robust
   const getInitialStyles = (): React.CSSProperties => {
-    if (!sourceRect) return {};
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const targetWidth = Math.min(800, viewportWidth - 64);
-    const targetHeight = Math.min(viewportHeight * 0.85, 600);
-    const targetX = (viewportWidth - targetWidth) / 2;
-    const targetY = (viewportHeight - targetHeight) / 2;
-    const scaleX = sourceRect.width / targetWidth;
-    const scaleY = sourceRect.height / targetHeight;
-    const scale = Math.max(scaleX, scaleY);
-    const translateX = sourceRect.left + sourceRect.width / 2 - (targetX + targetWidth / 2) + window.scrollX;
-    const translateY = sourceRect.top + sourceRect.height / 2 - (targetY + targetHeight / 2) + window.scrollY;
+    if (sourceRect) {
+        // FLIP animation if rect exists
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const targetWidth = Math.min(800, viewportWidth - 32);
+        // Estimate height based on aspect ratio or fixed constraint
+        const targetHeight = Math.min(viewportHeight * 0.8, 600); 
+        
+        const targetX = (viewportWidth - targetWidth) / 2;
+        const targetY = (viewportHeight - targetHeight) / 2;
+        
+        const scaleX = sourceRect.width / targetWidth;
+        const scaleY = sourceRect.height / targetHeight;
+        
+        // Use uniform scale to prevent distortion during transit
+        const scale = Math.max(scaleX, scaleY); 
+        
+        const translateX = sourceRect.left + sourceRect.width / 2 - (targetX + targetWidth / 2);
+        const translateY = sourceRect.top + sourceRect.height / 2 - (targetY + targetHeight / 2);
+
+        return {
+          transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
+          opacity: 0,
+        };
+    }
+    
+    // Fallback if no rect (clean zoom in)
     return {
-      transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-      opacity: 0.5,
-      borderRadius: "12px",
+      transform: `scale(0.8)`,
+      opacity: 0,
     };
   };
 
   const getFinalStyles = (): React.CSSProperties => ({
     transform: "translate(0, 0) scale(1)",
     opacity: 1,
-    borderRadius: "24px",
   });
 
   const currentStyles = animationPhase === "initial" && !isClosing ? getInitialStyles() : getFinalStyles();
-  const showLeftArrow = hasPrev || hasGalleryPrev;
-  const showRightArrow = hasNext || hasGalleryNext;
+  
+  // Combine prev/next logic visually
+  const canGoLeft = hasPrev || hasGalleryPrev;
+  const canGoRight = hasNext || hasGalleryNext;
 
   return (
     <div
-      className={cn("fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 cursor-pointer")}
+      className={cn("fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8 cursor-default")}
       onClick={handleClose}
       style={{
-        opacity: isClosing ? 0 : 1,
-        transition: "opacity 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+        pointerEvents: isOpen ? 'auto' : 'none',
       }}
     >
       <div
-        className="absolute inset-0 bg-background/90 backdrop-blur-2xl"
+        className="absolute inset-0 bg-black/95 backdrop-blur-xl transition-opacity duration-500"
         style={{
-          opacity: (animationPhase === "initial" && !isClosing) ? 0 : 1,
-          transition: "opacity 600ms cubic-bezier(0.16, 1, 0.3, 1)",
+          opacity: (animationPhase === "initial" || isClosing) ? 0 : 1,
         }}
       />
+      
+      {/* Close Button - High Contrast */}
       <button
         onClick={(e) => { e.stopPropagation(); handleClose(); }}
-        className={cn(
-          "absolute top-6 right-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-muted/30 backdrop-blur-xl border border-white/10 shadow-2xl text-foreground hover:bg-muted transition-all duration-300",
-        )}
-        style={{
-          opacity: animationPhase === "complete" && !isClosing ? 1 : 0,
-          transform: animationPhase === "complete" && !isClosing ? "translateY(0)" : "translateY(-30px)",
-          transition: "opacity 400ms ease-out 400ms, transform 500ms cubic-bezier(0.16, 1, 0.3, 1) 400ms",
-        }}
+        className="absolute top-4 right-4 md:top-8 md:right-8 z-[210] w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 group"
       >
-        <X className="w-5 h-5" strokeWidth={2.5} />
+        <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" strokeWidth={2.5} />
       </button>
 
       {/* Nav Buttons */}
       <button
         onClick={(e) => { e.stopPropagation(); navigatePrev(); }}
-        disabled={!showLeftArrow || isSliding}
+        disabled={!canGoLeft || isSliding}
         className={cn(
-          "absolute left-4 md:left-10 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-muted/30 backdrop-blur-xl border border-white/10 text-foreground hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none shadow-2xl",
+          "absolute left-2 md:left-8 z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/50 hover:bg-[#00FA9A] text-white hover:text-black border border-white/10 hover:border-[#00FA9A] backdrop-blur-md transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none hover:scale-110",
         )}
-        style={{
-          opacity: animationPhase === "complete" && !isClosing && showLeftArrow ? 1 : 0,
-          transform: animationPhase === "complete" && !isClosing ? "translateX(0)" : "translateX(-40px)",
-          transition: "opacity 400ms ease-out 600ms, transform 500ms cubic-bezier(0.16, 1, 0.3, 1) 600ms",
-        }}
       >
-        <ChevronLeft className="w-6 h-6" strokeWidth={3} />
+        <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2} />
       </button>
+      
       <button
         onClick={(e) => { e.stopPropagation(); navigateNext(); }}
-        disabled={!showRightArrow || isSliding}
+        disabled={!canGoRight || isSliding}
         className={cn(
-          "absolute right-4 md:right-10 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-muted/30 backdrop-blur-xl border border-white/10 text-foreground hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none shadow-2xl",
+          "absolute right-2 md:right-8 z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/50 hover:bg-[#00FA9A] text-white hover:text-black border border-white/10 hover:border-[#00FA9A] backdrop-blur-md transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none hover:scale-110",
         )}
-        style={{
-          opacity: animationPhase === "complete" && !isClosing && showRightArrow ? 1 : 0,
-          transform: animationPhase === "complete" && !isClosing ? "translateX(0)" : "translateX(40px)",
-          transition: "opacity 400ms ease-out 600ms, transform 500ms cubic-bezier(0.16, 1, 0.3, 1) 600ms",
-        }}
       >
-        <ChevronRight className="w-6 h-6" strokeWidth={3} />
+        <ChevronRight className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2} />
       </button>
 
+      {/* Main Content Card */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full max-w-4xl cursor-default"
+        className="relative z-[205] w-full max-w-5xl"
         onClick={(e) => e.stopPropagation()}
         style={{
           ...currentStyles,
-          transform: isClosing ? "translate(0, 0) scale(0.92)" : currentStyles.transform,
-          transition: animationPhase === "initial" && !isClosing ? "none" : "transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease-out, border-radius 700ms ease",
-          transformOrigin: "center center",
+          transition: "transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease-out",
         }}
       >
-        <div className={cn("relative overflow-hidden rounded-[inherit] bg-card border border-white/10 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)]")}>
-          <div className="relative overflow-hidden aspect-[4/3] md:aspect-[16/10] bg-black">
+        <div className="relative overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/10 shadow-2xl">
             
+          {/* Image Area */}
+          <div className="relative overflow-hidden aspect-[16/10] md:aspect-[16/9] bg-black group/image">
             <div
-              className="flex w-full h-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              className="flex w-full h-full transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"
               style={{
                 transform: `translateX(-${internalIndex * 100}%)`,
-                transition: isSliding ? "transform 500ms cubic-bezier(0.16, 1, 0.3, 1)" : "none",
               }}
             >
               {projects.map((project, idx) => {
                  const pGallery = project.gallery || [project.image];
                  return (
                 <div key={project.id} className="min-w-full h-full relative">
-                    {idx === internalIndex ? (
-                       <div className="w-full h-full relative">
-                          {pGallery.map((imgSrc, gIdx) => (
-                             <img
-                                key={gIdx}
-                                src={imgSrc || PLACEHOLDER_IMAGE}
-                                alt={`${project.title} - ${gIdx}`}
-                                className={cn(
-                                    "absolute inset-0 w-full h-full object-contain bg-black select-none transition-opacity duration-500",
-                                    gIdx === currentGalleryIndex ? "opacity-100" : "opacity-0 pointer-events-none"
-                                )}
+                    {/* Only render content if active or adjacent for performance */}
+                    {Math.abs(idx - internalIndex) <= 1 && (
+                        idx === internalIndex ? (
+                           <div className="w-full h-full relative">
+                              {pGallery.map((imgSrc, gIdx) => (
+                                 <img
+                                    key={gIdx}
+                                    src={imgSrc || PLACEHOLDER_IMAGE}
+                                    alt={`${project.title} - ${gIdx}`}
+                                    className={cn(
+                                        "absolute inset-0 w-full h-full object-contain bg-black select-none transition-opacity duration-500",
+                                        gIdx === currentGalleryIndex ? "opacity-100" : "opacity-0 pointer-events-none"
+                                    )}
+                                    onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMAGE; }}
+                                />
+                              ))}
+                           </div>
+                        ) : (
+                            <img
+                                src={project.image || PLACEHOLDER_IMAGE}
+                                alt={project.title}
+                                className="w-full h-full object-contain bg-black select-none opacity-50"
                                 onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMAGE; }}
                             />
-                          ))}
-                       </div>
-                    ) : (
-                        <img
-                            src={project.image || PLACEHOLDER_IMAGE}
-                            alt={project.title}
-                            className="w-full h-full object-contain bg-black select-none"
-                            onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMAGE; }}
-                        />
+                        )
                     )}
                   
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
-                  
+                  {/* Gallery Indicators */}
                   {pGallery.length > 1 && idx === internalIndex && (
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/5">
                         {pGallery.map((_, dotIdx) => (
                              <div 
                                 key={dotIdx} 
                                 className={cn(
-                                    "w-1.5 h-1.5 rounded-full transition-all shadow-sm",
-                                    dotIdx === currentGalleryIndex ? "bg-white scale-125" : "bg-white/40"
+                                    "w-2 h-2 rounded-full transition-all duration-300",
+                                    dotIdx === currentGalleryIndex ? "bg-[#00FA9A] w-6" : "bg-white/40"
                                 )}
                              />
                         ))}
@@ -382,47 +391,47 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
             </div>
           </div>
           
-          <div
-            className={cn("px-8 py-7 bg-card border-t border-white/5")}
-            style={{
-              opacity: animationPhase === "complete" && !isClosing ? 1 : 0,
-              transform: animationPhase === "complete" && !isClosing ? "translateY(0)" : "translateY(40px)",
-              transition: "opacity 500ms ease-out 500ms, transform 600ms cubic-bezier(0.16, 1, 0.3, 1) 500ms",
-            }}
-          >
-            <div className="flex items-center justify-between gap-6">
+          {/* Footer Info Area */}
+          <div className="p-6 md:p-8 bg-[#0a0a0a] border-t border-white/5">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3">
-                    <h3 className="text-2xl font-bold text-foreground tracking-tight truncate">
+                <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight truncate">
                        <EditableText value={currentProject?.title} onSave={(val) => onUpdateText(internalIndex, val)} />
                     </h3>
                     {totalGalleryImages > 1 && (
-                        <span className="text-[10px] bg-accent/20 text-accent px-2 py-0.5 rounded-full uppercase font-bold tracking-wider">
-                            Album {currentGalleryIndex + 1}/{totalGalleryImages}
+                        <span className="text-[10px] bg-neutral-800 text-neutral-400 border border-white/10 px-2 py-0.5 rounded-full uppercase font-bold tracking-wider">
+                            Img {currentGalleryIndex + 1}/{totalGalleryImages}
                         </span>
                     )}
                 </div>
                 
-                <div className="flex items-center gap-4 mt-2">
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-muted rounded-full border border-white/5 max-w-[200px] overflow-hidden">
-                    {projects.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleDotClick(idx)}
-                        className={cn("w-1.5 h-1.5 rounded-full transition-all duration-500 shrink-0", idx === internalIndex ? "bg-foreground scale-150" : "bg-muted-foreground/30 hover:bg-muted-foreground/60")}
-                      />
-                    ))}
-                  </div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">{internalIndex + 1} / {totalProjects}</p>
+                <div className="flex items-center gap-4">
+                   <p className="text-sm text-[#00FA9A] uppercase tracking-widest font-medium">
+                       {currentProject?.category || "Étude de cas"}
+                   </p>
+                   <div className="w-1 h-1 rounded-full bg-neutral-700"></div>
+                   <p className="text-xs text-neutral-500 font-mono">
+                      Projet {internalIndex + 1} / {totalProjects}
+                   </p>
                 </div>
               </div>
+
+              {/* ACTION BUTTON - KEY FOR USABILITY */}
               <button 
-                onClick={() => onOpenDetail(internalIndex)}
-                className={cn("flex items-center gap-2 px-6 py-3 text-sm font-bold uppercase tracking-widest text-primary-foreground bg-primary hover:brightness-110 rounded-xl shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105 active:scale-95")}
+                onClick={handleOpenDetailClick}
+                className={cn(
+                    "w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4",
+                    "bg-[#00FA9A] hover:bg-[#00d180] text-black font-bold uppercase tracking-widest text-sm",
+                    "rounded-xl shadow-[0_0_20px_rgba(0,250,154,0.2)] hover:shadow-[0_0_30px_rgba(0,250,154,0.4)]",
+                    "transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                )}
               >
-                <span>Voir le projet</span>
-                <ExternalLink className="w-4 h-4" />
+                <span>Voir le projet complet</span>
+                <ExternalLink className="w-4 h-4" strokeWidth={2.5} />
               </button>
+
             </div>
           </div>
         </div>
@@ -464,17 +473,38 @@ export const AnimatedFolder: React.FC<AnimatedFolderProps> = ({
   const previewProjects = projects.slice(0, 5);
 
   const handleProjectClick = (project: Project, index: number) => {
+    // Stop hovering effect immediately to freeze position
+    setIsHovered(false);
+    
     const cardEl = cardRefs.current[index];
-    if (cardEl) setSourceRect(cardEl.getBoundingClientRect());
+    if (cardEl) {
+        setSourceRect(cardEl.getBoundingClientRect());
+    } else {
+        setSourceRect(null); // Fallback to center zoom
+    }
     setSelectedIndex(index);
     setHiddenCardId(project.id);
   };
 
-  const handleCloseLightbox = () => { setSelectedIndex(null); setSourceRect(null); };
-  const handleCloseComplete = () => { setHiddenCardId(null); };
-  const handleNavigate = (newIndex: number) => { setSelectedIndex(newIndex); setHiddenCardId(projects[newIndex]?.id || null); };
+  const handleCloseLightbox = () => { 
+      setSelectedIndex(null); 
+      setSourceRect(null); 
+      // Re-enable hover effects after close
+      // setIsHovered(false); // Already false
+  };
+  
+  const handleCloseComplete = () => { 
+      setHiddenCardId(null); 
+  };
+  
+  const handleNavigate = (newIndex: number) => { 
+      setSelectedIndex(newIndex); 
+      setHiddenCardId(projects[newIndex]?.id || null); 
+  };
   
   const handleOpenDetail = (index: number) => {
+      // Close lightbox immediately when going to detail to avoid weird overlaps
+      setSelectedIndex(null);
       if (onOpenDetail) onOpenDetail(index);
   };
 
@@ -490,8 +520,13 @@ export const AnimatedFolder: React.FC<AnimatedFolderProps> = ({
             "border-border hover:shadow-2xl hover:shadow-accent/20 hover:border-accent/40",
             className
         )}
-        style={{ minWidth: "280px", minHeight: "320px", perspective: "1200px", transform: isHovered ? "scale(1.04) rotate(-1.5deg)" : "scale(1) rotate(0deg)" }}
-        onMouseEnter={() => setIsHovered(true)}
+        style={{ 
+            minWidth: "280px", 
+            minHeight: "320px", 
+            perspective: "1200px", 
+            transform: (isHovered && selectedIndex === null) ? "scale(1.04) rotate(-1.5deg)" : "scale(1) rotate(0deg)" 
+        }}
+        onMouseEnter={() => { if (selectedIndex === null) setIsHovered(true); }}
         onMouseLeave={() => setIsHovered(false)}
       >
         <div
