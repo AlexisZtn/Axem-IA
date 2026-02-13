@@ -295,19 +295,16 @@ export default function ColorBends({
   ]);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const el = containerRef.current;
+    if (!el) return;
 
     const handlePointerMove = (e: PointerEvent) => {
-      const rect = container.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
       const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
       pointerTargetRef.current.set(x, y);
     };
 
-    // Use container directly, checking for null above ensures it's HTMLDivElement.
-    // However, if TS thinks it is 'never', we cast to unknown first.
-    const el = container as unknown as HTMLElement;
     el.addEventListener('pointermove', handlePointerMove as unknown as EventListener);
     
     return () => {

@@ -20,57 +20,74 @@ const defaultProjectsRow1: Project[] = [
     category: 'Production SaaS B2B', 
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
     content: `
-      <h1 class="text-3xl font-bold mb-2">Le Projet</h1>
-      <p class="lead text-xl text-neutral-300 mb-8">Accompagner la direction des Ressources Humaines d'<strong>Orange</strong> dans la communication interne de leurs nouveaux outils digitaux.</p>
-      
-      <div class="bg-[#1a1a1a] p-6 rounded-xl border-l-4 border-[#FF7900] mb-8">
-        <h3 class="text-[#FF7900] font-bold uppercase tracking-widest text-sm mb-2">L'enjeu</h3>
-        <p class="text-neutral-300">Présenter de manière claire, rapide et engageante les nouvelles fonctionnalités de leur plateforme collaborateur.</p>
+      <h1 class="text-3xl font-bold mb-8">Vidéo IA & Avatars : Communication Digitale Agile</h1>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">Le Concept</h2>
+        <p class="text-lg text-neutral-300">Nous transformons vos communications complexes en capsules vidéo impactantes grâce à la technologie des avatars hyper-réalistes. Plus besoin de matériel de tournage, de studio ou de casting : votre porte-parole numérique est prêt en quelques clics.</p>
       </div>
 
-      <hr class="border-white/10 my-8" />
+      <div class="bg-[#1a1a1a] p-8 rounded-xl border-l-4 border-[#00FA9A] mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-white">Notre Méthode</h2>
+        <ul class="space-y-6">
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Avatars Vidéo Réalistes</strong>
+                    <span class="text-neutral-300">Nous générons des présentateurs humains animés par IA qui incarnent vos messages de manière chaleureuse et professionnelle, éliminant les contraintes de tournage physique.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Personnalisation Identitaire</strong>
+                    <span class="text-neutral-300">Chaque vidéo est conçue sur mesure pour refléter votre ADN (intégration de votre logo, respect de vos codes couleurs et de votre typographie).</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Agilité Editoriale</strong>
+                    <span class="text-neutral-300">Vous changez de script ? Nous mettons à jour la vidéo instantanément. Cette flexibilité permet une réactivité totale pour vos tutoriels ou vos annonces internes.</span>
+                </div>
+            </li>
+        </ul>
+      </div>
 
-      <h2 class="text-2xl font-bold mb-4">La Problématique</h2>
-      <p class="mb-8">Comment produire une série de vidéos tutoriels de haute qualité, tout en respectant une charte graphique stricte, avec un budget maîtrisé et des délais de déploiement très courts ?</p>
+      <h2 class="text-2xl font-bold mb-6">Cas d'Usage Business</h2>
+      <div class="space-y-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Formation & Onboarding</h3>
+            <p class="text-neutral-300">Transformez vos documents PDF en tutoriels vidéo dynamiques pour former vos nouveaux collaborateurs de manière engageante.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Communication Interne</h3>
+            <p class="text-neutral-300">Présentez vos nouveaux outils digitaux ou vos actualités RH via des messages vidéo personnalisés et faciles à consommer.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Support Client & FAQ</h3>
+            <p class="text-neutral-300">Créez une bibliothèque de réponses vidéo pour guider vos utilisateurs pas à pas dans l'utilisation de vos services.</p>
+         </div>
+      </div>
 
-      <h2 class="text-2xl font-bold mb-4">Notre Solution : La Production Vidéo par IA</h2>
-      <p class="mb-4">Pour répondre à ce défi, nous avons mis en place un workflow de production basé sur l'Intelligence Artificielle générative, permettant une flexibilité totale :</p>
+      <h2 class="text-2xl font-bold mb-6">Les Bénéfices</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Vitesse de Production</div>
+            <p class="text-sm text-neutral-400">Un déploiement 5x plus rapide qu’une production vidéo classique.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Identité Maîtrisée</div>
+            <p class="text-sm text-neutral-400">Une cohérence graphique absolue sur l'ensemble de vos contenus.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Engagement Boosté</div>
+            <p class="text-sm text-neutral-400">Un format vidéo qui génère un taux de mémorisation et d'adhésion bien supérieur au texte simple.</p>
+         </div>
+      </div>
       
-      <ul class="space-y-4 mb-12">
-        <li class="flex gap-3">
-            <span class="text-[#00FA9A] font-bold">•</span>
-            <div>
-                <strong class="text-white">Avatars Vidéo Réalistes :</strong> Utilisation de porte-paroles numériques animés par IA pour incarner les messages RH de manière humaine et chaleureuse sans tournage physique.
-            </div>
-        </li>
-        <li class="flex gap-3">
-            <span class="text-[#00FA9A] font-bold">•</span>
-            <div>
-                <strong class="text-white">Personnalisation Marque :</strong> Intégration complète de l'identité visuelle d'Orange (respect du code couleur <span style="color:#FF7900">#FF7900</span>, typographie et insertion du logo).
-            </div>
-        </li>
-        <li class="flex gap-3">
-            <span class="text-[#00FA9A] font-bold">•</span>
-            <div>
-                <strong class="text-white">Adaptabilité Maximale :</strong> Possibilité de mettre à jour le script ou les fonctionnalités présentées en quelques clics, sans avoir à ré-enregistrer une séquence.
-            </div>
-        </li>
-      </ul>
-
-      <h2 class="text-2xl font-bold mb-6">Les Bénéfices Clients</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center">
-            <div class="text-[#00FA9A] font-bold text-lg mb-2">Agilité</div>
-            <p class="text-sm text-neutral-400">Production 5x plus rapide qu'un tournage classique.</p>
-         </div>
-         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center">
-            <div class="text-[#FF7900] font-bold text-lg mb-2">Identité</div>
-            <p class="text-sm text-neutral-400">Respect rigoureux de la charte graphique Orange.</p>
-         </div>
-         <div class="bg-white/5 p-5 rounded-lg border border-white/10 text-center">
-            <div class="text-blue-400 font-bold text-lg mb-2">Efficacité</div>
-            <p class="text-sm text-neutral-400">Taux d'engagement des collaborateurs en hausse sur l'intranet.</p>
-         </div>
+      <div class="mt-8 p-6 bg-[#00FA9A]/10 rounded-xl border border-[#00FA9A]/20 text-center">
+         <p class="text-white text-lg font-medium">"Nous industrialisons votre production vidéo pour vous permettre de communiquer plus souvent, plus vite et avec un impact maximal."</p>
       </div>
     `
   },
@@ -100,7 +117,7 @@ const defaultProjectsRow1: Project[] = [
   { 
     id: 3, 
     title: 'Voix Synthétiques', 
-    category: 'Podcast & Contenu', 
+    category: 'Automatisation & Relation Client', 
     image: 'https://github.com/AlexisZtn/Axem-IA/blob/f910bd10a749e053c7a1a513df12d5209365106d/Images/Voix%20Synthe%CC%81tique.png?raw=true',
     content: `
       <h1 class="text-3xl font-bold mb-8">Design Sonore & Voix IA : Automatisation & Relation Client</h1>
@@ -250,10 +267,75 @@ const defaultProjectsRow1: Project[] = [
     category: 'Branding Startup', 
     image: 'https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=2576&auto=format&fit=crop',
     content: `
-      <h1>Identité & Charte Graphique IA</h1>
-      <p class="lead">Générez une cohérence visuelle parfaite sur tous vos supports.</p>
-      <hr />
-      <p>Logos, palettes de couleurs, typographies et variations de brand assets générés par IA pour tester 50 directions artistiques en une après-midi.</p>
+      <h1 class="text-3xl font-bold mb-8">Branding Startup : Identité & Charte Graphique IA</h1>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">Le Concept</h2>
+        <p class="text-lg text-neutral-300">Nous propulsons l'identité visuelle des startups en combinant créativité stratégique et puissance de l'IA. Finis les allers-retours interminables : nous générons une cohérence visuelle complète et professionnelle en un temps record.</p>
+      </div>
+
+      <div class="bg-[#1a1a1a] p-8 rounded-xl border-l-4 border-[#00FA9A] mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-white">Notre Méthode</h2>
+        <ul class="space-y-6">
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Exploration Créative Accélérée</strong>
+                    <span class="text-neutral-300">Grâce à nos modèles d'IA, nous explorons jusqu'à 50 directions artistiques en une seule après-midi. Cela vous permet de visualiser immédiatement le potentiel de votre marque sous différents angles.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Système de Marque Intelligent</strong>
+                    <span class="text-neutral-300">Nous ne créons pas juste un logo. Nous générons un écosystème complet : palettes de couleurs harmonieuses, typographies complémentaires et assets graphiques déclinables.</span>
+                </div>
+            </li>
+            <li class="flex gap-4">
+                <div class="min-w-[4px] h-full bg-[#00FA9A] rounded-full mt-1.5"></div>
+                <div>
+                    <strong class="text-[#00FA9A] block mb-1 text-lg">Brand Assets Prêts à l'Emploi</strong>
+                    <span class="text-neutral-300">Nous produisons instantanément toutes les variations nécessaires (favicon, bannières réseaux sociaux, mockups) pour garantir une image unifiée sur tous vos supports.</span>
+                </div>
+            </li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Cas d'Usage Startup</h2>
+      <div class="space-y-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Lancement de MVP</h3>
+            <p class="text-neutral-300">Obtenez une identité visuelle crédible et "investor-ready" en quelques jours pour lancer votre produit sur le marché.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Pivot & Rebranding</h3>
+            <p class="text-neutral-300">Testez une nouvelle image de marque sans engager des mois de travail, afin de valider l'adhésion de votre nouvelle cible.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10">
+            <h3 class="text-[#00FA9A] font-bold text-lg mb-2">Campagnes Marketing Flash</h3>
+            <p class="text-neutral-300">Générez des déclinaisons graphiques spécifiques pour des landing pages ou des publicités sociales tout en restant fidèle à votre charte.</p>
+         </div>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6">Les Avantages</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Vitesse Inégalée</div>
+            <p class="text-sm text-neutral-400">Passez de l'idée au kit de marque complet en un temps record.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Précision Chirurgicale</div>
+            <p class="text-sm text-neutral-400">Une cohérence parfaite entre votre logo, votre site web et vos supports de communication.</p>
+         </div>
+         <div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-[#00FA9A]/50 transition-colors">
+            <div class="text-[#00FA9A] font-bold text-lg mb-3">Liberté de Choix</div>
+            <p class="text-sm text-neutral-400">Ne vous limitez pas à 3 propositions ; explorez un champ de possibilités infini avant de choisir la direction finale.</p>
+         </div>
+      </div>
+      
+      <div class="mt-8 p-6 bg-[#00FA9A]/10 rounded-xl border border-[#00FA9A]/20 text-center">
+         <p class="text-white text-lg font-medium">"Nous donnons aux startups les outils visuels des plus grands groupes, avec l'agilité et le coût d'une structure légère."</p>
+      </div>
     `
   },
 ];
@@ -367,9 +449,9 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   useEffect(() => {
     try {
-      // Changed to v7 to force refresh of the updated "Voix Synthétiques" content
-      const savedRow1 = localStorage.getItem('axem_marquee_row1_v7');
-      const savedRow2 = localStorage.getItem('axem_marquee_row2_v7');
+      // Changed to v10 to force refresh of the updated "Identité Visuelle" content
+      const savedRow1 = localStorage.getItem('axem_marquee_row1_v10');
+      const savedRow2 = localStorage.getItem('axem_marquee_row2_v10');
       
       if (savedRow1) {
         setRow1(JSON.parse(savedRow1));
@@ -397,8 +479,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     if (window.confirm("Réinitialiser les images du portfolio par défaut ?")) {
       setRow1(defaultProjectsRow1);
       setRow2(defaultProjectsRow2);
-      localStorage.removeItem('axem_marquee_row1_v7');
-      localStorage.removeItem('axem_marquee_row2_v7');
+      localStorage.removeItem('axem_marquee_row1_v10');
+      localStorage.removeItem('axem_marquee_row2_v10');
       setHasCustomData(false);
     }
   };
