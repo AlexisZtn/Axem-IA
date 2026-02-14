@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { RotateCcw } from 'lucide-react';
 import EditableText from './ui/EditableText';
 
@@ -8,7 +9,7 @@ interface Project {
   category: string;
   image: string;
   gallery?: string[];
-  content?: string; // HTML content for the detail page
+  content?: string; // HTML content for the detail view
 }
 
 // --- Default Data with Rich Content for Detail View ---
@@ -18,8 +19,9 @@ const defaultProjectsRow1: Project[] = [
     id: 1, 
     title: 'Vidéos Avatar', 
     category: 'Production SaaS B2B', 
-    image: 'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Avatar%20IA%20heygen.png?raw=true',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/e86b55ca85494d0a5a24e85314d658bb4d74dba1/Photos/FR-Solutions-Video.mp4?raw=true',
     gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/e86b55ca85494d0a5a24e85314d658bb4d74dba1/Photos/FR-Solutions-Video.mp4?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Avatar%20IA%20heygen.png?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/dca30ed01b094720e8af05a490a200b356bdb87d/Images/video%20avatar%20Orange%20RH.mp4?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/dca30ed01b094720e8af05a490a200b356bdb87d/Images/cr%C3%A9er%20votre%20avatar.jpeg?raw=true'
@@ -100,7 +102,10 @@ const defaultProjectsRow1: Project[] = [
     id: 2, 
     title: 'Reels & Shorts', 
     category: 'Social Marketing', 
-    image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/main/Photos/From%20KlickPin%20CF%20Pin%20by%20NIEL%20(IA)%20on%20Pins%20criados%20por%20voce%CC%82%20_%20Motion%20design%20video%20Social%20media%20ideas%20design%20Social%20media%20design%20inspiration.mp4?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/main/Photos/From%20KlickPin%20CF%20Pin%20by%20NIEL%20(IA)%20on%20Pins%20criados%20por%20voce%CC%82%20_%20Motion%20design%20video%20Social%20media%20ideas%20design%20Social%20media%20design%20inspiration.mp4?raw=true'
+    ],
     content: `
       <h1>Factory Reels & Shorts</h1>
       <p class="lead">Dominez TikTok, Instagram et YouTube Shorts avec une cadence industrielle.</p>
@@ -200,8 +205,9 @@ const defaultProjectsRow1: Project[] = [
     id: 4, 
     title: 'Studio Photo Virtuel', 
     category: 'E-commerce', 
-    image: 'https://github.com/AlexisZtn/Axem-IA/blob/b7f9ed78093123481320a0495bf708c7d1bd8381/components/photo%20ia%20produit%20parfum.jpg?raw=true',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Product%20VID.mp4?raw=true',
     gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Product%20VID.mp4?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/b7f9ed78093123481320a0495bf708c7d1bd8381/components/photo%20ia%20produit%20parfum.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/1d4d567d3e8c0ed244636560c43e6a697a3040c7/components/photo%20ia%20produit%20montre.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/946937bfb4bc79260f7cfb24563078d7e87a96a6/components/photo%20produit%20cosm%C3%A9tique.jpg?raw=true',
@@ -270,8 +276,9 @@ const defaultProjectsRow1: Project[] = [
     id: 5, 
     title: 'Identité Visuelle', 
     category: 'Branding Startup', 
-    image: 'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo.jpg?raw=true',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Logo%20VID.mp4?raw=true',
     gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Logo%20VID.mp4?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo%20Pirla.webp?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/d174f0079c35272e3029e0aae7b9009392bba60b/Images/Photo%20logo%20nutrivel.webp?raw=true',
@@ -356,8 +363,9 @@ const defaultProjectsRow2: Project[] = [
     id: 6, 
     title: 'Conception de Slides & Présentations Pro', 
     category: 'Impact visuel et narration stratégique assistée par IA', 
-    image: 'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%201.jpg?raw=true',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Slide%20vide%CC%81o.mp4?raw=true',
     gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Slide%20vide%CC%81o.mp4?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%201.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%202.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/3d55609ae97219c0b684ec60f7ab91c353cb542f/Images/Slides%20deck%203.jpg?raw=true',
@@ -438,7 +446,10 @@ const defaultProjectsRow2: Project[] = [
     id: 7, 
     title: 'Contenu SEO', 
     category: 'SaaS Marketing', 
-    image: 'https://images.unsplash.com/photo-1492551557933-34265f7af79e?q=80&w=2670&auto=format&fit=crop',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/main/Photos/SEO.jpg?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/main/Photos/SEO.jpg?raw=true'
+    ],
     content: `
       <h1>Rédaction SEO Programmatique</h1>
       <p class="lead">Occupez la première page de Google sur des milliers de mots-clés.</p>
@@ -450,7 +461,11 @@ const defaultProjectsRow2: Project[] = [
     id: 8, 
     title: 'Tableaux & Outils', 
     category: 'Sales Ops', 
-    image: 'https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2832&auto=format&fit=crop',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/main/Photos/Excel%201.jpg?raw=true',
+    gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/main/Photos/Excel%201.jpg?raw=true',
+      'https://github.com/AlexisZtn/Axem-IA/blob/main/Photos/Excel%202.jpg?raw=true'
+    ],
     content: `
       <h1>Dashboards & Outils Internes</h1>
       <p class="lead">Vos données Excel transformées en applications web utilisables.</p>
@@ -545,8 +560,9 @@ const defaultProjectsRow2: Project[] = [
     id: 10, 
     title: 'Landing Pages Haute Conversion', 
     category: "De l'idée au Live en 24h", 
-    image: 'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%201.jpg?raw=true',
+    image: 'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Website%20design.mp4?raw=true',
     gallery: [
+      'https://github.com/AlexisZtn/Axem-IA/blob/47acec1fa5980a196fcc500495a710dbc4308b5f/Photos/Website%20design.mp4?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%201.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%202.jpg?raw=true',
       'https://github.com/AlexisZtn/Axem-IA/blob/761975549b573abc9141b2d50c7434c92b2beb64/Images/Landing%20Page%203.jpg?raw=true',
@@ -633,17 +649,57 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ project, onClick }) => {
+  const isVideo = project.image.toLowerCase().endsWith('.mp4') || project.image.includes('.mp4');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Auto-play logic to ensure loop works and black screen is minimized
+  useEffect(() => {
+    if (isVideo && videoRef.current) {
+        // Force mute again to satisfy browser policies
+        videoRef.current.defaultMuted = true; 
+        videoRef.current.muted = true;
+        
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Auto-play prevented:", error);
+                // Interaction might be needed, but muted usually allows it.
+            });
+        }
+    }
+  }, [isVideo]);
+
+  // Use the SECOND image in the gallery as a poster/preview if available
+  // Because usually index 0 is the video itself, index 1 is the fallback/alternative image
+  const posterUrl = (project.gallery && project.gallery.length > 1 && !project.gallery[1].endsWith('.mp4') && !project.gallery[1].includes('.mp4'))
+      ? project.gallery[1]
+      : undefined;
+
   return (
     <div 
-      className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group/card transition-all duration-300 bg-black"
+      className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group/card transition-all duration-300 bg-neutral-900 border border-white/5"
       onClick={onClick}
     >
-      <img 
-        src={project.image} 
-        key={project.image} 
-        className="w-full h-full object-cover md:object-contain bg-black transition-transform duration-700 group-hover/card:scale-105" 
-        alt={project.title} 
-      />
+      {isVideo ? (
+        <video
+          ref={videoRef}
+          src={project.image}
+          className="w-full h-full object-cover md:object-contain bg-black transition-transform duration-700 group-hover/card:scale-105"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={posterUrl} // CRITICAL: Shows this image until video is ready
+        />
+      ) : (
+        <img 
+          src={project.image} 
+          key={project.image} 
+          className="w-full h-full object-cover md:object-contain bg-black transition-transform duration-700 group-hover/card:scale-105" 
+          alt={project.title} 
+        />
+      )}
       
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-60 pointer-events-none"></div>
       
@@ -670,9 +726,9 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
 
   useEffect(() => {
     try {
-      // Changed to v18 to force refresh of the Vidéos Avatar content
-      const savedRow1 = localStorage.getItem('axem_marquee_row1_v18');
-      const savedRow2 = localStorage.getItem('axem_marquee_row2_v18');
+      // Changed key to v20 to force refresh of project data to ensure videos are shown
+      const savedRow1 = localStorage.getItem('axem_marquee_row1_v20');
+      const savedRow2 = localStorage.getItem('axem_marquee_row2_v20');
       
       if (savedRow1) {
         setRow1(JSON.parse(savedRow1));
@@ -690,8 +746,7 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
   const handleCardClick = (rowId: 1 | 2, project: Project) => {
     if (onOpenProject) {
         onOpenProject(project.id, project, (id, newData) => {
-           // We keep the structure to allow text updates via Detail Page if implemented there,
-           // even if drag and drop is disabled here.
+           // Callback logic if needed
         });
     }
   };
@@ -700,8 +755,8 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
     if (window.confirm("Réinitialiser les images du portfolio par défaut ?")) {
       setRow1(defaultProjectsRow1);
       setRow2(defaultProjectsRow2);
-      localStorage.removeItem('axem_marquee_row1_v18');
-      localStorage.removeItem('axem_marquee_row2_v18');
+      localStorage.removeItem('axem_marquee_row1_v20');
+      localStorage.removeItem('axem_marquee_row2_v20');
       setHasCustomData(false);
     }
   };
@@ -738,16 +793,22 @@ const MarqueeSection: React.FC<MarqueeSectionProps> = ({ onOpenProject }) => {
         </div>
       </div>
 
-      <div className="relative w-full flex overflow-hidden mb-8 group">
-        <div className="flex gap-6 animate-marquee flex-shrink-0 px-3 min-w-full">
+      {/* Row 1: Forward Marquee */}
+      <div className="relative w-full flex overflow-hidden mb-8">
+        <div className="flex gap-6 animate-marquee flex-shrink-0 min-w-full pr-6" style={{ animationPlayState: 'running' }}>
            {row1.map(p => <Card key={`r1-${p.id}-a`} project={p} onClick={() => handleCardClick(1, p)} />)}
+        </div>
+        <div className="flex gap-6 animate-marquee flex-shrink-0 min-w-full pr-6" aria-hidden="true" style={{ animationPlayState: 'running' }}>
            {row1.map(p => <Card key={`r1-${p.id}-b`} project={p} onClick={() => handleCardClick(1, p)} />)}
         </div>
       </div>
 
-      <div className="relative w-full flex overflow-hidden group">
-        <div className="flex gap-6 animate-marquee-reverse flex-shrink-0 px-3 min-w-full">
+      {/* Row 2: Reverse Marquee */}
+      <div className="relative w-full flex overflow-hidden">
+        <div className="flex gap-6 animate-marquee-reverse flex-shrink-0 min-w-full pr-6" style={{ animationPlayState: 'running' }}>
            {row2.map(p => <Card key={`r2-${p.id}-a`} project={p} onClick={() => handleCardClick(2, p)} />)}
+        </div>
+        <div className="flex gap-6 animate-marquee-reverse flex-shrink-0 min-w-full pr-6" aria-hidden="true" style={{ animationPlayState: 'running' }}>
            {row2.map(p => <Card key={`r2-${p.id}-b`} project={p} onClick={() => handleCardClick(2, p)} />)}
         </div>
       </div>

@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './ColorBends.css';
@@ -261,7 +262,7 @@ export default function ColorBends({
 
     const toVec3 = (hex: string) => {
       const h = hex.replace('#', '').trim();
-      let v;
+      let v: number[];
       if (h.length === 3) {
           v = [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)];
       } else {
@@ -295,20 +296,21 @@ export default function ColorBends({
   ]);
 
   useEffect(() => {
-    const el = containerRef.current as HTMLDivElement | null;
-    if (!el) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-    const handlePointerMove = (e: PointerEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+    const handlePointerMove = (e: Event) => {
+      const pe = e as unknown as PointerEvent;
+      const rect = container.getBoundingClientRect();
+      const x = ((pe.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+      const y = -(((pe.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
       pointerTargetRef.current.set(x, y);
     };
 
-    el.addEventListener('pointermove', handlePointerMove as unknown as EventListener);
+    container.addEventListener('pointermove', handlePointerMove as EventListener);
     
     return () => {
-      el.removeEventListener('pointermove', handlePointerMove as unknown as EventListener);
+      container.removeEventListener('pointermove', handlePointerMove as EventListener);
     };
   }, []);
 

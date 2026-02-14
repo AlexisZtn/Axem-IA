@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { AnimatedFolder, Project } from './ui/3d-folder';
 import { RotateCcw } from 'lucide-react';
 import EditableText from './ui/EditableText';
@@ -7,11 +8,11 @@ import EditableText from './ui/EditableText';
 
 const caseStudiesData = [
   {
-    title: "Formation IA Marketing",
+    title: "FORMATION IA (Upskilling)",
     gradient: "linear-gradient(135deg, #00c6ff, #0072ff)",
     projects: [
       { 
-        id: "case1", 
+        id: "case1_old", 
         image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800", 
         title: "Formation Équipe Marketing",
         category: "Formation",
@@ -34,18 +35,93 @@ const caseStudiesData = [
             </div>
           </div>
         `
+      },
+      { 
+        id: "case1_1", 
+        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800", 
+        title: "Productivité Employés (+40%)",
+        category: "Upskilling",
+        content: `
+          <h1>Productivité Employés (+40%)</h1>
+          <p class="text-xl text-neutral-400 mb-8">Optimisation des tâches administratives quotidiennes.</p>
+          
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Équipes noyées sous l'admin (emails, CR, tâches répétitives).</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Formation express ChatGPT + Prompts métiers prêts à l'emploi.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">40% de temps gagné sur l'administratif dès la semaine 1.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case1_2", 
+        image: "https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&q=80&w=800", 
+        title: "Content Factory Marketing",
+        category: "Upskilling",
+        content: `
+          <h1>Content Factory Marketing</h1>
+          <p class="text-xl text-neutral-400 mb-8">Industrialisation de la production de contenu.</p>
+          
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Production de contenu lente et coûteuse (agences).</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Templates IA pour générer Posts LinkedIn + Visuels en 1 clic.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">10x plus de contenus produits à effectif constant.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case1_3", 
+        image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800", 
+        title: "Juridique Augmenté",
+        category: "Upskilling Expert",
+        content: `
+          <h1>Juridique Augmenté</h1>
+          <p class="text-xl text-neutral-400 mb-8">Assistant IA pour directions juridiques.</p>
+          
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Juristes saturés par la relecture de contrats simples.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">IA sur-mesure (Harvey/Claude) pour analyse et rédaction contractuelle.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">14h économisées par juriste/semaine. 250k€ d'économies d'avocats.</p>
+            </div>
+          </div>
+        `
       }
     ] as Project[]
   },
   {
-    title: "Connexion ERP & Legacy",
+    title: "CONNEXION (Legacy & ERP)",
     gradient: "linear-gradient(135deg, #f093fb, #f5576c)",
     projects: [
       { 
-        id: "case2", 
+        id: "case2_old", 
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", 
         title: "Automatisation AS400",
-        category: "Automatisation & Legacy",
+        category: "Legacy",
         content: `
           <h1>Connexion ERP Historique & E-commerce</h1>
           <p class="text-xl text-neutral-400 mb-8">Fin de la double saisie manuelle entre un vieil AS400 et Shopify.</p>
@@ -65,15 +141,90 @@ const caseStudiesData = [
             </div>
           </div>
         `
+      },
+      { 
+        id: "case2_1", 
+        image: "https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?auto=format&fit=crop&q=80&w=800", 
+        title: "Auto-Facture (PDF → Compta)",
+        category: "Connexion",
+        content: `
+          <h1>Auto-Facture (PDF → Compta)</h1>
+          <p class="text-xl text-neutral-400 mb-8">Automatisation de la saisie comptable.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Saisie manuelle des factures fournisseurs (erreurs et temps perdu).</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">OCR intelligent connecté directement à Sage/Cegid.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">Temps de saisie divisé par 5. Zéro erreur de frappe.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case2_2", 
+        image: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?auto=format&fit=crop&q=80&w=800", 
+        title: "Sync CRM Totale",
+        category: "Connexion",
+        content: `
+          <h1>Sync CRM Totale</h1>
+          <p class="text-xl text-neutral-400 mb-8">Fiabilisation des données commerciales.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Commerciaux qui ne remplissent pas le CRM (données vides).</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Connexion invisible Outlook/Gmail ↔ Salesforce/HubSpot.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">100% des échanges capturés automatiquement.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case2_3", 
+        image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=800", 
+        title: "Pont SAP ↔ E-commerce",
+        category: "Connexion",
+        content: `
+          <h1>Pont SAP ↔ E-commerce</h1>
+          <p class="text-xl text-neutral-400 mb-8">Unification des stocks en temps réel.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Stocks faux sur le site web car déconnecté de l'ERP SAP.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Middleware API temps réel unifiant les deux systèmes.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">Stocks synchronisés à la seconde. Fin des ventes hors-stock.</p>
+            </div>
+          </div>
+        `
       }
     ] as Project[]
   },
   {
-    title: "Stratégie Commerciale",
+    title: "STRATÉGIE COMMERCIALE (RevOps)",
     gradient: "linear-gradient(135deg, #11998e, #38ef7d)",
     projects: [
       { 
-        id: "case3_2", 
+        id: "case3_2_old", 
         image: "https://images.unsplash.com/photo-1570172619380-2126adbc894c?auto=format&fit=crop&q=80&w=800", 
         title: "Clinique Expert : Scale local",
         category: "Audit & Stratégie",
@@ -98,26 +249,76 @@ const caseStudiesData = [
         `
       },
       { 
-        id: "case3", 
-        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800", 
-        title: "Restructuration Process",
-        category: "Audit & Stratégie",
+        id: "case3_1", 
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800", 
+        title: "Enrichissement de Lead Instantané",
+        category: "RevOps",
         content: `
-          <h1>Restructuration Process Commercial PME</h1>
-          <p class="text-xl text-neutral-400 mb-8">De la perte de leads à un taux de conversion record.</p>
+          <h1>Enrichissement de Lead Instantané</h1>
+          <p class="text-xl text-neutral-400 mb-8">Qualification automatique des prospects entrants.</p>
           
            <div class="grid md:grid-cols-3 gap-8 mb-12">
             <div class="bg-white/5 p-6 rounded-xl border border-white/10">
-                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Contexte</h3>
-                <p class="text-sm text-neutral-300">Une agence immo recevait trop de leads mais ne les traitait pas assez vite. Pas de CRM structuré, suivi sur Excel chaotique.</p>
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Leads entrants incomplets (juste un email).</p>
             </div>
             <div class="bg-white/5 p-6 rounded-xl border border-white/10">
                 <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
-                <p class="text-sm text-neutral-300">Audit des flux. Implémentation d'un CRM léger + IA de qualification. L'IA répond instantanément aux leads, qualifie le besoin et booke le RDV pour l'humain.</p>
+                <p class="text-sm text-neutral-300">API qui trouve auto : LinkedIn, Tel, Poste, Société, CA.</p>
             </div>
             <div class="bg-white/5 p-6 rounded-xl border border-white/10">
                 <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
-                <p class="text-sm text-neutral-300">+40% de CA en 3 mois, équipes commerciales concentrées uniquement sur les RDV qualifiés.</p>
+                <p class="text-sm text-neutral-300">Fiches clients remplies à 100% sans action humaine.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case3_3", 
+        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800", 
+        title: "Relance Commerciale Automatisée",
+        category: "RevOps",
+        content: `
+          <h1>Relance Commerciale Automatisée</h1>
+          <p class="text-xl text-neutral-400 mb-8">Maximisation du taux de conversion.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">50% des leads perdus par manque de relance (oubli).</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Scénarios de mails automatiques tant que le prospect ne répond pas.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">+35% de réponses. Aucun lead oublié.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case3_4", 
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", 
+        title: "Scoring Prédictif",
+        category: "RevOps",
+        content: `
+          <h1>Scoring Prédictif (Machine Learning)</h1>
+          <p class="text-xl text-neutral-400 mb-8">Priorisation des opportunités par l'IA.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Les commerciaux perdent du temps sur des prospects qui n'achèteront pas.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Algorithme qui prédit qui va signer et priorise les appels.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">Taux de conversion x3. +17% de CA immédiat.</p>
             </div>
           </div>
         `
@@ -125,11 +326,11 @@ const caseStudiesData = [
     ] as Project[]
   },
   {
-    title: "Agent IA Support",
+    title: "AGENTS IA (Travailleurs Autonomes)",
     gradient: "linear-gradient(135deg, #f80759, #bc4e9c)",
     projects: [
       { 
-        id: "case4", 
+        id: "case4_old", 
         image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&q=80&w=800", 
         title: "Support Client Autonome",
         category: "Solutions IA",
@@ -152,6 +353,81 @@ const caseStudiesData = [
             </div>
           </div>
         `
+      },
+      { 
+        id: "case4_1", 
+        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800", 
+        title: "Chatbot Support (FAQ)",
+        category: "Agents IA",
+        content: `
+          <h1>Chatbot Support (FAQ)</h1>
+          <p class="text-xl text-neutral-400 mb-8">Désengorgement du service client.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Support client inondé de questions basiques (horaires, suivi colis).</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Agent IA connecté à votre documentation qui répond 24/7.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">-70% de tickets entrants. Réponse immédiate.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case4_2", 
+        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800", 
+        title: "Assistant de Réunion",
+        category: "Agents IA",
+        content: `
+          <h1>Assistant de Réunion</h1>
+          <p class="text-xl text-neutral-400 mb-8">Automatisation des comptes-rendus.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">Pas de compte-rendu ou oubli des tâches post-réunion.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">IA qui écoute, transcrit et envoie le résumé + to-do list par mail.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">30 min gagnées par réunion. Suivi des actions parfait.</p>
+            </div>
+          </div>
+        `
+      },
+      { 
+        id: "case4_3", 
+        image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800", 
+        title: "Agent SDR",
+        category: "Agents IA",
+        content: `
+          <h1>Agent SDR (Chasseur Autonome)</h1>
+          <p class="text-xl text-neutral-400 mb-8">Prospection automatisée de bout en bout.</p>
+          
+           <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Problème</h3>
+                <p class="text-sm text-neutral-300">La prospection à froid est épuisante et coûteuse.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Solution</h3>
+                <p class="text-sm text-neutral-300">Agent autonome qui cherche, qualifie et contacte les prospects seul.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                <h3 class="text-[#00FA9A] font-bold uppercase tracking-widest text-sm mb-2">Résultat</h3>
+                <p class="text-sm text-neutral-300">Agenda rempli automatiquement. Pipeline généré : 2.7M€.</p>
+            </div>
+          </div>
+        `
       }
     ] as Project[]
   }
@@ -165,6 +441,8 @@ const FolderShowcase: React.FC<FolderShowcaseProps> = ({ onOpenProject }) => {
   // State for data
   const [data, setData] = useState(caseStudiesData);
   const [hasCustomData, setHasCustomData] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // Load from LocalStorage on mount
   useEffect(() => {
@@ -178,6 +456,12 @@ const FolderShowcase: React.FC<FolderShowcaseProps> = ({ onOpenProject }) => {
       console.error("Failed to load data from storage", e);
     }
   }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
 
   const saveData = (newData: any) => {
     setData(newData);
@@ -239,8 +523,21 @@ const FolderShowcase: React.FC<FolderShowcaseProps> = ({ onOpenProject }) => {
   };
 
   return (
-    <section id="realisations" className="bg-background relative z-10 py-32 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 text-center mb-24">
+    <section 
+        id="realisations" 
+        className="bg-background relative z-20 py-32 border-t border-white/5 overflow-hidden"
+        onMouseMove={handleMouseMove}
+        ref={containerRef}
+    >
+      {/* Green Spotlight Effect */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
+        style={{
+            background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, rgba(0, 250, 154, 0.06), transparent 40%)`
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 text-center mb-24 relative z-10">
         <span className="inline-block px-3 py-1 mb-6 text-[10px] tracking-widest text-primary border border-primary/20 rounded-full bg-primary/5 uppercase">
             <EditableText value="Réalisations" storageKey="showcase_badge" />
         </span>
@@ -253,10 +550,10 @@ const FolderShowcase: React.FC<FolderShowcaseProps> = ({ onOpenProject }) => {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-wrap justify-center gap-12 md:gap-16">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-wrap justify-center gap-24 md:gap-40">
             {data.map((folder, folderIdx) => (
-            <div key={`case-${folderIdx}`} className="w-full md:w-[calc(50%-32px)] lg:w-[calc(25%-48px)] flex justify-center">
+            <div key={`case-${folderIdx}`} className="w-full md:w-[calc(50%-80px)] lg:w-[calc(25%-120px)] flex justify-center">
                 <AnimatedFolder 
                     title={folder.title} 
                     projects={folder.projects} 

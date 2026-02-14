@@ -15,7 +15,8 @@
     "three": "0.173.0",
     "ogl": "1.0.11",
     "clsx": "2.1.0",
-    "tailwind-merge": "2.2.1"
+    "tailwind-merge": "2.2.1",
+    "framer-motion": "^12.34.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
