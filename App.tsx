@@ -9,7 +9,7 @@ import Expertise from './components/Expertise';
 import Pricing from './components/Pricing';
 import Footer from './components/Footer';
 import ProjectDetailPage from './components/ProjectDetailPage';
-import defaultContent from './src/data/defaultContent';
+import defaultContent from './src/data/defaultContent.json';
 
 const App: React.FC = () => {
   const [activeProject, setActiveProject] = useState<{id: string | number, data: any, saveCallback: (id: string|number, data: any) => void} | null>(null);
