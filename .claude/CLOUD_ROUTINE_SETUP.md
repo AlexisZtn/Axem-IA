@@ -67,9 +67,9 @@ Affiche un résumé à la fin : meetings traités, drafts créés, participants 
 - Nom : `fathom-env`
 - **Network access** : `Allow all` (ou au minimum permettre `api.fathom.ai` / `api.fathom.video`)
 - **Environment variables** : ajoute 3 lignes
-  - `FATHOM_API_KEY` = `kVq9e9mvML9e8R5D6GKr7g.LrFR90ckWn9jGvIGDZfRumIWwgaBvGBB6d6hI4Aihwo` *(⚠️ régénère-la d'abord)*
+  - `FATHOM_API_KEY` = ta nouvelle clé Fathom *(⚠️ régénère-la depuis fathom.video avant de la coller ici)*
   - `FATHOM_BASE_URL` = `https://api.fathom.ai/external/v1`
-  - `ALEXIS_EMAIL` = `alexis@axem-ia.com` *(remplace par ton vrai email Gmail — c'est là que la routine t'enverra le récap de chaque run)*
+  - `ALEXIS_EMAIL` = `zeitoun.alexis@gmail.com` *(c'est là que la routine t'enverra le récap de chaque run)*
 - **Setup script** : laisse vide (pas de dépendances npm à installer)
 - Sauvegarde, puis sélectionne `fathom-env` dans la liste
 

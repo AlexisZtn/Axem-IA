@@ -34,10 +34,11 @@ Les variables sont injectées par l'environnement cloud de la routine (pas de `.
 
 ```bash
 : "${FATHOM_API_KEY:?FATHOM_API_KEY non défini dans l'environnement de la routine}"
+: "${ALEXIS_EMAIL:?ALEXIS_EMAIL non défini — requis pour le brouillon récap}"
 FATHOM_BASE_URL="${FATHOM_BASE_URL:-https://api.fathom.ai/external/v1}"
 ```
 
-Si `FATHOM_API_KEY` est absent, arrête immédiatement avec un message d'erreur explicite — Alexis ira ajouter le secret dans l'environnement de la routine sur claude.ai/code/routines.
+Si une variable obligatoire est absente (`FATHOM_API_KEY` ou `ALEXIS_EMAIL`), arrête immédiatement avec un message d'erreur explicite — Alexis ira les ajouter dans l'environnement de la routine sur claude.ai/code/routines.
 
 ### 2. Définir la fenêtre temporelle
 
@@ -125,7 +126,7 @@ Utilise `mcp__ab8bda01-193f-4217-9ff3-ed5c91026709__create_draft` :
 **Uniquement si au moins 1 draft a été créé ce run** (pas de récap vide).
 
 Utilise `mcp__ab8bda01-943a-...__create_draft` avec :
-- `to` : `${ALEXIS_EMAIL:-alexis@axem-ia.com}` (lu depuis l'env var `ALEXIS_EMAIL`)
+- `to` : `${ALEXIS_EMAIL}` (lu depuis l'env var `ALEXIS_EMAIL`, doit être défini — voir §1)
 - `subject` : `🔔 Fathom — {M} brouillon(s) en attente de validation ({date courte})`
 - `body` : liste récapitulative, en texte brut :
 
