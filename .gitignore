@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claude Code — state local de la routine Fathom (ne pas committer)
+.claude/fathom-state.json
+
