@@ -1,0 +1,6 @@
+{
+  "last_processed_at": null,
+  "processed_meeting_ids": [],
+  "drafts_pending": [],
+  "_comment": "Copie ce fichier en fathom-state.json au premier lancement. Il sera mis à jour automatiquement par la commande /fathom."
+}
