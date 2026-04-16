@@ -120,7 +120,42 @@ Utilise `mcp__ab8bda01-193f-4217-9ff3-ed5c91026709__create_draft` :
 
 **Ne jamais utiliser d'outil de send**. Uniquement `create_draft`.
 
-### 5. Résumé du run
+### 5. Créer un brouillon RÉCAP à Alexis lui-même (notification personnelle)
+
+**Uniquement si au moins 1 draft a été créé ce run** (pas de récap vide).
+
+Utilise `mcp__ab8bda01-943a-...__create_draft` avec :
+- `to` : `${ALEXIS_EMAIL:-alexis@axem-ia.com}` (lu depuis l'env var `ALEXIS_EMAIL`)
+- `subject` : `🔔 Fathom — {M} brouillon(s) en attente de validation ({date courte})`
+- `body` : liste récapitulative, en texte brut :
+
+```
+Hey Alexis,
+
+Ta routine Fathom vient de tourner. Voici les brouillons prêts à relire / envoyer dans ton Gmail > Brouillons :
+
+1. [{participant_1_email}] — {meeting_title_1}
+   Objet : {subject_1}
+   Aperçu : {premières 80 chars du corps}
+
+2. [{participant_2_email}] — {meeting_title_2}
+   Objet : {subject_2}
+   Aperçu : {premières 80 chars du corps}
+
+[... etc]
+
+👉 Action : ouvre Gmail > Brouillons, relis chaque brouillon, clique Envoyer sur ceux qui sont bons, supprime ceux qui ne le sont pas.
+
+—
+Routine Fathom — {ISO datetime}
+Réf: FTM-RECAP-{run_timestamp_unix}
+```
+
+**Pourquoi** : ce brouillon-récap apparaît en haut de ta liste Drafts et te sert de « to-do du jour ». Tu peux l'envoyer à toi-même (ça atterrira dans ton Inbox comme une notif) ou juste le supprimer après avoir traité tous les follow-ups.
+
+Le marker `FTM-RECAP-{timestamp}` est unique par run donc pas de dédup (un récap par run).
+
+### 6. Résumé du run (logs session cloud)
 
 Affiche à la fin (visible dans la session cloud sur claude.ai/code/routines) :
 
@@ -131,6 +166,7 @@ Fenêtre : depuis {SINCE}
 • {M} drafts Gmail créés
 • {K} participants skippés (déjà traités)
 • {E} meetings skippés (transcript pas prêt)
+• Récap drafté à {ALEXIS_EMAIL} : {oui/non}
 ```
 
 ## Robustesse
