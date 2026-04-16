@@ -25,6 +25,7 @@ Version **cloud** de la routine Fathom, conçue pour tourner dans une Claude Cod
   Alexis Zeitoun
   ```
 - **Règle d'or** : création de DRAFTS uniquement. Ne jamais envoyer. Alexis valide dans Gmail.
+- **Compte Gmail** : les drafts doivent être créés dans le compte `zeitoun.alexis@gmail.com`. Si le connector Gmail actif est un autre compte (ex: clem.pred@gmail.com), stoppe le run et loggue : `ERREUR : le connector Gmail est connecté à {compte_actif}, attendu zeitoun.alexis@gmail.com. Corrige le connector dans claude.ai/code/routines.`
 
 ## Étapes
 
@@ -39,6 +40,13 @@ FATHOM_BASE_URL="${FATHOM_BASE_URL:-https://api.fathom.ai/external/v1}"
 ```
 
 Si une variable obligatoire est absente (`FATHOM_API_KEY` ou `ALEXIS_EMAIL`), arrête immédiatement avec un message d'erreur explicite — Alexis ira les ajouter dans l'environnement de la routine sur claude.ai/code/routines.
+
+Ensuite, **vérifier le compte Gmail actif** via un `search_threads` test. Le premier résultat renvoyé indique l'adresse du compte connecté (champ `sender` ou `from`). Si ce n'est pas `zeitoun.alexis@gmail.com`, loggue l'erreur suivante et arrête :
+
+```
+ERREUR COMPTE GMAIL : le connector Gmail actif est {compte_détecté}, attendu zeitoun.alexis@gmail.com.
+Action requise : dans claude.ai/code/routines, va sur cette routine → Connectors → déconnecte le compte Gmail actuel → reconnecte avec le compte zeitoun.alexis@gmail.com.
+```
 
 ### 2. Définir la fenêtre temporelle
 
